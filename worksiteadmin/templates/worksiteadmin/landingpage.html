@@ -1,0 +1,351 @@
+{% extends 'worksiteadmin/base.html' %}
+{% block title %}
+    <title> Worksite | Welcome </title>
+{% endblock %}
+
+{% block content %}
+{% load static %}
+    <!-- Navbar -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+    <div class="container">
+
+      <!-- Brand -->
+      <a class="navbar-brand" href="#">
+        <strong>Worksite</strong>
+      </a>
+
+      <!-- Collapse -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Links -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <!-- Left -->
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about" >About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#services" >Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Join</a>
+          </li>
+        </ul>
+
+        <!-- Right -->
+        {% comment %} <ul class="navbar-nav nav-flex-icons">
+          <li class="nav-item">
+            <a href="https://www.facebook.com/mdbootstrap" class="nav-link" target>
+              <i class="fab fa-facebook-f"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="https://twitter.com/MDBootstrap" class="nav-link" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded"
+              target="_blank">
+              <i class="fab fa-github mr-2"></i>MDB GitHub
+            </a>
+          </li>
+        </ul> {% endcomment %}
+
+      </div>
+
+    </div>
+  </nav>
+  <!-- Navbar -->
+
+  <!-- Full Page Intro -->
+  <div class="view full-page-intro" style="background-image: url({% static 'images/image3.jpg' %}); background-repeat: no-repeat; background-size: cover;">
+
+    <!-- Mask & flexbox options-->
+    <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+
+      <!-- Content -->
+      <div class="container">
+
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+
+          <!--Grid column-->
+          <div class="col-md-6 mb-4 white-text text-center text-md-left">
+
+            <h1 class="display-4 font-weight-bold">Online Worksite</h1>
+
+            <hr class="hr-light">
+
+            <p>
+              <strong>Earn cash online from wherever you are</strong>
+            </p>
+
+            <p class="mb-4 d-none d-md-block">
+              <strong>
+              A platform that links people with tasks to those who are experienced and ready to handle the tasks from different fields of study and different levels of experince and qualifications. Earn cash from the different tasks that are handled online
+                </strong>
+            </p>
+
+            <a href="#" class="btn btn-primary text-center btn-group-sm">Ready to Earn??
+              <i class="fas fa-graduation-cap ml-2"></i>
+            </a>
+
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-md-6 col-xl-5 mb-4">
+
+          </div>
+          <!--Grid column-->
+
+        </div>
+        <!--Grid row-->
+
+      </div>
+      <!-- Content -->
+
+    </div>
+    <!-- Mask & flexbox options-->
+
+  </div>
+  <!-- Full Page Intro -->
+
+  <!--Main layout-->
+  <main>
+    <div class="container">
+
+      <!--Section: Main info-->
+      <section class="mt-5 wow fadeIn">
+
+        <!--Grid row-->
+        <div class="row">
+
+          <!--Grid column-->
+          <div class="col-md-6 mb-4">
+
+            <img src="{% static 'images/image2.jpg' %}" class="img-fluid z-depth-1-half" alt="image">
+
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-md-6 mb-4">
+
+            <!-- Main heading -->
+            <h3 class="h3 mb-3">Online Worksite</h3>
+            <p>
+            Get your financial problems solved; joins us and celebrate financial freedom
+            </p>
+            <!-- Main heading -->
+
+            <hr>
+
+            <p>
+              <ul>
+                  <li><strong>Get extra Cash from simple task</strong></li>
+                   <li><strong>Friendly and experienced freelancers</strong></li>
+                    <li><strong>In-time task completion</strong></li>
+              </ul>
+            </p>
+            <p>
+              The future lie online
+            </p>
+
+            <!-- CTA -->
+            <a href="#" class="btn btn-primary btn-group-sm">Join
+              <i class="fas fa-download ml-1"></i>
+            </a>
+            <a href="#" class="btn btn-primary btn-group-sm">Login
+              <i class="far fa-image ml-1"></i>
+            </a>
+
+          </div>
+          <!--Grid column-->
+
+        </div>
+        <!--Grid row-->
+
+      </section>
+      <!--Section: Main info-->
+
+      <hr class="my-5">
+
+      <!--Section: Main features & Quick Start-->
+      <section>
+
+        <h3 class="h3 text-center mb-5" id="about">About us</h3>
+
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+
+          <!--Grid column-->
+          <div class="col-lg-6 col-md-12 px-4">
+
+            <!--First row-->
+            <div class="row">
+              <div class="col-1 mr-3">
+                <i class="fas fa-code fa-2x indigo-text"></i>
+              </div>
+              <div class="col-10">
+                <h5 class="feature-title"> Online work</h5>
+                <p class="grey-text">Work and earn cash online from wherever place you are</p>
+              </div>
+            </div>
+            <!--/First row-->
+
+            <div style="height:30px"></div>
+
+            <!--Second row-->
+            <div class="row">
+              <div class="col-1 mr-3">
+                <i class="fas fa-book fa-2x blue-text"></i>
+              </div>
+              <div class="col-10">
+                <h5 class="feature-title">Solution to your problems</h5>
+                <p class="grey-text">
+                  Our platform helps clients who have tasks that needs to be solved with experience expertise in specic feild to get their tasks solved professionally.
+                </p>
+              </div>
+            </div>
+            <!--/Second row-->
+
+            <div style="height:30px"></div>
+
+            <!--Third row-->
+            <div class="row">
+              <div class="col-1 mr-3">
+                <i class="fas fa-graduation-cap fa-2x cyan-text"></i>
+              </div>
+              <div class="col-10">
+                <h5 class="feature-title">Get experience</h5>
+                <p class="grey-text">Both our clients gain experience on how to handle tasks and ineteract like proffessions as how frequent they post and solve tasks<p>
+              </div>
+            </div>
+            <!--/Third row-->
+
+          </div>
+          <!--/Grid column-->
+
+          <!--Grid column-->
+          <div class="col-lg-6 col-md-12">
+
+            <p class="h5 text-center mb-4">Enjoy financial Freedom</p>
+           <div class="mb-4">
+
+            <img src="{% static 'images/image1.jpg' %}" class="img-fluid z-depth-1-half" alt="image">
+
+          </div>
+          </div>
+          <!--/Grid column-->
+
+        </div>
+        <!--/Grid row-->
+
+      </section>
+      <!--Section: Main features & Quick Start-->
+
+      <hr class="my-5">
+
+     
+      
+
+      <!--Section: More-->
+      <section>
+
+        <h2 class="my-5 h3 text-center" id="services">...and even more</h2>
+
+        <!--First row-->
+        <div class="row features-small mt-5 wow fadeIn">
+
+          <!--Grid column-->
+          <div class="col-xl-3 col-lg-6">
+            <!--Grid row-->
+            <div class="row">
+              <div class="col-2">
+                <i class="fab fa-firefox fa-2x mb-1 indigo-text" aria-hidden="true"></i>
+              </div>
+              <div class="col-10 mb-2 pl-3">
+                <h5 class="feature-title font-bold mb-1">Link Clients to Freelancers</h5>
+                <p class="grey-text mt-2">Our clients get experinced freelancers to handle their tasks as proffessional
+                </p>
+              </div>
+            </div>
+            <!--/Grid row-->
+          </div>
+          <!--/Grid column-->
+
+          <!--Grid column-->
+          <div class="col-xl-3 col-lg-6">
+            <!--Grid row-->
+            <div class="row">
+              <div class="col-2">
+                <i class="fas fa-level-up-alt fa-2x mb-1 indigo-text" aria-hidden="true"></i>
+              </div>
+              <div class="col-10 mb-2">
+                <h5 class="feature-title font-bold mb-1">Link Freelancers to client</h5>
+                <p class="grey-text mt-2">Get financial break through by working online through our platform, there are lots of tasks from our clients 
+                </p>
+              </div>
+            </div>
+            <!--/Grid row-->
+          </div>
+          <!--/Grid column-->
+
+          <!--Grid column-->
+          <div class="col-xl-3 col-lg-6">
+            <!--Grid row-->
+            <div class="row">
+              <div class="col-2">
+                <i class="fas fa-comments fa-2x mb-1 indigo-text" aria-hidden="true"></i>
+              </div>
+              <div class="col-10 mb-2">
+                <h5 class="feature-title font-bold mb-1">Favourable prices</h5>
+                <p class="grey-text mt-2">Our prices favour both side, both client and freelancer. No complains at all.</p>
+              </div>
+            </div>
+            <!--/Grid row-->
+          </div>
+          <!--/Grid column-->
+
+          <!--Grid column-->
+          <div class="col-xl-3 col-lg-6">
+            <!--Grid row-->
+            <div class="row">
+              <div class="col-2">
+                <i class="fas fa-code fa-2x mb-1 indigo-text" aria-hidden="true"></i>
+              </div>
+              <div class="col-10 mb-2">
+                <h5 class="feature-title font-bold mb-1">Technical support</h5>
+                <p class="grey-text mt-2">We care about reliability. If you have any questions - do not hesitate to contact us.
+                  it.
+                </p>
+              </div>
+            </div>
+            <!--/Grid row-->
+          </div>
+          <!--/Grid column-->
+
+        </div>
+        <!--/First row-->
+
+
+      </section>
+      <!--Section: More-->
+
+    </div>
+  </main>
+  <!--Main layout-->
+
+    
+{% endblock %}
