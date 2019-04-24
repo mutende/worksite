@@ -36,30 +36,32 @@
           <li class="nav-item">
             <a class="nav-link" href="#services" >Services</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Join</a>
-          </li>
+          
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Join
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="dropdown">
+          <a class="dropdown-item" href="#">Client</a>
+          
+          <a class="dropdown-item" href="#">Freelancer</a>
+        </div>
+      </li>
+       <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Login
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="dropdown">
+          <a class="dropdown-item" href="#">Admin</a>
+       
+          <a class="dropdown-item" href="#">Client</a>
+         
+          <a class="dropdown-item" href="#">Freelancer</a>
+        </div>
+      </li>
+        </div>
         </ul>
 
-        <!-- Right -->
-        {% comment %} <ul class="navbar-nav nav-flex-icons">
-          <li class="nav-item">
-            <a href="https://www.facebook.com/mdbootstrap" class="nav-link" target>
-              <i class="fab fa-facebook-f"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="https://twitter.com/MDBootstrap" class="nav-link" target="_blank">
-              <i class="fab fa-twitter"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded"
-              target="_blank">
-              <i class="fab fa-github mr-2"></i>MDB GitHub
-            </a>
-          </li>
-        </ul> {% endcomment %}
 
       </div>
 
@@ -96,8 +98,11 @@
                 </strong>
             </p>
 
-            <a href="#" class="btn btn-primary text-center btn-group-sm">Ready to Earn??
-              <i class="fas fa-graduation-cap ml-2"></i>
+            <a href="#" class="btn btn-primary text-center btn-group-sm">Ready to Earn
+             
+            </a>
+             <a href="#" class="btn btn-primary text-center btn-group-sm">Get solution
+             
             </a>
 
           </div>
@@ -163,13 +168,21 @@
             </p>
 
             <!-- CTA -->
-            <a href="#" class="btn btn-primary btn-group-sm">Join
-              <i class="fas fa-download ml-1"></i>
+            <div class="dropdown">
+            <a class="btn btn-primary dropdown-toggle btn-group-sm " type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Join
+             
             </a>
-            <a href="#" class="btn btn-primary btn-group-sm">Login
-              <i class="far fa-image ml-1"></i>
-            </a>
+                <!--Menu-->
+                <div class="dropdown-menu dropdown-primary" id="dropdown">
+                  <a class="dropdown-item mb-2" href="#services">Freelancer</a>
+                  <a class="dropdown-item mb-2" href="#">Client</a>
+                  </div>
 
+                 <a class="btn btn-primary dropdown-toggle btn-group-sm " type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login
+              
+            </a>
+              </div>
+                 
           </div>
           <!--Grid column-->
 
@@ -195,7 +208,7 @@
             <!--First row-->
             <div class="row">
               <div class="col-1 mr-3">
-                <i class="fas fa-code fa-2x indigo-text"></i>
+                <i class="fas fa-briefcase fa-2x blue-text"></i>
               </div>
               <div class="col-10">
                 <h5 class="feature-title"> Online work</h5>
@@ -225,7 +238,7 @@
             <!--Third row-->
             <div class="row">
               <div class="col-1 mr-3">
-                <i class="fas fa-graduation-cap fa-2x cyan-text"></i>
+                <i class="fas fa-graduation-cap fa-2x blue-text"></i>
               </div>
               <div class="col-10">
                 <h5 class="feature-title">Get experience</h5>
@@ -273,7 +286,7 @@
             <!--Grid row-->
             <div class="row">
               <div class="col-2">
-                <i class="fab fa-firefox fa-2x mb-1 indigo-text" aria-hidden="true"></i>
+                <i class="fas fa-link fa-2x mb-1 blue-text" aria-hidden="true"></i>
               </div>
               <div class="col-10 mb-2 pl-3">
                 <h5 class="feature-title font-bold mb-1">Link Clients to Freelancers</h5>
@@ -290,7 +303,7 @@
             <!--Grid row-->
             <div class="row">
               <div class="col-2">
-                <i class="fas fa-level-up-alt fa-2x mb-1 indigo-text" aria-hidden="true"></i>
+                <i class="fas fa-link fa-2x mb-1 blue-text" aria-hidden="true"></i>
               </div>
               <div class="col-10 mb-2">
                 <h5 class="feature-title font-bold mb-1">Link Freelancers to client</h5>
@@ -307,7 +320,7 @@
             <!--Grid row-->
             <div class="row">
               <div class="col-2">
-                <i class="fas fa-comments fa-2x mb-1 indigo-text" aria-hidden="true"></i>
+                <i class="fas fa-money-bill fa-2x mb-1 blue-text" aria-hidden="true"></i>
               </div>
               <div class="col-10 mb-2">
                 <h5 class="feature-title font-bold mb-1">Favourable prices</h5>
@@ -323,7 +336,7 @@
             <!--Grid row-->
             <div class="row">
               <div class="col-2">
-                <i class="fas fa-code fa-2x mb-1 indigo-text" aria-hidden="true"></i>
+                <i class="fas fa-code fa-2x mb-1 blue-text" aria-hidden="true"></i>
               </div>
               <div class="col-10 mb-2">
                 <h5 class="feature-title font-bold mb-1">Technical support</h5>
