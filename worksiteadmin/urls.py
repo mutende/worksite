@@ -1,7 +1,9 @@
 
-from django.urls import path
-from worksiteadmin import views;
+from django.urls import path,include
+from worksiteadmin import views
 
 urlpatterns = [
-    path('',views.landingpage,name="welcome")
+    path('',views.landingpage,name="welcome"),
+    path('client/',include('client.urls')),
+    path('freelancer/',include('freelancer.urls')),
 ]

@@ -1,0 +1,78 @@
+{% extends 'freelancer/base.html' %}
+{% block title %}
+<title>freelancer-worksite | Home</title>
+{% endblock %}
+{% block content%}
+    <body>
+
+        <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+
+            <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+                <div class="mdl-layout__header-row">
+                    <span class="mdl-layout-title">Welcome freelancer's Name</span>
+                    <div class="mdl-layout-spacer"></div>
+
+
+                    <span class="mdl-layout-title change"><a class=" nav-link text-secondary h6" href="#">Log Out</a></span>
+                </div>
+            </header>
+
+            <div class="demo-drawer mdl-layout__drawer logo-header-background-color">
+                <header class="demo-drawer-header">
+                    <span>  <a href="staff-home.html" class="nav-link text-center" style="color:white;">Online worksite: (username)</a></span>
+                </header>
+
+                <nav class="demo-navigation mdl-navigation sidebar-nav-background">
+                    <ul id="navmenu">
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">Task Zone</a><span class="darrow">&#9660;</span>
+                            <ul class="sub1">
+                                <li><a href="all_applications.html">View</a></li>
+                                <li><a href="pending_applications.html">my tasks</a></li>
+                                <li><a href="approved_applications.html">Pending</a></li>
+                                <li><a href="rejected_applications.html">Rejected</a></li>
+                                <li><a href="rejected_applications.html">Completed</a></li>
+                            </ul>
+                        </li>
+                          <li><a href="#">Report</a></li>
+                        {% comment %} <li><a href="#">Feedback</a></li> {% endcomment %}
+                    </ul>
+                </nav>
+            </div>
+
+
+            <!-- Main content goes here -->
+            <main class="mdl-layout__content mdl-color--grey-100">
+                <div class="mdl-grid demo-content">
+                    <div class="container-fluid">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">All Applications</h4>
+                                    </div>
+                                       <div class="card-body">
+                                           <p class="text-center ">
+                                             No applications Available
+                                           </p>
+                                       </div>
+                                       <div class="card-header">
+                                            <p class="text-center">&c 2019</p>
+                                       </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+           </main>
+        </div>
+
+{% endblock %}
+
