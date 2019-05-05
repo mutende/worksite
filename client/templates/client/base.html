@@ -35,13 +35,52 @@
 
     </head>
     {% if user.is_authenticated and user.is_client %}
-    <body>
+    <body class="mdl-color--grey-100">
+    
+        <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+
+            <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+                <div class="mdl-layout__header-row">
+                    <span class="mdl-layout-title">Welcome {{ user.first_name }} {{ user.last_name }}</span>
+                    <div class="mdl-layout-spacer"></div>
+
+
+                    <span class="mdl-layout-title change"><a class=" nav-link text-secondary h6" href="{% url 'logout_client' %}">Log Out</a></span>
+                </div>
+            </header>
+
+            <div class="demo-drawer mdl-layout__drawer logo-header-background-color">
+                <header class="demo-drawer-header">
+                    <span>  <a href="{% url 'client_home' %}" class="nav-link text-center" style="color:white;">Online Worksite: {{ user.username }}</a></span>
+                </header>
+
+                <nav class="demo-navigation mdl-navigation sidebar-nav-background">
+                    <ul id="navmenu">
+                        <li><a href="#">Profile</a><span class="darrow">&#9660;</span>
+                            <ul class="sub1">
+                                <li><a href="{% url 'client_profile' %}">My Profile</a></li>
+                                <li><a href="{% url 'client_change_password' %}">Change Password</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Task Zone</a><span class="darrow">&#9660;</span>
+                            <ul class="sub1">
+                                <li><a href="all_applications.html">Post</a></li>
+                                <li><a href="pending_applications.html">Pending</a></li>
+                                <li><a href="approved_applications.html">History</a></li>
+                                {% comment %} <li><a href="rejected_applications.html">Rejected</a></li> {% endcomment %}
+                            </ul>
+                        </li>
+                          <li><a href="#">Report</a></li>
+                        {% comment %} <li><a href="#">Feedback</a></li> {% endcomment %}
+                    </ul>
+                </nav>
+            </div>
     {%block content%}
 
     {% endblock %}
     {% else %}
     <p>
-        Hello try to access the wrong page please <a href="{% url 'logout_client' %}"> Click here</a> to be redirected
+        Hello, you are trying to access the wrong page please <a href="{% url 'logout_client' %}"> Click here</a> to be redirected
     
     </p>
 

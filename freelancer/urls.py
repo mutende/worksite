@@ -7,4 +7,6 @@ urlpatterns = [
     path('', FreelancerHome.as_view(),name="freelancer_home"),
     path('login/',views.loginFreelancer, name="login_freelancer"),
     path('logout/', views.logoutFreelancer, name="logout"),
+    path('profile/', views.freelancer_profile, name="freelancer_profile"),
+    path('change_password/', views.freelancerChangePassword, name="freelancer_change_password"),
 ]

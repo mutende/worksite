@@ -1,14 +1,20 @@
 {% extends 'base.html' %}
 
+ {% block title%}
+<title>Worksite | Signup</title>
+{% endblock %}
+
 {% block content %}
  
-     <h2 class="text-center">Hello, who are you?</h2>
+ <br><br>
+     <h2 class="text-center mt-5">Hello, please make a choice </h2>
    
 
     <div class="row">
-        <div class="col col-md-11 offset-md-5 mt-5">
+        <div class="col col-md-4 offset-md-4 mt-5">
                 <a href="{% url 'client_signup'%}" class="btn btn-primary mt-auto mr-2">Client ?  </a>
                 <a href="{% url 'freelancer_signup'%}" class="btn btn-primary mt-auto">Freelancer ?</a>
         </div>
+        
     </div>
 {% endblock %}

@@ -1,22 +1,93 @@
 {% extends 'client/base2.html' %}
+{% block title%}
+  <title>Worksite | Client-login </title>
+{% endblock %}
 
 {% block content %}
-    <h2 class="text-center">Login</h2>
-    <div class="col-md-4 offset-md-4">
 
-    <form method="POST">
-    	{% csrf_token %}
-    	
-    	<div class="form-group">
-    		<input type="text" class="form-control" name="username" placeholder="Enter Username" required>
-    	</div>
-    	<div class="form-group">
-    		<input type="password" class="form-control" name="password" placeholder="Enter password" required>
-    		<button type="submit" class="btn btn-primary">
-    		Login
-    	</button>
-    	</div>
-    	
-    </form>
+<div class="container mt-5">
+      <div class="row">
+        <div class="col-md-5 ml-auto mr-auto mb-auto mt-auto">
+          <div class="card">
+
+              <h5 class="card-header primary-color white-text text-center py-4">
+                  <strong>Client Login</strong>
+              </h5>
+
+              <!--Card content-->
+              <div class="card-body px-lg-5 pt-0">
+
+                  <!-- Form -->
+                  <form class="text-center" style="color: #757575;" name="myForm" method="POST">
+									{% csrf_token %}
+                      <!-- Name -->
+                      <div class="md-form mt-3 text-center">
+                          <input type="text" id="materialContactFormName" class="form-control" name="username">
+                          <label for="materialContactFormName">Username</label>
+                      </div>
+
+                      <!-- Password -->
+                      <div class="md-form mb-4">
+                          <input type="password" id="materialContactFormEmail" class="form-control" name="password">
+                          <label for="materialContactFormEmail">Password</label>
+                      </div>
+
+                     
+
+                      <!-- Send button -->
+                      <div class="mt-4"style="margin-top:10px !important;">
+                          <button class="btn btn-outline-primary btn-rounded btn-block z-depth-0 my-4 waves-effect" type="submit" name="login">Login</button>
+                      </div>
+
+
+                  </form>
+                  <!-- Form -->
+
+              </div>
+
+          </div>
+          <!-- Material form contact -->
+        </div>
+
+      </div>
     </div>
+
+    <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+
+      <!-- Call to action-->
+      <div class="pt-4">
+        <!-- <a class="btn btn-outline-white" href="#contact" role="button">Join us
+          <i class="fas fa-download ml-2"></i>
+        </a>
+        <a class="btn btn-outline-white" href="#About" role="button" style="padding">About Us
+          <i class="fas fa-graduation-cap ml-2"></i>
+        </a> -->
+      </div>
+      <!--/.Call to action-->
+
+
+      <!-- Social icons -->
+      <div class="pb-4">
+        <a href="https://www.facebook.com/">
+          <i class="fab fa-facebook-f  blue-text mr-3"></i>
+        </a>
+
+        <a href="https://twitter.com/">
+          <i class="fab fa-twitter blue-text mr-3"></i>
+        </a>
+
+        <a href="https://www.youtube.com/">
+          <i class="fab fa-youtube green-text mr-3"></i>
+        </a>
+      </div>
+      <!-- Social icons -->
+
+      <!--Copyright-->
+      <div class="footer-copyright py-3 bg-dark fixed-bottom">
+        © 2019 Copyright:
+        <a href="">Designed by Elvis</a>
+      </div>
+      <!--/.Copyright-->
+
+    </footer>
 {% endblock %}

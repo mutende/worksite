@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.db import transaction
 from authentication.models import User
 
+#client form
 class ClientSignUpForm(UserCreationForm):
     email = forms.EmailField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Email Address'}))
     first_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'First Name'}))
@@ -37,7 +38,7 @@ class ClientSignUpForm(UserCreationForm):
         self.fields['password2'].widget.attrs['placeholder'] = 'Confirm Password'
         self.fields['password2'].help_text='<span class="form-text text-muted"><span><small>Enter the same password as before, for verification.</small></span>'
 
-
+    # set user to be client
     def save(self, commit=True):
         user = super().save(commit=False)
         user.is_client = True
@@ -45,7 +46,7 @@ class ClientSignUpForm(UserCreationForm):
             user.save()
         return user
        
-
+#freelancer form
 class FreelancertSignUpForm(UserCreationForm):
     email = forms.EmailField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Email Address'}))
     first_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'First Name'}))
@@ -72,6 +73,7 @@ class FreelancertSignUpForm(UserCreationForm):
         self.fields['password2'].widget.attrs['placeholder'] = 'Confirm Password'
         self.fields['password2'].help_text='<span class="form-text text-muted"><span><small>Enter the same password as before, for verification.</small></span>'
 
+    # set user to freelancer
     def save(self, commit=True):
         user = super().save(commit=False)
         user.is_freelancer = True
