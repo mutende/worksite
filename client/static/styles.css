@@ -11,7 +11,9 @@ html, body {
 }
 
 .sidebar-nav-background{
-  background-color: #4B8202;
+  /* background-color: #4B8202; */
+  /* background-color: #000080; */
+  background-color: rgb(75, 130, 2);
 }
 .demo-drawer {
   border: none;
@@ -129,7 +131,7 @@ ul#navmenu li:hover a:hover {
   }
 
   ul#navmenu li:hover .sub1 {
-    background-color: #fff;
+    background-color: #fff;4B
     }
 
 ul#navmenu ul.sub1 {
@@ -175,7 +177,7 @@ ul#navmenu li:hover .sub1 {
     cursor: pointer;
   }
 
-  #nextBtn:hover, #submit:hover{
+  #nextBtn:hover, #submit:hover{4B
     background-color: #2e5001;
   }
 

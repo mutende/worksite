@@ -26,13 +26,13 @@ class ClientProfileForm(UserChangeForm):
 	password = forms.CharField(widget=forms.TextInput(attrs={'type':'hidden'}))
 	class Meta:
 		model = User
-		fields = ('username', 'first_name', 'last_name','email','password')
+		fields = ('first_name', 'last_name','email','password')
 	def __init__(self, *args, **kwargs):
 		super(ClientProfileForm, self).__init__(*args, **kwargs)
-		self.fields['username'].widget.attrs['class'] = 'form-control'
-		# self.fields['username'].label='User Name'
-		self.fields['username'].widget.attrs['placeholder'] = 'User Name'
-		self.fields['username'].help_text=''
+		# self.fields['username'].widget.attrs['class'] = 'form-control'
+		# # self.fields['username'].label='User Name'
+		# self.fields['username'].widget.attrs['placeholder'] = 'User Name'
+		# self.fields['username'].help_text=''
 		
 
 		self.fields['first_name'].widget.attrs['class'] = 'form-control'

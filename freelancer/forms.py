@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django import forms
+from worksiteadmin.models import SkillSet,EducationLevelSet
 
 
 class FreelancerChangePasswordForm(PasswordChangeForm):
@@ -24,25 +25,46 @@ class FreelancerChangePasswordForm(PasswordChangeForm):
 
 class FreelancerProfileForm(UserChangeForm):
 	password = forms.CharField(widget=forms.TextInput(attrs={'type':'hidden'}))
+	phoneNumber = forms.CharField(widget=forms.TextInput())
+	Address = forms.CharField(widget=forms.TextInput())
+	EducationLevel = forms.ModelMultipleChoiceField(
+		queryset=EducationLevelSet.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=True
+	)
+	Skills = forms.ModelMultipleChoiceField(
+		queryset=SkillSet.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=True
+	)
+	Certificate = forms.FileField()
 	class Meta:
 		model = User
-		fields = ('username', 'first_name', 'last_name','email','password')
+		fields = ('email','phoneNumber','Address','EducationLevel','Skills','Certificate','password',)
 	def __init__(self, *args, **kwargs):
 		super(FreelancerProfileForm, self).__init__(*args, **kwargs)
-		self.fields['username'].widget.attrs['class'] = 'form-control'
+		self.fields['phoneNumber'].widget.attrs['class'] = 'form-control'
 		# self.fields['username'].label='User Name'
-		self.fields['username'].widget.attrs['placeholder'] = 'User Name'
-		self.fields['username'].help_text=''
+		self.fields['phoneNumber'].widget.attrs['placeholder'] = 'Phone Number'
+		self.fields['phoneNumber'].help_text='in format of +2547... start with country code'
 		
 
-		self.fields['first_name'].widget.attrs['class'] = 'form-control'
-		# self.fields['first_name'].label=''
-		self.fields['first_name'].widget.attrs['placeholder'] = 'First Name'
+		# self.fields['first_name'].widget.attrs['class'] = 'form-control'
+		# # self.fields['first_name'].label=''
+		# self.fields['first_name'].widget.attrs['placeholder'] = 'First Name'
 
-		self.fields['last_name'].widget.attrs['class'] = 'form-control'
+		# self.fields['last_name'].widget.attrs['class'] = 'form-control'
+		# # self.fields['first_name'].label=''
+		# self.fields['last_name'].widget.attrs['placeholder'] = 'Last Name'
+
+		self.fields['Address'].widget.attrs['class'] = 'form-control'
 		# self.fields['first_name'].label=''
-		self.fields['last_name'].widget.attrs['placeholder'] = 'Last Name'
+		# self.fields['Address'].widget.attrs['placeholder'] = 'Email'
+
+		# self.fields['Skills'].widget.attrs['class'] = 'form-control'
+		# # self.fields['first_name'].label=''
+		# self.fields['Skills'].widget.attrs['placeholder'] = 'Email'
 
 		self.fields['email'].widget.attrs['class'] = 'form-control'
 		# self.fields['first_name'].label=''
-		self.fields['email'].widget.attrs['placeholder'] = 'Email'
+		# self.fields['email'].widget.attrs['placeholder'] = 'Email'

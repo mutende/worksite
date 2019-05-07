@@ -43,9 +43,14 @@
                 <div class="mdl-layout__header-row">
                     <span class="mdl-layout-title">Welcome {{ user.first_name }} {{ user.last_name }}.</span>
                     <div class="mdl-layout-spacer"></div>
+                    {% if user.is_account_active %}
+                    
+                    <span class="mdl-layout-title change text-success"><a class=" nav-link text-success disabled h6" href="">Active</a></span>
+                     {% else %}
+                     <span class="mdl-layout-title change "><a class=" nav-link  text-danger h6 disabled" href="">Not Active</a></span>
+                    {% endif %}
 
-
-                    <span class="mdl-layout-title change"><a class=" nav-link text-secondary h6" href="{% url 'logout_client' %}">Log Out</a></span>
+                    <span class="mdl-layout-title change"><a class=" nav-link text-secondary  h6" href="{% url 'logout_client' %}">Log Out</a></span>
                 </div>
             </header>
 
@@ -54,14 +59,17 @@
                     <span>  <a href="{% url 'freelancer_home' %}" class="nav-link text-center" style="color:white;">Online Worksite: {{ user.username }}</a></span>
                 </header>
 
-                <nav class="demo-navigation mdl-navigation sidebar-nav-background">
+                <nav class="demo-navigation mdl-navigation sidebar-nav-background111 bg-success">
                     <ul id="navmenu">
                         <li><a href="#">Profile</a><span class="darrow">&#9660;</span>
                             <ul class="sub1">
+                            {% if user.is_account_active %}
                                 <li><a href="{% url 'freelancer_profile' %}">My Profile</a></li>
+                            {% endif %}
                                 <li><a href="{% url 'freelancer_change_password' %}">Change Password</a></li>
                             </ul>
                         </li>
+                        {% if user.is_account_active %}
                         <li><a href="#">Task Zone</a><span class="darrow">&#9660;</span>
                             <ul class="sub1">
                                 <li><a href="#">Post</a></li>
@@ -70,6 +78,7 @@
                                 {% comment %} <li><a href="rejected_applications.html">Rejected</a></li> {% endcomment %}
                             </ul>
                         </li>
+                    {% endif %}
                           <li><a href="#">Report</a></li>
                         {% comment %} <li><a href="#">Feedback</a></li> {% endcomment %}
                     </ul>
