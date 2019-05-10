@@ -11,8 +11,8 @@ def signupview(request):
 class ClientSignUpView(CreateView):
     model = User
     form_class = ClientSignUpForm
-    #create the template
-    template_name = 'signup.html'
+    template_name = 'client_signup.html'
+    # success_url = reverse_lazy('login_client')
 
     def get_context_data(self, **kwargs):
         kwargs['user_type'] = 'client'
@@ -27,7 +27,7 @@ class FreelancerSignUpView(CreateView):
     model = User
     form_class = FreelancertSignUpForm
     # success_url = reverse_lazy('login_freelancer')
-    template_name = 'signup.html'
+    template_name = 'freelancer_signup.html'
 
     def get_context_data(self, **kwargs):
         kwargs['user_type'] = 'freelancer'
@@ -37,11 +37,3 @@ class FreelancerSignUpView(CreateView):
         user = form.save()
         login(self.request, user)
         return redirect('freelancer_home')
-
-# def client_account(request):
-#     form = ClientForm()
-#     if request.method == 'POST':
-#         if form.is_valid():
-#             form.save()
-#     context = {'form':form}
-#     return render(request, 'client:client/account_activation.html', context)

@@ -3,7 +3,8 @@ from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.contrib import messages
-from client.forms import ClientChangePasswordForm, ClientProfileForm
+from client.forms import ClientChangePasswordForm, ClientProfileForm, PostTaskForm
+from worksiteadmin.models import SkillSet,EducationLevelSet
 
 
 # Create your views here.
@@ -15,7 +16,7 @@ class ClientHome(TemplateView):
 def loginClient(request):
     #if post method is requested from template
 	if request.method == 'POST':
-        #get credantials 
+        #get credantials
 		username = request.POST['username']
 		password = request.POST['password']
 
@@ -46,7 +47,7 @@ def client_profile(request):
 	if request.method == 'POST':
 		form = ClientProfileForm(request.POST, instance=request.user)
 		if form.is_valid():
-			form.save()			
+			form.save()
 			messages.success(request,('You have edited your profile'))
 			return redirect('client_home')
 
@@ -68,3 +69,18 @@ def clientChangePassword(request):
 	context = {'form': form }
 	return render(request, 'client/change_password.html', context)
 
+
+def post_task_view(request):
+    if request.method == 'POST':
+        form = PostTaskForm(request.POST, request.FILES)
+        if form.is_valid():
+            task = form.save(commit=False)
+            task.client_task = request.user
+            task.save()
+            messages.success(request,('Your task has been posted, wait for bids'))
+            return redirect('post_task')
+    else:
+        form = PostTaskForm()
+    context = {'form': form}
+
+    return render(request, 'client/post_tasks.html', context)

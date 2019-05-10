@@ -24,47 +24,48 @@ class FreelancerChangePasswordForm(PasswordChangeForm):
 		self.fields['new_password2'].help_text='<span class="form-text text-muted"><span><small>Enter the same password as before, for verification.</small></span>'
 
 class FreelancerProfileForm(UserChangeForm):
+	email = forms.CharField(widget=forms.TextInput(),required=True)
 	password = forms.CharField(widget=forms.TextInput(attrs={'type':'hidden'}))
-	phoneNumber = forms.CharField(widget=forms.TextInput())
-	Address = forms.CharField(widget=forms.TextInput())
-	EducationLevel = forms.ModelMultipleChoiceField(
-		queryset=EducationLevelSet.objects.all(),
-        widget=forms.CheckboxSelectMultiple,
-        required=True
-	)
-	Skills = forms.ModelMultipleChoiceField(
-		queryset=SkillSet.objects.all(),
-        widget=forms.CheckboxSelectMultiple,
-        required=True
-	)
-	Certificate = forms.FileField()
+	phone_number = forms.CharField(widget=forms.TextInput())
+	address = forms.CharField(widget=forms.TextInput())
+	highest_education_level = forms.CharField(widget=forms.TextInput(), required=False)
+	# highest_education_level = forms.ModelChoiceField(
+	# 		queryset=EducationLevelSet.objects.all(),
+    #     # widget=forms.CheckboxSelectMultiple,
+    #     required=False
+	# )
+	best_skill=forms.CharField(widget=forms.TextInput(), required=False)
+	# best_skill = forms.ModelChoiceField(
+	# 	queryset=SkillSet.objects.all(),
+    #     # widget=forms.CheckboxSelectMultiple,
+    #     required=False
+	# )
+	certificate = forms.FileField(required=False)
 	class Meta:
 		model = User
-		fields = ('email','phoneNumber','Address','EducationLevel','Skills','Certificate','password',)
+		fields = ('email','phone_number','address','certificate','password',)
 	def __init__(self, *args, **kwargs):
 		super(FreelancerProfileForm, self).__init__(*args, **kwargs)
-		self.fields['phoneNumber'].widget.attrs['class'] = 'form-control'
-		# self.fields['username'].label='User Name'
-		self.fields['phoneNumber'].widget.attrs['placeholder'] = 'Phone Number'
-		self.fields['phoneNumber'].help_text='in format of +2547... start with country code'
-		
+		if kwargs.get('instance'):
+			#get initial selected value
+			initial = kwargs.setdefault('initial',{})
+			#list of primary key of selected data
+			if kwargs['instance'].highest_education_level:
+				initial['highest_education_level'] = kwargs['instance'].highest_education_level
+			else:
+				initial['highest_education_level']=None
+			#get initial selected value
+			initial = kwargs.setdefault('initial',{})
+			#list of primary key of selected data
+			if kwargs['instance'].best_skill:
+				initial['best_skill'] = kwargs['instance'].best_skill
+			else:
+				initial['best_skill']=None
+		forms.ModelForm.__init__(self,*args, **kwargs)
+		self.fields['phone_number'].help_text='in format of +2547... start with country code'
+		self.fields['highest_education_level'].widget.attrs['readonly'] = True
+		self.fields['best_skill'].widget.attrs['readonly'] = True
+		self.fields['best_skill'].help_text='you cannot edit your level of education immediately, just upload your  new certificate and the admin will update skills and education level'
 
-		# self.fields['first_name'].widget.attrs['class'] = 'form-control'
-		# # self.fields['first_name'].label=''
-		# self.fields['first_name'].widget.attrs['placeholder'] = 'First Name'
-
-		# self.fields['last_name'].widget.attrs['class'] = 'form-control'
-		# # self.fields['first_name'].label=''
-		# self.fields['last_name'].widget.attrs['placeholder'] = 'Last Name'
-
-		self.fields['Address'].widget.attrs['class'] = 'form-control'
-		# self.fields['first_name'].label=''
-		# self.fields['Address'].widget.attrs['placeholder'] = 'Email'
-
-		# self.fields['Skills'].widget.attrs['class'] = 'form-control'
-		# # self.fields['first_name'].label=''
-		# self.fields['Skills'].widget.attrs['placeholder'] = 'Email'
-
-		self.fields['email'].widget.attrs['class'] = 'form-control'
-		# self.fields['first_name'].label=''
-		# self.fields['email'].widget.attrs['placeholder'] = 'Email'
+		# self.fields['address'].widget.attrs['class'] = 'form-control'
+		# self.fields['email'].widget.attrs['class'] = 'form-control'

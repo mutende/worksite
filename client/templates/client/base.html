@@ -31,7 +31,9 @@
         <link rel="stylesheet" href="{% static 'styles.css' %}">
         {% comment %} <link rel="stylesheet" type="text/css" href="bread-crump.css"> {% endcomment %}
 
-
+        <link rel="shortcut icon" href="{% static 'images/favicon.PNG' %}" type="image/x-icon">
+        <!-- datepicker -->
+        <link rel="stylesheet" href="{% static 'datepicker/css/jquery-ui.css'%}">
 
     </head>
     {% if user.is_authenticated and user.is_client %}
@@ -44,7 +46,7 @@
                     <span class="mdl-layout-title">Welcome {{ user.first_name }} {{ user.last_name }}    </span>
                     <div class="mdl-layout-spacer"></div>
                     {% if user.is_account_active %}
-                    
+
                     <span class="mdl-layout-title change text-success"><a class=" nav-link text-success disabled h6" href="">Active</a></span>
                      {% else %}
                      <span class="mdl-layout-title change "><a class=" nav-link  text-danger h6 disabled" href="">Not Active</a></span>
@@ -71,10 +73,10 @@
                         {% if user.is_account_active %}
                         <li><a href="#">Task Zone</a><span class="darrow">&#9660;</span>
                             <ul class="sub1">
-                                <li><a href="all_applications.html">Post</a></li>
-                                <li><a href="pending_applications.html">Pending</a></li>
-                                <li><a href="approved_applications.html">History</a></li>
-                                {% comment %} <li><a href="rejected_applications.html">Rejected</a></li> {% endcomment %}
+                                <li><a href="{% url 'post_task' %}">Post</a></li>
+                                <li><a href="#">Pending</a></li>
+                                <li><a href="#">History</a></li>
+                                {% comment %} <li><a href="#">Rejected</a></li> {% endcomment %}
                             </ul>
                         </li>
                     {% endif %}
@@ -105,12 +107,26 @@
         <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script> -->
             <script src="{% static 'js/jquery-3.3.1.slim.min.js' %}"></script>
+              <script src="{% static 'mdb/js/jquery-3.3.1.min.js' %}"></script>
+            <!--  date picker -->
+              <script type="text/javascript" src="{% static 'datepicker/js/jquery-ui.js' %}"></script>
         <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
             crossorigin="anonymous"></script> -->
             <script src="{% static 'js/popper.min.js' %}" ></script>
         <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
             crossorigin="anonymous"></script> -->
             <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+            <script>
+                $(function() {
+                    $("#id_expiry_date").datepicker({
+                        minDate: 0,
+                        dateFormat: 'yy-mm-dd'
+                    });
+
+                });
+            </script>
+
 
     </body>
 

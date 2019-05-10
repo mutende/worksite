@@ -1,6 +1,9 @@
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django import forms
+from django.forms import Textarea
+from client.models import Task
+from worksiteadmin.models import EducationLevelSet,SkillSet
 
 
 class ClientChangePasswordForm(PasswordChangeForm):
@@ -29,12 +32,6 @@ class ClientProfileForm(UserChangeForm):
 		fields = ('first_name', 'last_name','email','password')
 	def __init__(self, *args, **kwargs):
 		super(ClientProfileForm, self).__init__(*args, **kwargs)
-		# self.fields['username'].widget.attrs['class'] = 'form-control'
-		# # self.fields['username'].label='User Name'
-		# self.fields['username'].widget.attrs['placeholder'] = 'User Name'
-		# self.fields['username'].help_text=''
-		
-
 		self.fields['first_name'].widget.attrs['class'] = 'form-control'
 		# self.fields['first_name'].label=''
 		self.fields['first_name'].widget.attrs['placeholder'] = 'First Name'
@@ -46,3 +43,26 @@ class ClientProfileForm(UserChangeForm):
 		self.fields['email'].widget.attrs['class'] = 'form-control'
 		# self.fields['first_name'].label=''
 		self.fields['email'].widget.attrs['placeholder'] = 'Email'
+
+
+
+class PostTaskForm(forms.ModelForm):
+	# education_level = forms.ModelMultipleChoiceField(
+	# queryset=EducationLevelSet.objects.all(),
+	# widget=forms.CheckboxSelectMultiple,
+	# required=True
+	# )
+	# skills = forms.ModelMultipleChoiceField(
+	# queryset=SkillSet.objects.all(),
+	# widget=forms.CheckboxSelectMultiple,
+	# required=True
+	# )
+	class Meta:
+		model = Task
+		fields = ('title','description','best_skill','highest_education_level','expiry_date','documet_format','task_file')
+		widgets = {
+            'description': Textarea(attrs={'class':'form-control','cols':4, 'rows':5}),
+        }
+	def __init__(self,*args,**kwargs):
+		super(PostTaskForm, self).__init__(*args,**kwargs)
+		self.fields['expiry_date'].widget.attrs['readonly'] = True

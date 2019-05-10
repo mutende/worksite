@@ -31,7 +31,7 @@
         {% comment %} <link rel="stylesheet" href="{% static 'styles.css' %}"> {% endcomment %}
         {% comment %} <link rel="stylesheet" type="text/css" href="bread-crump.css"> {% endcomment %}
 
-
+        <link rel="shortcut icon" href="{% static 'images/favicon.PNG' %}" type="image/x-icon">
 
     </head>
     <body>
@@ -40,19 +40,19 @@
     <a class="navbar-brand" href="{% url 'welcome'%}">
         Worksite
     </a>
-   
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-  
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
-         </li>       
+         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'welcome' %}">Home</a>
         </li>
       </ul>
-     
+
     </div>
   </nav>
   <div class="container">
@@ -69,8 +69,8 @@
     {%block content%}
 
     {% endblock %}
-    
-       
+
+
         <!-- Optional JavaScript -->
         <!-- Custom javascript -->
         {% comment %} <script src="{%static 'js/main.js' %}"></script> {% endcomment %}

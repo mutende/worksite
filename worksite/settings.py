@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'freelancer',
     'authentication',
     'crispy_forms',
+    'multiselectfield',
+    
 ]
 
 MIDDLEWARE = [

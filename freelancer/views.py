@@ -41,9 +41,9 @@ def logoutFreelancer(request):
 @freelancer_required
 def freelancer_profile(request):
 	if request.method == 'POST':
-		form = FreelancerProfileForm(request.POST, instance=request.user)
+		form = FreelancerProfileForm(request.POST, request.FILES, instance=request.user)
 		if form.is_valid():
-			form.save()			
+			form.save()
 			messages.success(request,('You have edited your profile'))
 			return redirect('freelancer_home')
 

@@ -9,7 +9,7 @@ class SkillSet(models.Model):
         return self.skills
 
 class EducationLevelSet(models.Model):
-    EducationLevel = models.CharField(max_length=100)
+    education_levels = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.EducationLevel
+        return self.education_levels

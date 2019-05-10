@@ -31,6 +31,8 @@
         {% comment %} <link rel="stylesheet" href="{% static 'styles.css' %}"> {% endcomment %}
         {% comment %} <link rel="stylesheet" type="text/css" href="bread-crump.css"> {% endcomment %}
 
+          <link rel="shortcut icon" href="{% static 'images/favicon.PNG' %}" type="image/x-icon">
+
 
 
     </head>
@@ -40,14 +42,14 @@
     <a class="navbar-brand" href="{% url 'welcome'%}">
         Worksite
     </a>
-   
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-  
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
-         </li>       
+         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'welcome' %}">Home</a>
         </li>
@@ -55,15 +57,30 @@
           <a class="nav-link" href="{% url 'signup' %}">Category</a>
         </li>
       </ul>
-     
+
     </div>
   </nav>
+  <!-- <div class="container text-left mt-5">
+    {% if form.errors %}
+    		<div class="alert alert-warning alert-dismissable" role="alert">
+    	<button class="close" data-dismiss="alert">
+    	<small><sup>x</sup></small>
+    	</button>
+    				{% for field in form%}
+    				{% if field.errors %}
+    					{{ field.errors }}
+    				{% endif %}
+    				{% endfor%}
+    		</div>
+    		{% endif%} -->
+
+  </div>
     {%block content%}
 
     {% endblock %}
-    
-    
-       
+
+
+
         <!-- Optional JavaScript -->
         <!-- Custom javascript -->
         {% comment %} <script src="{%static 'js/main.js' %}"></script> {% endcomment %}

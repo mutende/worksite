@@ -6,15 +6,15 @@ from worksiteadmin.models import SkillSet,EducationLevelSet
 
 #client form
 class ClientSignUpForm(UserCreationForm):
-    phoneNumber = forms.CharField(widget=forms.TextInput())
-    Address = forms.CharField(max_length=13,required=True, widget=forms.TextInput())
+    phone_number = forms.CharField(max_length=13,widget=forms.TextInput())
+    address = forms.CharField(required=False, max_length=100, widget=forms.TextInput())
     email = forms.EmailField(required=True, widget=forms.TextInput())
     first_name = forms.CharField(max_length=100,required=True, widget=forms.TextInput())
     last_name = forms.CharField( max_length=100, required=True, widget=forms.TextInput())
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ('username', 'first_name', 'last_name','email','phoneNumber','Address','password1','password2')
+        fields = ('username', 'first_name', 'last_name','email','phone_number','address','password1','password2')
 
     # def __init__(self, *args, **kwargs):
     #     super(ClientSignUpForm, self).__init__(*args, **kwargs)
@@ -33,7 +33,7 @@ class ClientSignUpForm(UserCreationForm):
     #     self.fields['password2'].widget.attrs['placeholder'] = 'Confirm Password'
     #     self.fields['password2'].help_text='<span class="form-text text-muted"><span><small>Enter the same password as before, for verification.</small></span>'
 
-        
+
     # set user to be client
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -44,29 +44,29 @@ class ClientSignUpForm(UserCreationForm):
 
 #freelancer form
 class FreelancertSignUpForm(UserCreationForm):
-    phoneNumber = forms.CharField(widget=forms.TextInput())
-    Address = forms.CharField(max_length=13,required=True, widget=forms.TextInput())
+    phone_number = forms.CharField(widget=forms.TextInput())
+    address = forms.CharField(max_length=13,required=True, widget=forms.TextInput())
     email = forms.EmailField(required=True, widget=forms.TextInput())
     first_name = forms.CharField(max_length=100,required=True, widget=forms.TextInput())
     last_name = forms.CharField( max_length=100, required=True, widget=forms.TextInput())
-    EducationLevel = forms.ModelMultipleChoiceField(
-        queryset=EducationLevelSet.objects.all(),
-        widget=forms.CheckboxSelectMultiple,
-        required=True
-        )
-    Skills = forms.ModelMultipleChoiceField(
-        queryset=SkillSet.objects.all(),
-        widget=forms.CheckboxSelectMultiple,
-        required=True
-        )
-    Certificate = forms.FileField()
+    # EducationLevel = forms.ModelMultipleChoiceField(
+    #     queryset=EducationLevelSet.objects.all(),
+    #     widget=forms.CheckboxSelectMultiple,
+    #     required=True
+    #     )
+    # Skills = forms.ModelMultipleChoiceField(
+    #     queryset=SkillSet.objects.all(),
+    #     widget=forms.CheckboxSelectMultiple,
+    #     required=True
+    #     )
+    certificate = forms.FileField(required=False)
 
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ('username', 'first_name', 'last_name','email','phoneNumber','Address','EducationLevel','Skills','Certificate','password1','password2')
+        fields = ('username', 'first_name', 'last_name','email','phone_number','address','highest_education_level','best_skill','certificate','password1','password2')
 
-    
+
     # set user to freelancer
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -74,4 +74,3 @@ class FreelancertSignUpForm(UserCreationForm):
         if commit:
             user.save()
         return user
-    
