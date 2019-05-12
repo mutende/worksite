@@ -5,9 +5,6 @@ from authentication.forms import ClientSignUpForm,FreelancertSignUpForm
 from authentication.models import User
 from django.urls import reverse_lazy
 
-def signupview(request):
-    return render(request, 'directsignup.html')
-
 class ClientSignUpView(CreateView):
     model = User
     form_class = ClientSignUpForm

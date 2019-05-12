@@ -36,20 +36,20 @@
           <li class="nav-item">
             <a class="nav-link" href="#services" >Services</a>
           </li>
-          <li class="nav-item">
+          {% comment %} <li class="nav-item">
             <a class="nav-link" href="{% url 'signup' %}" >Join</a>
-          </li>
+          </li> {% endcomment %}
           
-        {% comment %} <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+       <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Join
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="dropdown">
-          <a class="dropdown-item" href="{% url 'signup' %}">Client</a>
+          <a class="dropdown-item" href="{% url 'client_signup' %}">Client</a>
           
-          <a class="dropdown-item" href="">Freelancer</a>
+          <a class="dropdown-item" href="{% url 'freelancer_signup' %}">Freelancer</a>
         </div> 
-      </li> {% endcomment %}
+      </li> 
        <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Login
@@ -101,10 +101,10 @@
                 </strong>
             </p>
 
-            <a href="{% url 'signup' %}" class="btn btn-primary text-center btn-group-sm">Ready to Earn
+            <a href="{% url 'freelancer_signup' %}" class="btn btn-primary text-center btn-group-sm">Ready to Earn
              
             </a>
-             <a href="{% url 'signup'%} " class="btn btn-primary text-center btn-group-sm">Get solution
+             <a href="{% url 'client_signup'%} " class="btn btn-primary text-center btn-group-sm">Get solution
              
             </a>
 
@@ -169,19 +169,28 @@
             <p>
               The future lies online
             </p>
+            
 
             <!-- CTA -->
             <div class="dropdown">
-            <a href="{% url 'signup' %}" class="btn btn-primary btn-group-sm " type="button" aria-haspopup="true" aria-expanded="false">Join
+            <a class="btn btn-primary btn-group-sm dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Join
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="dropdown">
+          <a class="dropdown-item" href="{% url 'client_signup' %}">Client</a>
+          
+          <a class="dropdown-item" href="{% url 'freelancer_signup' %}">Freelancer</a>
+        </div> 
+            
              
             </a>
                 <!--Menu-->
                 <div class="dropdown-menu dropdown-primary" id="dropdown">
                   <a class="dropdown-item mb-2" href="{% url 'login_freelancer' %}">Freelancer</a>
                   <a class="dropdown-item mb-2" href="{% url 'login_client' %}">Client</a>
-                  </div>
+                </div>
 
-                 <a class="btn btn-primary dropdown-toggle btn-group-sm " type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login
+                 <a class="btn btn-primary dropdown-toggle btn-group-sm "  id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login
               
             </a>
               </div>
