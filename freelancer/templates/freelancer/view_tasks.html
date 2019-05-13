@@ -35,7 +35,6 @@
                                     <tr>
                                         <th>Task ID</th>
                                         <th>Tittle</th>
-                                        {% comment %} <th>description</th> {% endcomment %}
                                         <th>Skill</th>
                                         <th>Minimum Education Level</th>
                                         <th>Due Date</th>
@@ -52,7 +51,7 @@
                                         <td>{{ task.highest_education_level }}</td>
                                         <td>{{ task.expiry_date }}</td>
                                         <td>{{ task.documet_format }}</td>
-                                        <td> <a href="#">details</a></td>
+                                        <td> <a href="{% url 'task_details' task.id%}">details</a></td>
                                     </tr>
                                     {% endfor %}
                                     </tbody>

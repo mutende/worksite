@@ -1,0 +1,59 @@
+{% extends 'freelancer/base.html' %}
+
+{% block title %}
+<title>Worksite| Freelancer-Home</title>
+{% endblock %}
+
+{% block content%}
+
+
+
+            <!-- Main content goes here -->
+            <main class="mdl-layout__content mdl-color--grey-100">
+                <div class="mdl-grid demo-content">
+                    <div class="container-fluid">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Welcome</h4>
+                                    </div>
+                                       <div class="card-body">
+                                         {% if user.is_account_active %}
+                                            <div class="container">
+                                                <h3 class="h3"><strong>Title</strong></h3>
+                                                <p class="h5 text-left grey-text">{{task.title}}</p>
+                                            </div>
+                                          
+                                            {% else %}
+                                                <p class="text-left h5 grey-text mt-5 ml-5 mr-5">
+                                                Hello {{user.last_name}}, thanks for choosing this platform. We wish you all the best as you interact with our platform. Incase you get stuck anywhere, please feel free to refer to our online help menu or contact us for further information.</p> <br>
+                                                
+                                                <p class="h5 text-left grey-text mt-3 ml-5 mr-5">Account is <span class="text-danger"> inactive.</span>This is due to either:
+                                                        <ol type="i" class="ml-5">
+                                                            <li>Not yet activated after signup, just be patient</li>
+                                                            <li>Misbehaving on the platform, Contact admin for guidance</li>
+                                                        </ol>
+                                                 </p><br>
+                                            
+                                            {% endif %}
+                                       </div>
+                                       <div class="card-header">
+                                            <p class="text-center">© 2019</p>
+                                       </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+           </main>
+        </div>
+
+{% endblock %}
