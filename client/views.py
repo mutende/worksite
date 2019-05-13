@@ -1,10 +1,11 @@
 from django.contrib.auth import authenticate, login, logout,update_session_auth_hash
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, CreateView
 from django.contrib import messages
 from client.forms import ClientChangePasswordForm, ClientProfileForm, PostTaskForm
 from worksiteadmin.models import SkillSet,EducationLevelSet
+from client.models import Task
 
 
 # Create your views here.
@@ -75,12 +76,18 @@ def post_task_view(request):
         form = PostTaskForm(request.POST, request.FILES)
         if form.is_valid():
             task = form.save(commit=False)
-            task.client_task = request.user
+            task.client = request.user
             task.save()
-            messages.success(request,('Your task has been posted, wait for bids'))
+            messages.success(request,('Your task has been posted'))
             return redirect('post_task')
     else:
-        form = PostTaskForm()
+        form = PostTaskForm(instance= request.user)
     context = {'form': form}
 
     return render(request, 'client/post_tasks.html', context)
+
+class POST_TASK(CreateView):
+	model  =  Task
+	form_class = PostTaskForm
+	template = 'client/post_tasks.html'
+	success_url = 'post_task'

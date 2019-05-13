@@ -5,6 +5,7 @@ from authentication.decorators import freelancer_required
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.contrib import messages
+from client.models import Task
 
 # Create your views here.
 
@@ -66,3 +67,10 @@ def freelancerChangePassword(request):
 		form = FreelancerChangePasswordForm(user=request.user)
 	context = {'form': form }
 	return render(request, 'freelancer/change_password.html', context)
+
+@login_required
+@freelancer_required
+def view_tasks(request):
+	tasks = Task.objects.all()
+	context = {'tasks':tasks}
+	return render (request, 'freelancer/view_tasks.html',context)
