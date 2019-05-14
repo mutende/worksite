@@ -21,10 +21,45 @@
                                     </div>
                                        <div class="card-body">
                                          {% if user.is_account_active %}
-                                            <div class="container">
-                                                <h3 class="h3"><strong>Title</strong></h3>
-                                                <p class="h5 text-left grey-text">{{task.title}}</p>
+                                           <div class="col-md-6">
+                                                <h4 class="h4"><strong>Job type</strong></h4>
+                                                <p class="h5 text-left grey-text mb-1">{{task.title}}</p>
+                                                <hr class="h4 mb-3">
+
+                                             <div class="row">
+                                        
+                                                <div class="col">
+                                                        
+                                                    <h5 class="h5  mt-4 ">Required skill</h5>
+                                                    <p class="text-left grey-text mb-3">{{ task.best_skill }}</p>
+    
+                                                    <h5 class="h5">Minimum Education Level</h5>
+                                                    <p class="text-left grey-text mb-3">{{ task.highest_education_level }}</p>
+    
+                                                    <h5 class="h5">Description</h5>
+                                                    <p class="text-left grey-text mb-3">{{ task.description }}</p>
+
+                                                   
+                                                  </div>
+                                                  
+                                                  <div class="col ml-5">
+                                                        <h5 class="h5 mt-4">Format </h5>
+                                                        <p class="text-left grey-text mb-3">{{ task.documet_format }}</p>
+        
+                                                        <h5 class="h5">Date Posted </h5>
+                                                        <p class="text-left grey-text mb-3">{{ task.date_posted }}</p>
+        
+                                                        <h5 class="h5">Due Date</h5>
+                                                        <p class="text-left grey-text mb-3">{{ task.expiry_date }}</p>
+                                                        
+                                                        <h5 class="h5">Job files </h5>
+                                                        <a href="{{ task.task_file.url}}" class="btn btn-primary btn-sm" target="_blank">Download</a></td>
+                                                                                                            
+                                                  </div>
+                                                </div>
                                             </div>
+
+                                        
                                           
                                             {% else %}
                                                 <p class="text-left h5 grey-text mt-5 ml-5 mr-5">
