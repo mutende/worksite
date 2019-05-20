@@ -1,4 +1,4 @@
-from freelancer.forms import FreelancerChangePasswordForm, FreelancerProfileForm
+from freelancer.forms import FreelancerChangePasswordForm, FreelancerProfileForm,CommentForm
 from django.contrib.auth import authenticate, login, logout,update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from authentication.decorators import freelancer_required
@@ -90,3 +90,21 @@ class ViewTask(ListView):
 class TaskDetails(DetailView):
 	model = Task
 	template_name='freelancer/task_details.html'
+
+@login_required
+@freelancer_required
+def make_a_comment(request):
+	form = CommentForm( request.POST or None)
+	if request.method == 'POST':
+		form = CommentForm(request.POST)
+		if form.is_valid:
+			comment = form.save(commit=False)
+			comment.user = request.user
+			comment.save()
+			messages.success(request,('comment submitted'))
+			return redirect('freelancer_comment')
+		else:
+			form = CommentForm()
+	context = {'form': form}
+
+	return render(request, 'freelancer/comment.html', context)

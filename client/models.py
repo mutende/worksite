@@ -29,4 +29,15 @@ class Task(models.Model):
 
 @receiver(post_delete, sender=Task)
 def submission_delete(sender, instance, **kwargs):
-    instance.task_file.delete(False) 
+    instance.task_file.delete(False)
+
+
+class ClientComment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.TextField(max_length=250)
+    comment_date = models.DateField(auto_now_add=True)
+
+    objects = models.Manager()
+    class Meta:
+        verbose_name_plural = 'Read Comments'
+

@@ -2,6 +2,8 @@ from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django import forms
 from worksiteadmin.models import SkillSet,EducationLevelSet
+from django.forms import Textarea
+from freelancer.models import Comment
 
 
 class FreelancerChangePasswordForm(PasswordChangeForm):
@@ -69,3 +71,11 @@ class FreelancerProfileForm(UserChangeForm):
 
 		# self.fields['address'].widget.attrs['class'] = 'form-control'
 		# self.fields['email'].widget.attrs['class'] = 'form-control'
+
+class CommentForm(forms.ModelForm):
+	class Meta:
+		model = Comment
+		fields =('comment',)
+		widgets = {
+            'comment': Textarea(attrs={'class':'form-control','cols':4, 'rows':5}),
+        }

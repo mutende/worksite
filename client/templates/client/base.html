@@ -76,13 +76,12 @@
                                 <li><a href="{% url 'post_task' %}">Post</a></li>
                                 <li><a href="#">Pending</a></li>
                                 <li><a href="#">History</a></li>
-                                {% comment %} <li><a href="#">Rejected</a></li> {% endcomment %}
+                                
                             </ul>
                         </li>
                     {% endif %}
-                          <li><a href="#">Report</a></li>
-                          {% comment %} <li><a href="{% url 'client_account_activation' %}">Request Account Activation</a></li> {% endcomment %}
-                        {% comment %} <li><a href="#">Feedback</a></li> {% endcomment %}
+                          <li><a href="{% url 'client_comment'%}">Comment</a></li>
+                         
                     </ul>
                 </nav>
             </div>

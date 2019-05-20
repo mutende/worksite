@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django import forms
 from django.forms import Textarea
-from client.models import Task
+from client.models import Task,ClientComment
 from worksiteadmin.models import EducationLevelSet,SkillSet
 
 
@@ -47,16 +47,7 @@ class ClientProfileForm(UserChangeForm):
 
 
 class PostTaskForm(forms.ModelForm):
-	# education_level = forms.ModelMultipleChoiceField(
-	# queryset=EducationLevelSet.objects.all(),
-	# widget=forms.CheckboxSelectMultiple,
-	# required=True
-	# )
-	# skills = forms.ModelMultipleChoiceField(
-	# queryset=SkillSet.objects.all(),
-	# widget=forms.CheckboxSelectMultiple,
-	# required=True
-	# )
+
 	class Meta:
 		model = Task
 		fields = ('title','description','best_skill','highest_education_level','expiry_date','documet_format','task_file')
@@ -66,3 +57,11 @@ class PostTaskForm(forms.ModelForm):
 	def __init__(self,*args,**kwargs):
 		super(PostTaskForm, self).__init__(*args,**kwargs)
 		self.fields['expiry_date'].widget.attrs['readonly'] = True
+
+class CommentForm(forms.ModelForm):
+	class Meta:
+		model = ClientComment
+		fields =('comment',)
+		widgets = {
+            'comment': Textarea(attrs={'class':'form-control','cols':4, 'rows':5}),
+        }

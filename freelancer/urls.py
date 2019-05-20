@@ -11,5 +11,6 @@ urlpatterns = [
     path('profile/', views.freelancer_profile, name="freelancer_profile"),
     path('change_password/', views.freelancerChangePassword, name="freelancer_change_password"),
     url(r'^tasks/', ViewTask.as_view(), name="view_tasks"),
-    url(r'^task/(?P<pk>[0-9]+)/$', TaskDetails.as_view(), name="task_details")
+    url(r'^task/(?P<pk>[0-9]+)/$', TaskDetails.as_view(), name="task_details"),
+    path('comment/', views.make_a_comment ,name="freelancer_comment")
 ]
