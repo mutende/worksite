@@ -1,5 +1,5 @@
 from freelancer.forms import FreelancerChangePasswordForm, FreelancerProfileForm
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout,update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from authentication.decorators import freelancer_required
 from django.shortcuts import render, redirect
@@ -7,6 +7,7 @@ from django.views.generic import TemplateView,ListView,DetailView
 from django.contrib import messages
 from client.models import Task
 from django.utils.decorators import method_decorator
+from datetime import datetime, date
 
 # Create your views here.
 @method_decorator([login_required, freelancer_required], name='dispatch')
@@ -81,7 +82,9 @@ class ViewTask(ListView):
 	context_object_name = 'tasks'
 	template_name='freelancer/view_tasks.html'
 	def get_queryset(self):
-		return Task.objects.all()
+		today = date.today()
+		print('today is on',today)
+		return Task.objects.filter(expiry_date__gte=today)
 
 @method_decorator([login_required, freelancer_required], name='dispatch')
 class TaskDetails(DetailView):

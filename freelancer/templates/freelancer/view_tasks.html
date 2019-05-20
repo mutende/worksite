@@ -70,16 +70,22 @@
                                 <thead>
                                     <tr>
                                         <th>Task ID</th>
-                                        <th>Tittle</th>                                        
+                                        <th>Tittle</th>  
+                                                                              
                                         <th>File</th>
+
                                     </tr>
                                     </thead>
                                     <tbody>
                                     {% for task in tasks %}
                                     <tr>
                                         <td>{{ task.id }}</td>
-                                        <td>{{ task.title }}</td>                                        
+                                        <td>{{ task.title }}</td> 
+                                        {% if task.task_file %}                                       
                                         <td> <a href="{{ task.task_file.url}}" class="btn btn-primary btn-sm" target="_blank">Download</a></td>
+                                        {% else %}
+                                        <td class="text-danger"> No file Attached </td>
+                                        {% endif %}
                                     </tr>
                                     {% endfor %}
                                     </tbody>

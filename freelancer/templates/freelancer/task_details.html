@@ -53,7 +53,11 @@
                                                         <p class="text-left grey-text mb-3">{{ task.expiry_date }}</p>
                                                         
                                                         <h5 class="h5">Job files </h5>
+                                                        {% if task.task_file %}  
                                                         <a href="{{ task.task_file.url}}" class="btn btn-primary btn-sm" target="_blank">Download</a></td>
+                                                        {% else %}
+                                                        <p class="text-left text-danger mb-3">No file Attached </p>
+                                                        {% endif %}
                                                                                                             
                                                   </div>
                                                 </div>

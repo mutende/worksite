@@ -1,6 +1,8 @@
 from django.db import models
 from authentication.models import User
 from worksiteadmin.models import SkillSet,EducationLevelSet
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
 
 # Create your models here.
 
@@ -24,3 +26,7 @@ class Task(models.Model):
     is_taken = models.BooleanField(default=False)
 
     objects = models.Manager()
+
+@receiver(post_delete, sender=Task)
+def submission_delete(sender, instance, **kwargs):
+    instance.task_file.delete(False) 
