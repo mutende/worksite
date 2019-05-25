@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from multiselectfield import MultiSelectField
+# from multiselectfield import MultiSelectField
 from worksiteadmin.models import SkillSet,EducationLevelSet
 from django.db.models.signals import post_delete
 from django.dispatch import receiver

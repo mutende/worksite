@@ -1,14 +1,16 @@
 from django.contrib.auth import authenticate, login, logout,update_session_auth_hash
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.views.generic import TemplateView, CreateView
 from django.contrib import messages
 from client.forms import ClientChangePasswordForm, ClientProfileForm, PostTaskForm,CommentForm
 from worksiteadmin.models import SkillSet,EducationLevelSet
 from client.models import Task,ClientComment
+from freelancer.models import Bid
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from authentication.decorators import client_required
+from authentication.models import User
 
 
 # Create your views here.
@@ -117,3 +119,30 @@ def make_a_comment(request):
 	context = {'form': form}
 
 	return render(request, 'client/comment.html', context)
+
+@login_required
+@client_required
+def get_my_tasks(request):
+	tasks = Task.objects.filter(client = request.user)
+	return render(request,'client/my_tasks.html', {'tasks':tasks})
+
+@login_required
+@client_required
+def task_bids(request):
+	bids = Bid.objects.filter(task__client = request.user)
+	return render(request, 'client/view_bids.html', {'bids':bids})
+
+@login_required
+@client_required
+def assing_task(request, bid_id):
+	bid = Bid.objects.get(pk=bid_id)
+	bid.assign = True
+	bid.save()
+	return redirect('view_bids')
+
+@login_required
+@client_required
+def freelancer_profile(request, profile_id):
+	profile = User.objects.get(pk=profile_id)
+	return render(request, 'client/freelancer_profile.html', {'profile':profile})
+

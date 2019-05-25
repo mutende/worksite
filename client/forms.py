@@ -50,7 +50,7 @@ class PostTaskForm(forms.ModelForm):
 
 	class Meta:
 		model = Task
-		fields = ('title','description','best_skill','highest_education_level','expiry_date','documet_format','task_file')
+		fields = ('title','description','best_skill','highest_education_level','expiry_date','documet_format','task_file','price')
 		widgets = {
             'description': Textarea(attrs={'class':'form-control','cols':4, 'rows':5}),
         }

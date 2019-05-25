@@ -12,8 +12,8 @@ class UserAdmin(admin.ModelAdmin):
 
 
 class TaskAdmin(admin.ModelAdmin):
-    list_filter =('date_posted','expiry_date','is_taken')
-    list_display =('title','date_posted','expiry_date','is_taken',)
+    list_filter =('date_posted','expiry_date','is_taken','price',)
+    list_display =('title','client','date_posted','expiry_date','is_taken','price',)
 
 
 class CommentAdmin(admin.ModelAdmin):

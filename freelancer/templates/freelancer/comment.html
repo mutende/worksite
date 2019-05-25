@@ -1,12 +1,13 @@
-{% extends 'client/base.html' %}
+{% extends 'freelancer/base.html' %}
+
 
 {% block title %}
-<title>Worksite | Client-Post Task</title>
+<title>Worksite | Freelancer-Comment</title>
 {% endblock %}
 
 {% block content%}
-
 {% load crispy_forms_tags %}
+
             <!-- Main content goes here -->
             <main class="mdl-layout__content mdl-color--grey-100">
                 <div class="mdl-grid demo-content">
@@ -16,35 +17,31 @@
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4 class="card-title">Post a task</h4>
+                                        <h4 class="card-title">Make a Comment</h4>
                                     </div>
                                        <div class="card-body">
-                                       <div class="container">
+                                            <div class="col-md-5 offset-md-3">
                                                     {% if messages%}
-                                                    {% for taskmsg in messages %}
+                                                    {% for commentmsg in messages %}
                                                         <div class="alert alert-success alert-dismissable" role="alert">
                                                         <button class="close" data-dismiss="alert">
                                                             <small><sup>x</sup></small>
                                                         </button>
-                                                        {{ taskmsg }}
+                                                        {{ commentmsg }}
                                                         </div>
                                                     {% endfor %}
                                                     {% endif%}
-
-                                           {% if user.is_account_active %}
-                                                <div class="container col-md-4 offset-md-4">
-
-                                                  <form action="{% url 'post_task' %}" method="POST" enctype="multipart/form-data">
-                                                    {% csrf_token %}
-
+                                            <form method="POST" action="{% url 'freelancer_comment' %}">
+                                                {% csrf_token %}
+                                                    
                                                     {{ form | crispy }}
 
-                                                    <button type="submit" class="btn btn-primary" name="button">Post Task</button>
-                                                  </form>
+                                                    <input type="submit" class="btn btn-primary" value="Comment">
+                                                   
+		                                         </form>
 
-                                                </div>
+                                            </div>
 
-                                            {% endif %}
                                        </div>
                                        <div class="card-header">
                                             <p class="text-center">© 2019</p>

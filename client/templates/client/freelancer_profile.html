@@ -1,0 +1,88 @@
+{% extends 'client/base.html' %}
+
+{% block title %}
+<title>Worksite | Client-Freelancer's Profile</title>
+{% endblock %}
+
+{% block content%}
+
+{% load crispy_forms_tags %}
+            <!-- Main content goes here -->
+            <main class="mdl-layout__content mdl-color--grey-100">
+                <div class="mdl-grid demo-content">
+                    <div class="container-fluid">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Freelancer's Profile</h4>
+                                    </div>
+                                       <div class="card-body">
+                                       <div class="container">
+                                              
+
+                                           {% if user.is_account_active %}
+
+                                           {% if  profile %}
+
+                                      
+                                           <div class="col-md-6">
+                                            <h4 class="h4"><strong>{{profile.first_name }} {{profile.last_name }} </strong></h4>
+                                            <p class="h5 text-left grey-text mb-1"></p>
+                                            <hr class="h4 mb-3">
+
+                                            <div class="row">
+                                             
+                                    
+                                            <div class="col ml-4">
+                                                <h5 class="h4  mt-4 ">Username</h5>
+                                                <p class="text-left grey-text mb-3">{{ profile.username }}</p>
+
+                                                <h5 class="h4  mt-4 ">Best Skill</h5>
+                                                <p class="text-left grey-text mb-3">{{ profile.best_skill }}</p>
+
+                                                <h5 class="h4">Highest Education Level</h5>
+                                                <p class="text-left grey-text mb-3">{{ profile.highest_education_level }}</p>
+
+                                                <h5 class="h4 mt-4">Address</h5>
+                                                <p class="text-left grey-text mb-3">{{ profile.address }}</p>
+
+                                                {% if profile.certificate %}
+                                                <h5 class="h4">Certificates</h5>
+                                                <a href="{{ profile.certificate.url}}" class="btn btn-primary"target="_blank">Download</a>
+                                                {% else %}
+                                                <p class="text-left text-danger mb-3">{{profile.username }} did not upload certificate</p>
+                                                {% endif %}                                             
+
+                                               
+                                              </div>                                              
+                                            
+                                            </div>
+                                        </div>
+                                       
+
+                                        {% else %}
+                                        <p class="text-left text-danger mb-3 h3"> The profile you trying to acces does not exist.<br> The account was deleted </p>
+                                        {% endif %}
+                                               
+                                            {% endif %}
+                                       </div>
+                                       <div class="card-header">
+                                            <p class="text-center">© 2019</p>
+                                       </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+           </main>
+        </div>
+
+{% endblock %}

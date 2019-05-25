@@ -1,0 +1,81 @@
+{% extends 'client/base.html' %}
+
+{% block title %}
+<title>Worksite | Client-View Bids</title>
+{% endblock %}
+
+{% block content%}
+
+{% load crispy_forms_tags %}
+            <!-- Main content goes here -->
+            <main class="mdl-layout__content mdl-color--grey-100">
+                <div class="mdl-grid demo-content">
+                    <div class="container-fluid">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">View Bids</h4>
+                                    </div>
+                                       <div class="card-body">
+                                       <div class="container">
+                                                   
+
+                                           {% if user.is_account_active %}
+                                                <div class="container">
+                                                    <table class='table table-hover'>
+                                                     
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Task ID</th>
+                                                                <th>Title</th>
+                                                                <th>Freelancer</th>                                                                
+                                                                <th>Profile</th>
+                                                                <th>Bid date</th>
+                                                               
+                                                            </tr>  
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for bid in bids %}
+                                                            <tr>
+                                                                <td>{{ bid.task.id }}</td>
+                                                                <td>{{ bid.task.title }}</td>
+                                                                <td>{{ bid.freelancer}}</td>
+                                                                <td> <a href="{% url 'freelancer_profile' bid.freelancer.id %}" class="">{{ bid.freelancer }}'s Profile</a></td>
+                                                                <td>{{ bid.date}}</td>
+                                                                {% if bid.assign %}
+                                                                <td><a href="#" class="btn btn-warning disabled">Assigned Task {{bid.task.id}}</a></td>
+                                                                {% else %}
+                                                                <td><a href="{% url 'assign_task' bid.id %}" class="btn btn-primary ">Assign</a></td>
+                                                                {% endif %}
+
+                                                            </tr>
+                                                            {% endfor %}
+                                                        </tbody>
+                                                      
+
+                                                    </table>
+                                                 
+                                                </div>
+
+                                            {% endif %}
+                                       </div>
+                                       <div class="card-header">
+                                            <p class="text-center">© 2019</p>
+                                       </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+           </main>
+        </div>
+
+{% endblock %}
