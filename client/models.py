@@ -27,6 +27,7 @@ class Task(models.Model):
     is_taken = models.BooleanField(default=False)
     show = models.BooleanField(default=True)
     
+    
 
     objects = models.Manager()
 

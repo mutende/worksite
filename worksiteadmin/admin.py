@@ -3,7 +3,7 @@ from authentication.models import User
 from worksiteadmin.models import EducationLevelSet, SkillSet
 from django.contrib.auth.models import Group
 from client.models import Task,ClientComment
-from freelancer.models import Comment, Bid
+from freelancer.models import Comment, Bid,Completed
 
 
 #classes that help display and filter data in the admin panel
@@ -24,6 +24,10 @@ class CommentAdmin(admin.ModelAdmin):
 class BidAdmin(admin.ModelAdmin):
     list_display = ('freelancer','task','date','assign',)
     list_filter = ('assign',)
+class CompletedAdmin(admin.ModelAdmin):
+    list_display = ('freelancer','date','rating','re_assigned','complete',)
+    list_filter = ('complete','re_assigned','date',)
+
 
 # registered models.
 admin.site.register(User,UserAdmin)
@@ -34,5 +38,6 @@ admin.site.register(Task,TaskAdmin)
 admin.site.register(Comment,CommentAdmin)
 admin.site.register(ClientComment,CommentAdmin)
 admin.site.register(Bid,BidAdmin)
+admin.site.register(Completed,CompletedAdmin)
 
 admin.site.site_header= 'Worksite Admin'

@@ -65,12 +65,12 @@ def post_task_view(request):
 
     return render(request, 'client/post_tasks.html', context)
 
-@method_decorator([login_required, client_required], name='dispatch')
-class POST_TASK(CreateView):
-	model  =  Task
-	form_class = PostTaskForm
-	template = 'client/post_tasks.html'
-	success_url = 'post_task'
+# @method_decorator([login_required, client_required], name='dispatch')
+# class POST_TASK(CreateView):
+# 	model  =  Task
+# 	form_class = PostTaskForm
+# 	template = 'client/post_tasks.html'
+# 	success_url = 'post_task'
 
 @login_required
 @client_required
@@ -112,7 +112,6 @@ def assign_task(request, bid_id, task_id):
 	task.is_taken=True
 	task.show = False
 	task.save()
-
 	return redirect('view_bids')
 
 @login_required

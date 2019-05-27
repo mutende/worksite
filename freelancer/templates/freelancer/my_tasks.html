@@ -20,6 +20,8 @@
                                         <h4 class="card-title">Assigned Tasks</h4>
                                     </div>
                                        <div class="card-body">
+
+                                {%  if my_tasks %}
                                        <!-- Tab links -->
                                 <div class="tab">
                                 <button class="tablinks" id ="defaultOpen" onclick="openCity(event, 'London')">Tasks</button>
@@ -42,13 +44,17 @@
                                     </thead>
                                     <tbody>
                                     {% for task in my_tasks %}
+                                    {% if task.show %}
                                     <tr>
                                         <td>{{ task.task.id }}</td>
                                         <td>{{ task.task.title }}</td>                    
                                         <td>{{ task.task.expiry_date }}</td>
                                         <td>{{ task.task.documet_format }}</td>
-                                        <td class="text-danger">{{ task.task.price }}</td>                                                                            
+                                        <td class="text-danger">{{ task.task.price }}</td>
+                                       
+                                        <td><a href="{% url 'submit_task' task.id%}" class="btn btn-primary btn-sm">Submit Complete Task</a></td>                                                                         
                                     </tr>
+                                   {% endif %} 
                                     {% endfor %}
                                     </tbody>
                                 </table>
@@ -88,6 +94,9 @@
                                 </table>
                                
                                 </div>
+                                {% else %}
+                                <p class = "h5"> You are not assigned any tasks currently </p>
+                                {% endif %}
                                          {% if user.is_account_active %}
                                                
                                           

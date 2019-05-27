@@ -1,7 +1,7 @@
 from client.views import ClientHome
 from django.urls import path
 from client import views
-from client.views import POST_TASK
+# from client.views import POST_TASK
 urlpatterns = [
     path('',ClientHome.as_view(),name="client_home"),
     path('profile/', views.client_profile, name="client_profile"),

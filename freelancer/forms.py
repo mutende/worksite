@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django import forms
 from worksiteadmin.models import SkillSet,EducationLevelSet
 from django.forms import Textarea
-from freelancer.models import Comment
+from freelancer.models import Comment,Completed
 
 
 class FreelancerChangePasswordForm(PasswordChangeForm):
@@ -79,3 +79,7 @@ class CommentForm(forms.ModelForm):
 		widgets = {
             'comment': Textarea(attrs={'class':'form-control','cols':4, 'rows':5}),
         }
+class CompleteTaskForm(forms.ModelForm):
+	class Meta:
+		model = Completed
+		fields = ('file','description',)

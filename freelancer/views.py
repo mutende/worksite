@@ -1,11 +1,11 @@
-from freelancer.forms import FreelancerChangePasswordForm, FreelancerProfileForm,CommentForm
+from freelancer.forms import FreelancerChangePasswordForm, FreelancerProfileForm,CommentForm,CompleteTaskForm
 from django.contrib.auth.decorators import login_required
 from authentication.decorators import freelancer_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView,ListView,DetailView
 from django.contrib import messages
 from client.models import Task
-from freelancer.models import Bid
+from freelancer.models import Bid,Completed
 from django.utils.decorators import method_decorator
 from datetime import datetime, date
 from itertools import chain
@@ -23,7 +23,7 @@ def freelancer_profile(request):
 		form = FreelancerProfileForm(request.POST, request.FILES, instance=request.user)
 		if form.is_valid():
 			form.save()
-			messages.success(request,('You have edited your profile'))
+			# messages.success(request,('You have edited your profile'))
 			return redirect('freelancer_home')
 
 	else:
@@ -126,3 +126,27 @@ def make_a_bid(request, task_id):
 def get_assigned_tasks(request):
 	my_tasks = Bid.objects.filter(freelancer = request.user).filter(assign = True)
 	return render(request, 'freelancer/my_tasks.html', {'my_tasks':my_tasks})
+
+@login_required
+@freelancer_required
+def submit_a_task(request, bid_id):
+	if request.method == 'POST':
+		form = CompleteTaskForm(request.POST, request.FILES)
+		if form.is_valid:
+			complete = form.save(commit=False)
+			complete.bid = Bid.objects.get(pk=bid_id)
+			complete.complete = True
+			complete.freelancer = request.user
+			complete.save()
+			# alter data on bids table
+			alter_bid = Bid.objects.get(pk=bid_id)
+			alter_bid.show = False
+			alter_bid.save()
+			return redirect('assigned')
+	else:
+		form = CompleteTaskForm()
+
+	context = {'form': form}
+	return render(request, 'freelancer/submit_task.html', context)
+	
+		
