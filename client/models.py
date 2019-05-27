@@ -30,6 +30,9 @@ class Task(models.Model):
 
     objects = models.Manager()
 
+    def __str__(self):
+        return self.title
+
 @receiver(post_delete, sender=Task)
 def submission_delete(sender, instance, **kwargs):
     instance.task_file.delete(False)

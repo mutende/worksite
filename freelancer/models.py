@@ -18,5 +18,6 @@ class Bid(models.Model):
     freelancer = models.ForeignKey(User, on_delete=models.CASCADE)
     assign = models.BooleanField(default=False)
     date = models.DateField(auto_now_add=True)
+    
     objects = models.Manager()
     
