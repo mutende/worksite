@@ -110,7 +110,7 @@ class ViewTask(ListView):
 		# 	all_bids,
 		# 	all_tasks,
 		# )
-		return Task.objects.filter(expiry_date__gte=today).filter(bid__assign=False)
+		return Task.objects.filter(expiry_date__gte=today).filter(is_taken=False)
 
 
 @method_decorator([login_required, freelancer_required], name='dispatch')
@@ -143,8 +143,6 @@ def make_a_bid(request, task_id):
 	new_freelancer = request.user
 	bid = Bid()
 	bid.task = new_task
-	# bid.bidded=True
 	bid.freelancer= new_freelancer
 	bid.save()
-	# Bid.objects.create(task=new_task,freelancer=new_freelancer,bidded=True)
 	return redirect('view_tasks')

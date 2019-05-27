@@ -44,10 +44,10 @@
                                                                 <td>{{ bid.freelancer}}</td>
                                                                 <td> <a href="{% url 'freelancer_profile' bid.freelancer.id %}" class="">{{ bid.freelancer }}'s Profile</a></td>
                                                                 <td>{{ bid.date}}</td>
-                                                                {% if bid.assign %}
-                                                                <td><a href="#" class="btn btn-warning disabled">Assigned Task {{bid.task.id}}</a></td>
+                                                                {% if bid.assign and bid.task.id%}
+                                                                <td><a href="{% url 'assign_task' bid.id bid.task.id %}" class="btn btn-warning disabled">Assigned Task {{bid.task.id}}</a></td>
                                                                 {% else %}
-                                                                <td><a href="{% url 'assign_task' bid.id %}" class="btn btn-primary ">Assign</a></td>
+                                                                <td><a href="{% url 'assign_task' bid.id bid.task.id %}" class="btn btn-primary ">Assign</a></td>
                                                                 {% endif %}
 
                                                             </tr>

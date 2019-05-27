@@ -12,6 +12,6 @@ urlpatterns = [
     path('comment/',views.make_a_comment, name='client_comment'),
     path('task/history/', views.get_my_tasks, name='client_task_history'),
     path('task/bids', views.task_bids, name='view_bids'),
-    path('task/assign/<bid_id>',views.assing_task, name='assign_task'),
+    path('task/assign/<bid_id>/task/<task_id>',views.assign_task, name='assign_task'),
     path('task/freelancer/<profile_id>/profile/',views.freelancer_profile ,name='freelancer_profile')
 ]

@@ -129,15 +129,20 @@ def get_my_tasks(request):
 @login_required
 @client_required
 def task_bids(request):
-	bids = Bid.objects.filter(task__client = request.user)
+	bids = Bid.objects.filter(task__client = request.user).filter(task__show=True)
 	return render(request, 'client/view_bids.html', {'bids':bids})
 
 @login_required
 @client_required
-def assing_task(request, bid_id):
+def assign_task(request, bid_id, task_id):
 	bid = Bid.objects.get(pk=bid_id)
 	bid.assign = True
 	bid.save()
+	task = Task.objects.get(pk=task_id)
+	task.is_taken=True
+	task.show = False
+	task.save()
+
 	return redirect('view_bids')
 
 @login_required

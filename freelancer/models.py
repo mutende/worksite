@@ -19,3 +19,4 @@ class Bid(models.Model):
     assign = models.BooleanField(default=False)
     date = models.DateField(auto_now_add=True)
     objects = models.Manager()
+    

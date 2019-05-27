@@ -25,6 +25,7 @@ class Task(models.Model):
     task_file = models.FileField(upload_to='Tasks/', max_length=150, null=True, blank=True)
     price = models.DecimalField(max_digits=7, decimal_places=2)
     is_taken = models.BooleanField(default=False)
+    show = models.BooleanField(default=True)
     
 
     objects = models.Manager()
