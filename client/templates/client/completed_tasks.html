@@ -1,0 +1,69 @@
+{% extends 'client/base.html' %}
+
+{% block title %}
+<title>Worksite| Client-Tasks</title>
+{% endblock %}
+
+{% block content%}
+
+
+
+            <!-- Main content goes here -->
+            <main class="mdl-layout__content mdl-color--grey-100">
+                <div class="mdl-grid demo-content">
+                    <div class="container-fluid">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Completed Tasks</h4>
+                                    </div>
+                                       <div class="card-body">
+                                       <!-- Tab links -->
+                               
+                                            <table class = "table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Task ID</th>
+                                                    <th>Tittle</th>
+                                                    <th>Freelancer</th>
+                                                    <th>Action</th>
+                                                    
+                                                    
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for complete_task in completed_tasks %}
+                                                <tr>
+                                                    <td>{{ complete_task.bid.task.id }}</td>
+                                                    <td>{{ complete_task.bid.task.title }}</td>                    
+                                                    <td>{{ complete_task.bid.freelancer}}</td>
+                                                    <td><a href="{% url 'complete_task_details' complete_task.id complete_task.bid.freelancer.id complete_task.bid.task.price %}" class="alert-link">Review Results</a></td>
+                                                </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                            
+                                            </div>
+
+                               
+                                       <div class="card-header">
+                                            <p class="text-center">© 2019</p>
+                                       </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+           </main>
+        </div>
+
+{% endblock %}
+

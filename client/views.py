@@ -1,16 +1,17 @@
+from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.shortcuts import render, redirect,get_object_or_404
+from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, CreateView
-from django.contrib import messages
 from client.forms import ClientChangePasswordForm, ClientProfileForm, PostTaskForm,CommentForm
 from worksiteadmin.models import SkillSet,EducationLevelSet
-from client.models import Task,ClientComment
-from freelancer.models import Bid
-from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
+from freelancer.models import Bid,Completed,FreelancerAccountSummery
+from freelancer.forms import CompleteTaskRatingForm
 from authentication.decorators import client_required
 from authentication.models import User
+from client.models import Task,ClientComment
 
 
 # Create your views here.
@@ -120,3 +121,34 @@ def freelancer_profile(request, profile_id):
 	profile = User.objects.get(pk=profile_id)
 	return render(request, 'client/freelancer_profile.html', {'profile':profile})
 
+@login_required
+@client_required
+def completed_tasks(request):
+	completed_tasks = Completed.objects.filter(bid__task__client=request.user).filter(complete = True).filter(rated=False)
+	return render(request, 'client/completed_tasks.html',{'completed_tasks':completed_tasks})
+
+@login_required
+@client_required
+def complete_task_details(request, complete_id, freelancer_id,task_amount):
+	form = CompleteTaskRatingForm(request.POST or None)
+	detailed = Completed.objects.get(pk=complete_id)
+	if request.method == 'POST':		
+		if form.is_valid():
+			update_rating = Completed.objects.get(pk=complete_id)
+			new_rating = request.POST['rating']
+			update_rating.rating = new_rating
+			update_rating.rated = True		
+			update_rating.save()
+			#populate the payments table
+			payment_status = FreelancerAccountSummery()
+			payment_status.amount = task_amount
+			payment_status.client= request.user
+			#get the freelancer from the table
+			freelancer = User.objects.get(pk=freelancer_id)
+			payment_status.freelancer = freelancer
+			payment_status.save()
+			form = CompleteTaskRatingForm()
+			return redirect('complete_tasks')
+
+	context = {'detailed':detailed, 'form':form}	
+	return render(request, 'client/complete_task_details.html', context)

@@ -24,26 +24,48 @@ class Bid(models.Model):
     
     objects = models.Manager()
     def __str__(self):
-        return self.task
+        return str(self.task)
 
 class Completed(models.Model):
+    RATING_CHOICES = (
+    ('5','Excellent'),
+    ('4','Good'),
+    ('3','Average'),
+    ('2','Weak'),
+    ('1','Poor'),
+    )
     bid = models.ForeignKey(Bid, on_delete=models.CASCADE)
     freelancer = models.ForeignKey(User, on_delete=models.CASCADE)
     complete = models.BooleanField(default=False)
-    file = models.FileField(upload_to='Tasks/Completed', max_length=150, null=True, blank=True)
-    description = models.TextField(max_length=500, blank=True, null=True)
-    rating = models.DecimalField(decimal_places=2, max_digits=3, blank=True, null=True)
+    file = models.FileField(upload_to='Tasks/Completed', max_length=255, null=False, blank=False)
+    description = models.TextField(max_length=500, blank=False, null=False, default='Work Complete')
+    rating = models.CharField(max_length=3, choices=RATING_CHOICES, blank=True, null=True)
     date = models.DateField(auto_now_add=True)
     re_assigned = models.BooleanField(default=False)
-    
+    rated = models.BooleanField(default=False)
+    objects = models.Manager()
 
-    class Meta:
-        verbose_name_plural = 'Completed Tasks'
     
     def __str__(self):
-        return self.bid
+        return str(self.freelancer)
+    class Meta:
+        verbose_name_plural = 'Completed Tasks'
+
+
+class FreelancerAccountSummery(models.Model):
+    freelancer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='freelancer')
+    client = models.ForeignKey(User, on_delete=models.CASCADE)
+    amount = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
+    date = models.DateTimeField(auto_now_add=True)
+    paid = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.amount)
+
+    class Meta:
+        verbose_name_plural = 'Payment Summery' 
 
 
 @receiver(post_delete, sender=Completed)
 def submission_delete(sender, instance, **kwargs):
-    instance.task_file.delete(False)
+    instance.file.delete(False)

@@ -83,3 +83,8 @@ class CompleteTaskForm(forms.ModelForm):
 	class Meta:
 		model = Completed
 		fields = ('file','description',)
+
+class CompleteTaskRatingForm(forms.ModelForm):
+	class Meta:
+		model = Completed
+		fields =('rating',)

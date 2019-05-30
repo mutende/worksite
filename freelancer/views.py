@@ -12,9 +12,18 @@ from itertools import chain
 from django.contrib.auth import update_session_auth_hash
 
 # Create your views here.
-@method_decorator([login_required, freelancer_required], name='dispatch')
-class FreelancerHome(TemplateView):
-    template_name = 'freelancer/home.html'
+# @method_decorator([login_required, freelancer_required], name='dispatch')
+# class FreelancerHome(TemplateView):
+#     template_name = 'freelancer/home.html'
+
+@login_required
+@freelancer_required
+def freelancer_home(request):
+	count = Completed.objects.filter(freelancer = request.user).count
+	rating_values = Completed.objects.filter(freelancer=request.user)
+	context = {'count':count,'rating_values':rating_values }
+	return render(request, 'freelancer/home.html',context)
+	
 
 @login_required
 @freelancer_required
@@ -124,7 +133,7 @@ def make_a_bid(request, task_id):
 @login_required
 @freelancer_required
 def get_assigned_tasks(request):
-	my_tasks = Bid.objects.filter(freelancer = request.user).filter(assign = True)
+	my_tasks = Bid.objects.filter(freelancer = request.user).filter(assign = True).filter(show=True)
 	return render(request, 'freelancer/my_tasks.html', {'my_tasks':my_tasks})
 
 @login_required
@@ -132,7 +141,8 @@ def get_assigned_tasks(request):
 def submit_a_task(request, bid_id):
 	if request.method == 'POST':
 		form = CompleteTaskForm(request.POST, request.FILES)
-		if form.is_valid:
+		if form.is_valid():
+			
 			complete = form.save(commit=False)
 			complete.bid = Bid.objects.get(pk=bid_id)
 			complete.complete = True

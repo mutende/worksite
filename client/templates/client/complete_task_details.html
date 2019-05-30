@@ -1,0 +1,79 @@
+{% extends 'client/base.html' %}
+
+{% block title %}
+<title>Worksite| Client-Tasks</title>
+{% endblock %}
+
+{% block content%}
+{% load crispy_forms_tags %}
+
+
+
+            <!-- Main content goes here -->
+            <main class="mdl-layout__content mdl-color--grey-100">
+                <div class="mdl-grid demo-content">
+                    <div class="container-fluid">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Completed Tasks Details</h4>
+                                    </div>
+
+                                    {% if detailed %}
+                                       <div class="card-body">
+                                        <h5 class="h5  mt-4 ">Task Title</h5>
+                                        <p class="text-left grey-text mb-3">{{ detailed.bid.task.title }}</p>
+
+                                        <h5 class="h5">Done by</h5>
+                                        <p class="text-left grey-text mb-3">{{ detailed.bid.freelancer }}</p>
+
+                                        <h5 class="h5">Recommenadtions from {{ detailed.bid.freelancer }}</h5>
+                                        <p class="text-left grey-text mb-3">{{ detailed.description }}</p>
+
+                                    {% if detailed.file %}
+                                        <h5 class="h5">Attached File</h5>
+                                        <a href="{{ detailed.file.url}}" class="btn btn-primary btn-sm" target="_blank">Download</a></td>
+                                    {% else %}
+                                         <p class="text-left grey-text mb-3">Just read the recommenadtions, there is no file.</p>
+                                    {% endif %}
+                                    
+                                    {% if  not detailed.rating %}
+                                    
+                                    <h5 class="h5 mt-4">Rate {{ detailed.bid.freelancer }} basing on the work</h5>
+                                    <form  method="post" class=" col-md-3">
+                                        {% csrf_token %}
+                                        {{ form | crispy }}
+                                        <button class="btn btn-success btn-sm" type="submit">Rate Freelancer</button>
+                                    </form>
+                                    
+                                    {% else %}
+                                    <p class="text-left grey-text mb-3"> Current rating {{ detailed.rating }}</p>
+                                    {% endif %}
+
+                                    {% else %}
+                                    <h5 class="h5">select an existing record</h5>
+                                    {% endif %}                     
+                               
+                                       </div>
+                                       
+                                       <div class="card-header">
+                                            <p class="text-center">© 2019</p>
+                                       </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+           </main>
+        </div>
+
+{% endblock %}
+
