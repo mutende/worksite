@@ -25,7 +25,7 @@ SECRET_KEY = 'ctkyix08%%jzxox_0wa@q=5)3kxn6lx^y+h$i@%and8-!6u)oh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1',]
+ALLOWED_HOSTS = ['emmicode.pythonanywhere.com','localhost','127.0.0.1',]
 
 
 # Application definition
@@ -83,20 +83,29 @@ WSGI_APPLICATION = 'worksite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+#local database
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'worksite',
+#         'USER': 'mutende',
+#         'PASSWORD': 'm0910',
+#         'HOST': 'localhost',
+#         'PORT': '3306'
 #     }
 # }
+#remotedatabase
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'worksite',
-        'USER': 'mutende',
-        'PASSWORD': 'm0910',
-        'HOST': 'localhost',
-        'PORT': '3306'
+        'NAME': 'emmicode$worksite',
+        'USER': 'emmicode',
+        'PASSWORD': '@emmi$1995',
+        'HOST': 'emmicode.mysql.pythonanywhere-services.com',
+        'PORT': '3306',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
     }
 }
 
