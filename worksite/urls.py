@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('worksiteadmin.urls')),
     path('api-auth/', include('rest_framework.urls')),
+    path('api/payments', include('mpesa.api.urls')),
 ]
 
 if settings.DEBUG:
