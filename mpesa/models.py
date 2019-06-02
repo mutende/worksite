@@ -11,3 +11,8 @@ class LNMonline(models.Model):
     Transaction_Date = models.DateTimeField(blank=True, null=True)
     Phone_Number = models.CharField(max_length = 13, blank=True, null=True)
     objects = models.Manager()
+    class Meta:
+        verbose_name_plural = 'MPESA Transactions'
+    
+    def __str__(self):
+        return str(self.Phone_Number)
