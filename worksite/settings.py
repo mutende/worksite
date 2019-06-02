@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'multiselectfield',
     'rest_framework',
-
+    'mpesa',
     
 ]
 
@@ -84,31 +84,31 @@ WSGI_APPLICATION = 'worksite.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 #local database
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'worksite',
-#         'USER': 'mutende',
-#         'PASSWORD': 'm0910',
-#         'HOST': 'localhost',
-#         'PORT': '3306'
-#     }
-# }
-
-#remotedatabase
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'emmicode$worksite',
-        'USER': 'emmicode',
-        'PASSWORD': '@emmi$1995',
-        'HOST': 'emmicode.mysql.pythonanywhere-services.com',
-        'PORT': '3306',
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        },
+        'NAME': 'worksite',
+        'USER': 'mutende',
+        'PASSWORD': 'm0910',
+        'HOST': 'localhost',
+        'PORT': '3306'
     }
 }
+
+#remotedatabase
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'emmicode$worksite',
+#         'USER': 'emmicode',
+#         'PASSWORD': '@emmi$1995',
+#         'HOST': 'emmicode.mysql.pythonanywhere-services.com',
+#         'PORT': '3306',
+#         'OPTIONS': {
+#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+#         },
+#     }
+# }
 
 
 # Password validation
