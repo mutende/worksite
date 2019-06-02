@@ -4,6 +4,7 @@ from worksiteadmin.models import EducationLevelSet, SkillSet
 from django.contrib.auth.models import Group
 from client.models import Task,ClientComment
 from freelancer.models import Comment, Bid,Completed,FreelancerAccountSummery
+from mpesa.models import LNMonline
 
 
 #classes that help display and filter data in the admin panel
@@ -32,6 +33,10 @@ class FreelancerAccountSummeryAdmin(admin.ModelAdmin):
     list_display=('freelancer','client','amount','date','paid',)
     list_filter=('paid',)
 
+class LNMonlineAdmin(admin.ModelAdmin):
+    list_display=('Transaction_Date','Amount','Mpesa_Receipt_Number','Phone_Number',)
+    list_filter=('Transaction_Date',)    
+
 
 # registered models.
 admin.site.register(User,UserAdmin)
@@ -44,5 +49,6 @@ admin.site.register(ClientComment,CommentAdmin)
 admin.site.register(Bid,BidAdmin)
 admin.site.register(Completed,CompletedAdmin)
 admin.site.register(FreelancerAccountSummery,FreelancerAccountSummeryAdmin)
+admin.site.register(LNMonline,LNMonlineAdmin)
 
 admin.site.site_header= 'Worksite Admin'
