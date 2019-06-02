@@ -34,7 +34,7 @@ class FreelancerAccountSummeryAdmin(admin.ModelAdmin):
     list_filter=('paid',)
 
 class LNMonlineAdmin(admin.ModelAdmin):
-    list_display=('Transaction_Date','Amount','Mpesa_Receipt_Number','Phone_Number',)
+    list_display=('Phone_Number','Transaction_Date','Amount','Mpesa_Receipt_Number',)
     list_filter=('Transaction_Date',)    
 
 

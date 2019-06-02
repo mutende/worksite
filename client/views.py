@@ -12,6 +12,7 @@ from freelancer.forms import CompleteTaskRatingForm
 from authentication.decorators import client_required
 from authentication.models import User
 from client.models import Task,ClientComment
+from mpesa.implementation.lipanampesa import lipa_na_mpesa
 
 
 # Create your views here.
@@ -31,6 +32,8 @@ def client_profile(request):
 
 	else:
 		form = ClientProfileForm(instance=request.user)
+		phone_number = request.user.phone_number
+		print(phone_number+'clients phone number')
 	context = {'form': form }
 	return render(request, 'client/edit_profile.html', context)
 
@@ -55,8 +58,10 @@ def post_task_view(request):
     if request.method == 'POST':
         form = PostTaskForm(request.POST, request.FILES)
         if form.is_valid():
+            amount = request.POST['price']
+            lipa_na_mpesa(request.user.phone_number,amount)
             task = form.save(commit=False)
-            task.client = request.user
+            task.client = request.user			
             task.save()
             messages.success(request,('Your task has been posted'))
             return redirect('post_task')
@@ -65,13 +70,6 @@ def post_task_view(request):
     context = {'form': form}
 
     return render(request, 'client/post_tasks.html', context)
-
-# @method_decorator([login_required, client_required], name='dispatch')
-# class POST_TASK(CreateView):
-# 	model  =  Task
-# 	form_class = PostTaskForm
-# 	template = 'client/post_tasks.html'
-# 	success_url = 'post_task'
 
 @login_required
 @client_required
