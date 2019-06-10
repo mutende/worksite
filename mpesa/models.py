@@ -15,4 +15,4 @@ class LNMonline(models.Model):
         verbose_name_plural = 'MPESA Transactions'
     
     def __str__(self):
-        return str(self.Phone_Number)
+        return str(self.Result_Code)

@@ -101,11 +101,10 @@ def pay_for_task(request, task_id):
 @client_required
 def confirm_payment(request,pk):
 	if request.method == 'POST':
-		transaction_id = request.POST.get('transactionID')
+		transaction_id = request.POST.get('transaction_id')
 		print(transaction_id)
-		today = date.today()
-		transaction = LNMonline.objects.values_list('Mpesa_Receipt_Number','Amount','Result_Code').filter(Transaction_Date=today).filter(Mpesa_Receipt_Number=transaction_id)
-		count = LNMonline.objects.values_list('Mpesa_Receipt_Number','Amount','Result_Code').filter(Transaction_Date=today).filter(Mpesa_Receipt_Number=transaction_id).count()
+		transaction = LNMonline.objects.get(Result_Code=0,Phone_Number=request.user.phone_number,Mpesa_Receipt_Number=transaction_id)
+		count = LNMonline.objects.values_list('Result_Code').filter(Phone_Number=request.user.phone_number).filter(Mpesa_Receipt_Number=transaction_id).count()
 		print(transaction)
 		print(count)
 		if count > 1:
@@ -115,9 +114,14 @@ def confirm_payment(request,pk):
 		elif count == 1:
 			#validate and activate task to be viewed by freelancers
 			task = Task.objects.get(pk=pk)
-			task.paid = True
-			task.save()
-			return redirect('client_task_history')
+			required_code = 0
+			if str(transaction) == str(required_code):
+				task.paid = True
+				task.save()
+				return redirect('client_task_history')
+			else:
+				messages.success(request, 'Incorrect Transaction Code, or The transaction was not Successful')
+				return redirect('confirm_payment', pk=pk)
 		else:
 			#no id matching
 			print('No matching transaction found')

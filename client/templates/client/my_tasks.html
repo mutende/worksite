@@ -59,7 +59,7 @@
                                         <td>{{ task.price }}</td>
 
                                         {% if task.paid %}
-                                            <td>{{ task.paid }}</td>
+                                            <td><span class="text-success">Paid</span></td>
                                         {% else %}
                                         <td><a href="{% url 'pay_for_task' task.id %}" class="btn btn-primary ">Proceed to Payment</a></>
                                         {% endif %}
