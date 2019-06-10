@@ -1,6 +1,8 @@
+from rest_framework.response import Response
 import requests
 from mpesa.implementation.my_functions import get_timestamp,get_encoded_password,generate_the_access_token
 from mpesa.implementation import keys
+
 
 
 
@@ -26,14 +28,5 @@ def lipa_na_mpesa(phone_number, amount):
     }
 
     response = requests.post(api_url, json = request, headers=headers)
-
-    control = False 
-    response_code =  response.text[2]
-
-    if response_code == "0":
-        control = True
-    else:
-        control = False    
-
     print (response.text)
-    return control
+    return Response({"results_desc": "Yeey it worked"})
