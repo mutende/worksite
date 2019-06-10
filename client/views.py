@@ -85,7 +85,7 @@ def pay_for_task(request, task_id):
 		else:
 			pay = False
 		if pay==True:
-			#lipa_na_mpesa(phone,amount)
+			lipa_na_mpesa(phone,amount)
 			print('continue to payment')
 			print(phone)
 			print(amount)
