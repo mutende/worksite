@@ -19,13 +19,14 @@
                             </div>
                                 <div class="card-body">
                                     <div class="col-md-4 offset-md-4">
+                                           
                                             {% if messages%}
-                                            {% for clientcommentmsg in messages %}
-                                                <div class="alert alert-success alert-dismissable" role="alert">
+                                            {% for paymsg in messages %}
+                                                <div class="alert alert-danger alert-dismissable" role="alert">
                                                 <button class="close" data-dismiss="alert">
                                                     <small><sup>x</sup></small>
                                                 </button>
-                                                {{ clientcommentmsg }}
+                                                {{ paymsg }}
                                                 </div>
                                             {% endfor %}
                                             {% endif%}

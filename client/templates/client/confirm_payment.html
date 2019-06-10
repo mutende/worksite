@@ -1,0 +1,84 @@
+{% extends 'client/base.html' %}
+
+{% block title %}
+<title>Worksite | Client-Freelancer's Profile</title>
+{% endblock %}
+
+{% block content%}
+
+{% load crispy_forms_tags %}
+            <!-- Main content goes here -->
+            <main class="mdl-layout__content mdl-color--grey-100">
+                <div class="mdl-grid demo-content">
+                    <div class="container-fluid">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Payments </h4>
+                                    </div>
+                                       <div class="card-body">
+                                       <div class="container">
+                                           
+                                              
+
+                                           {% if user.is_account_active %}
+                                           <div class="alert alert-warning alert-dismissable" role="alert">
+                                                <button class="close" data-dismiss="alert">
+                                                    <!-- <small><sup>x</sup></small> -->
+                                                </button>
+                                               <p>If you have received a success MPESA transaction message, input the transaction message ID here as it is, and confirm payments.</p>
+                                             </div>
+                                            
+
+                                           <div class="col-5 offset-3 mb-5 mt-3">
+                                                {% if messages%}
+                                                    {% for paymentmsgs in messages %}
+                                                        <div class="alert alert-danger alert-dismissable" role="alert">
+                                                        <button class="close" data-dismiss="alert">
+                                                            <small><sup>x</sup></small>
+                                                        </button>
+                                                        {{ paymentmsgs }}
+                                                        </div>
+                                                    {% endfor %}
+                                                    {% endif%}
+                                                                                         
+                                         
+                                                
+                                                <form class="form-inline" method="POST">
+                                                        {% csrf_token %}
+                                                       
+                                                        <div class="form-group mx-sm-3 mb-2">
+                                                          <!-- <label for="transactionID" class="col-sm-3 col-form-label">Transaction ID</label> -->
+                                                          <input type="text" class="form-control" id="transactionID" name ="transaction_id" placeholder="Transaction ID (LMGX....)">
+                                                          <button type="submit" class="btn btn-primary mb-2 mt-2 ml-3">Confirm Payments</button>
+                                                        </div>
+                                                      
+                                                      </form>
+                                                
+                                                   
+                                          
+
+                                          </div>
+                                          
+                                            {% endif %}
+                                       </div>
+                                       <div class="card-header">
+                                            <p class="text-center">© 2019</p>
+                                       </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+           </main>
+        </div>
+
+{% endblock %}

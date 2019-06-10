@@ -1,3 +1,4 @@
+from datetime import date
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
@@ -13,6 +14,7 @@ from authentication.decorators import client_required
 from authentication.models import User
 from client.models import Task,ClientComment
 from mpesa.implementation.lipanampesa import lipa_na_mpesa
+from mpesa.models import LNMonline
 
 
 # Create your views here.
@@ -58,18 +60,71 @@ def post_task_view(request):
     if request.method == 'POST':
         form = PostTaskForm(request.POST, request.FILES)
         if form.is_valid():
-            amount = request.POST['price']
-            lipa_na_mpesa(request.user.phone_number,amount)
             task = form.save(commit=False)
             task.client = request.user			
             task.save()
-            messages.success(request,('Your task has been posted'))
+            messages.success(request,('Your task has been posted, go to your task history and proceed on paying so that your task will be available for bidding'))
             return redirect('post_task')
     else:
         form = PostTaskForm(instance= request.user)
     context = {'form': form}
 
     return render(request, 'client/post_tasks.html', context)
+
+@login_required
+@client_required
+def pay_for_task(request, task_id):
+	task = Task.objects.get(pk=task_id)
+	amount=task.price
+	phone= request.user.phone_number	
+	if request.method == 'POST':
+		confirm = request.POST.get("confirm")
+		pay= False
+		if confirm == "yes":
+			pay=True
+		else:
+			pay = False
+		if pay==True:
+			#lipa_na_mpesa(phone,amount)
+			print('continue to payment')
+			print(phone)
+			print(amount)
+			return redirect('confirm_payment', pk=task.id)
+		else:
+			messages.success(request,'If there was an error with information provided during payment for a task, write  comment with the specific details you want to be updated')
+			return redirect('client_comment')
+	
+	context = {'amount': amount, 'phone': phone, 'task': task}
+	return render(request, 'client/pay_for_task.html',context)
+	
+@login_required
+@client_required
+def confirm_payment(request,pk):
+	if request.method == 'POST':
+		transaction_id = request.POST.get('transactionID')
+		print(transaction_id)
+		today = date.today()
+		transaction = LNMonline.objects.values_list('Mpesa_Receipt_Number','Amount','Result_Code').filter(Transaction_Date=today).filter(Mpesa_Receipt_Number=transaction_id)
+		count = LNMonline.objects.values_list('Mpesa_Receipt_Number','Amount','Result_Code').filter(Transaction_Date=today).filter(Mpesa_Receipt_Number=transaction_id).count()
+		print(transaction)
+		print(count)
+		if count > 1:
+			#retun error in inputting id more than 1 id found
+			messages.success(request, 'Transaction is more than one, enter the correct id')
+			return redirect('confirm_payment', pk=pk)
+		elif count == 1:
+			#validate and activate task to be viewed by freelancers
+			task = Task.objects.get(pk=pk)
+			task.paid = True
+			task.save()
+			return redirect('client_task_history')
+		else:
+			#no id matching
+			print('No matching transaction found')
+			messages.success(request, 'Transaction ID do not match with any')
+			return redirect('confirm_payment', pk=pk)
+	return render(request,'client/confirm_payment.html',{})
+
 
 @login_required
 @client_required
@@ -82,7 +137,7 @@ def make_a_comment(request):
 			comment.user = request.user
 			comment.save()
 			messages.success(request,('comment submitted'))
-			return redirect('client_comment')
+			return redirect('client_home')
 		else:
 			form = CommentForm()
 	context = {'form': form}
@@ -150,3 +205,4 @@ def complete_task_details(request, complete_id, freelancer_id,task_amount):
 
 	context = {'detailed':detailed, 'form':form}	
 	return render(request, 'client/complete_task_details.html', context)
+

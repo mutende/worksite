@@ -13,7 +13,6 @@ class LNMCallbackAPIView(CreateAPIView):
     serializer_class = LNMonlineSerializer
     permission_classes = [AllowAny]
     def create(self, request):
-        print(request.data, "this is request.data")
         merchant_request_id = request.data["Body"]["stkCallback"]["MerchantRequestID"]
         checkout_request_id = request.data["Body"]["stkCallback"]["CheckoutRequestID"]
         result_code = request.data["Body"]["stkCallback"]["ResultCode"]
@@ -37,8 +36,10 @@ class LNMCallbackAPIView(CreateAPIView):
         Mpesa_Receipt_Number = mpesa_reciept_number,
         Transaction_Date = transaction_datetime,
         Phone_Number = phone_number
-
         )
         x.save()
+        if amount > 0:
+            new_pay = LNMonline()
+            new_pay.Paid = True            
         return Response({"Description":"It worked"})
         

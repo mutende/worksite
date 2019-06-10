@@ -16,6 +16,12 @@ class ClientSignUpForm(UserCreationForm):
         model = User
         fields = ('username', 'first_name', 'last_name','email','phone_number','address','password1','password2')
 
+    def __init__(self, *args, **kwargs):
+        super(ClientSignUpForm, self).__init__(*args, **kwargs)
+        self.fields['username'].help_text=''
+        self.fields['password1'].help_text=''
+        self.fields['password2'].help_text=''
+
     # set user to be client and make account actve
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -38,7 +44,12 @@ class FreelancertSignUpForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
         fields = ('username', 'first_name', 'last_name','email','phone_number','address','highest_education_level','best_skill','certificate','password1','password2')
-
+    
+    def __init__(self, *args, **kwargs):
+        super(FreelancertSignUpForm, self).__init__(*args, **kwargs)
+        self.fields['username'].help_text=''
+        self.fields['password1'].help_text=''
+        self.fields['password2'].help_text=''
 
     # set user to freelancer
     def save(self, commit=True):

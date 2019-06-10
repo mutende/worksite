@@ -1,0 +1,78 @@
+{% extends 'client/base.html' %}
+
+{% block title %}
+<title>Worksite | Client-Freelancer's Profile</title>
+{% endblock %}
+
+{% block content%}
+
+{% load crispy_forms_tags %}
+            <!-- Main content goes here -->
+            <main class="mdl-layout__content mdl-color--grey-100">
+                <div class="mdl-grid demo-content">
+                    <div class="container-fluid">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Payments </h4>
+                                    </div>
+                                       <div class="card-body">
+                                       <div class="container">
+                                           
+                                              
+
+                                           {% if user.is_account_active %}
+                                           <div class="alert alert-warning alert-dismissable" role="alert">
+                                                <button class="close" data-dismiss="alert">
+                                                    <!-- <small><sup>x</sup></small> -->
+                                                </button>
+                                               <p>Before you proceed, make sure that the information below is valid. Incase of anything contact the admin for help.<br>Your <strong>MPESA</strong> account <strong>MUST</strong> have more than the amount you have to pay as shown below.</p>
+                                             </div>
+                                            
+
+                                           <div class="col-4 offset-4 mb-5 mt-3">
+                                                <h5 class="h5">Task:  <span class="h6">{{ task }}</span></h5>
+                                                <h5 class="h5">Amount:  <span class="h6">{{ amount }}</span></h5>   
+                                                <h5 class="h5">Phone Number:  <span class="h6">{{ phone }}</span></h5>                                               
+                                          <form method="Post">
+                                                {% csrf_token %}
+                                                <h5 class="h5">Confirm?</h5>
+                                                <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="confirm" id="inlineRadio1" value="no" checked>
+                                                        <label class="form-check-label" for="inlineRadio1">No</label>
+                                                      </div>
+                                                      <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="confirm" id="inlineRadio2" value="yes">
+                                                        <label class="form-check-label" for="inlineRadio2">Yes</label>
+                                                      </div>
+                                                </div>
+                                                <div class="col-4 offset-4">
+                                                        <button type="submit" class="btn btn-primary text-center" style="width:100px">Pay</button>
+                                                </div>
+                                                   
+                                          </form>   
+
+                                          </div>
+                                          
+                                            {% endif %}
+                                       </div>
+                                       <div class="card-header">
+                                            <p class="text-center">© 2019</p>
+                                       </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+           </main>
+        </div>
+
+{% endblock %}

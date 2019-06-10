@@ -21,6 +21,7 @@
                                     </div>
                                        <div class="card-body">
                                        <!-- Tab links -->
+                                       {% if completed_tasks %}
                                
                                             <table class = "table">
                                             <thead>
@@ -44,6 +45,9 @@
                                                 {% endfor %}
                                                 </tbody>
                                             </table>
+                                            {% else %}
+                                            <h3 class ="h4 mt-5 ml-4 mb-5">You do not have any complete tasks.</h3>
+                                            {% endif %}
                                             
                                             </div>
 

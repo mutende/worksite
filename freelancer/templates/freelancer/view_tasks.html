@@ -20,80 +20,84 @@
                                         <h4 class="card-title">Available Tasks</h4>
                                     </div>
                                        <div class="card-body">
-                                       <!-- Tab links -->
-                                <div class="tab">
-                                <button class="tablinks" id ="defaultOpen" onclick="openCity(event, 'London')">Tasks</button>
-                                <button class="tablinks" onclick="openCity(event, 'Paris')">Messages</button>
-                                <button class="tablinks" onclick="openCity(event, 'Tokyo')">Files</button>
-                                </div>
+                                           {% if tasks %}
+                                            <!-- Tab links -->
+                                        <div class="tab">
+                                        <button class="tablinks" id ="defaultOpen" onclick="openCity(event, 'London')">Tasks</button>
+                                        <!-- <button class="tablinks" onclick="openCity(event, 'Paris')">Messages</button> -->
+                                        <button class="tablinks" onclick="openCity(event, 'Tokyo')">Files</button>
+                                        </div>
 
-                                <!-- Tab content -->
-                                <div id="London" class="tabcontent">
-                                <table class = "table">
-                                <thead>
-                                    <tr>
-                                        <th>Task ID</th>
-                                        <th>Tittle</th>
-                                        <th>Skill</th>
-                                        <th>Education</th>
-                                        <th>Due Date</th>
-                                        <th>Format</th>
-                                        <th>Price</th>
-                                        <th>Jod Details</th>
-                                        <!-- <th>Bid</th> -->
-                    
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for task in tasks %}
-                                    <tr>
-                                        <td>{{ task.id }}</td>
-                                        <td>{{ task.title }}</td>                    
-                                        <td>{{ task.best_skill }}</td>
-                                        <td>{{ task.highest_education_level }}</td>
-                                        <td>{{ task.expiry_date }}</td>
-                                        <td>{{ task.documet_format }}</td>
-                                        <td>{{ task.price }}</td>
-                                        <td> <a href="{% url 'task_details' task.id%}">{{ task.title }}</a></td>                                                                   
-                                        <td><a href="{% url 'place_bid' task.id%}" class="btn btn-primary btn-sm">Bid</a></td>                                                                               
-                                    </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-                                
-                                </div>
+                                        <!-- Tab content -->
+                                        <div id="London" class="tabcontent">
+                                        <table class = "table">
+                                        <thead>
+                                            <tr>
+                                                <th>Task ID</th>
+                                                <th>Tittle</th>
+                                                <th>Skill</th>
+                                                <th>Education</th>
+                                                <th>Due Date</th>
+                                                <th>Format</th>
+                                                <th>Price</th>
+                                                <th>Jod Details</th>
+                                                <!-- <th>Bid</th> -->
+                            
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for task in tasks %}
+                                            <tr>
+                                                <td>{{ task.id }}</td>
+                                                <td>{{ task.title }}</td>                    
+                                                <td>{{ task.best_skill }}</td>
+                                                <td>{{ task.highest_education_level }}</td>
+                                                <td>{{ task.expiry_date }}</td>
+                                                <td>{{ task.documet_format }}</td>
+                                                <td>{{ task.price }}</td>
+                                                <td> <a href="{% url 'task_details' task.id%}">{{ task.title }}</a></td>                                                                   
+                                                <td><a href="{% url 'place_bid' task.id%}" class="btn btn-primary btn-sm">Bid</a></td>                                                                               
+                                            </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                        
+                                        </div>
 
-                                <div id="Paris" class="tabcontent">
-                                <h3>loading ....</h3>
-                               
-                                </div>
+                                        <div id="Paris" class="tabcontent">
+                                        <h3>loading ....</h3>
+                                    
+                                        </div>
 
-                                <div id="Tokyo" class="tabcontent">
+                                        <div id="Tokyo" class="tabcontent">
 
-                                <table class = "table">
-                                <thead>
-                                   <tr>
-                                       <th>Task id</th>
-                                       <th>Title</th>
-                                       <th>Price</th>
-                                       <th>File</th>
-                                   </tr>
-                                </thead>
-                                <tbody>
-                                    {% for task in tasks %}
-                                    <tr>
-                                        <td>{{ task.id }}</td>
-                                        <td>{{ task.title }}</td>
-                                        <td>{{task.price}}</td>
-                                        {% if task.task_file %}                                       
-                                       <td><a href="{{ task.task_file.url}}" class="btn btn-primary btn-sm" target="_blank">Download</a></td> 
-                                       {% else %}
-                                        <td class="text-danger">No files were attached</td>
+                                        <table class = "table">
+                                        <thead>
+                                        <tr>
+                                            <th>Task id</th>
+                                            <th>Title</th>
+                                            <th>Price</th>
+                                            <th>File</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for task in tasks %}
+                                            <tr>
+                                                <td>{{ task.id }}</td>
+                                                <td>{{ task.title }}</td>
+                                                <td>{{task.price}}</td>
+                                                {% if task.task_file %}                                       
+                                            <td><a href="{{ task.task_file.url}}" class="btn btn-primary btn-sm" target="_blank">Download</a></td> 
+                                            {% else %}
+                                                <td class="text-danger">No files were attached</td>
+                                                {% endif %}
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                        </table>
+                                        {% else %}
+                                        <h3 class ="h4  ml-4">There are no tasks available yet</h3>
                                         {% endif %}
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                                </table>
                                
                                 </div>
                                          {% if user.is_account_active %}

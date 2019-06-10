@@ -20,14 +20,29 @@
                                         <h4 class="card-title">Welcome</h4>
                                     </div>
                                        <div class="card-body">
-                                           {# {% for rating in rating_values %} #}
-                                           {# {{ count }} #}
-                                           {#{{ rating.rating }} #}
-                                           {# {% endfor %} #}
+                                           {% if count %}
+                                           {% if count > 1%}
+                                            <h5 class=" h5 ml-5">You have completed {{ count }} tasks</h5>
+                                            {% else %}
+                                            <h5 class=" h5 ml-5">You have completed {{ count }} task</h5>
+                                            {% endif %}
+                                            
+                                            {% if rating.rating %}
+                                            {% if rating.rating > 2.999 %}
+                                            <h5 class=" h5 ml-5 mt-4">Your current rating is <span class="text-success">{{ rating.rating }}</span>, this according to how the clients have rated you from how you handled their tasks.</h5>
+                                            {% else %}
+                                            <h5 class=" h5 ml-5 mt-4">Your current rating is <span class="text-warning">{{ rating.rating }}</span>, this according to how the clients have rated you from how you handled their tasks.<br><span class="text-danger">Try no to be rated below 3, your account might be deactivated</span></h5>
+                                            {% endif %}
+                                           {% endif %}
+                                            {% else %}
+                                            <h5 class=" h5 ml-5">You have not done any tasks yet, keep bidiing, incase of anything contact us</h5>
+                                           {% endif %}
+                                           
+                                          
                                          {% if user.is_account_active %}
                                                 <p class="text-left h5 grey-text mt-5 ml-5 mr-5">
                                                     Hello {{user.last_name}}, thanks for choosing this platform. We wish you all the best as you interact with our platform. Incase you get stuck anywhere, please feel free to refer to our online help menu or contact us for further information.  </p><br>
-                                                <p class="h5 text-left grey-text mt-3 ml-5 mr-5"> Account is now <span class="text-success"> active.</span></p><br>
+                                                <p class="h5 text-left grey-text mt-3 ml-5 mr-5"> Account is <span class="text-success"> active.</span></p><br>
                                                 <p class="h4 text-left grey-text mt-3 ml-5 mr-5">Goodluck.</p>
                                           
                                             {% else %}

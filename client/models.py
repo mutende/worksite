@@ -8,6 +8,7 @@ from django.dispatch import receiver
 
 class Task(models.Model):
     FORMAT_AS_CHOICES = (
+    ('None','None'),
     ('APA','APA'),
     ('MLA','MLA'),
     ('Chicago','Chicago'),
@@ -21,11 +22,12 @@ class Task(models.Model):
     highest_education_level = models.ForeignKey(EducationLevelSet, on_delete=models.SET_NULL, null= True)
     date_posted = models.DateField(auto_now=True)
     expiry_date = models.DateField(auto_now = False)
-    documet_format = models.CharField(max_length=100,choices=FORMAT_AS_CHOICES, default='APA')
+    documet_format = models.CharField(max_length=100,choices=FORMAT_AS_CHOICES, default='None')
     task_file = models.FileField(upload_to='Tasks/', max_length=150, null=True, blank=True)
     price = models.DecimalField(max_digits=7, decimal_places=2)
     is_taken = models.BooleanField(default=False)
     show = models.BooleanField(default=True)
+    paid = models.BooleanField(default=False)
     
     
 

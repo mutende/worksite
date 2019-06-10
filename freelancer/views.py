@@ -1,27 +1,24 @@
-from freelancer.forms import FreelancerChangePasswordForm, FreelancerProfileForm,CommentForm,CompleteTaskForm
-from django.contrib.auth.decorators import login_required
-from authentication.decorators import freelancer_required
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import TemplateView,ListView,DetailView
-from django.contrib import messages
-from client.models import Task
-from freelancer.models import Bid,Completed
-from django.utils.decorators import method_decorator
 from datetime import datetime, date
-from itertools import chain
+# from itertools import chain
+from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.decorators import login_required
+from django.db.models import Avg
+from django.shortcuts import render, redirect, get_object_or_404
+from django.utils.decorators import method_decorator
+from django.views.generic import TemplateView,ListView,DetailView
+from authentication.decorators import freelancer_required
+from client.models import Task
+from freelancer.forms import FreelancerChangePasswordForm, FreelancerProfileForm,CommentForm,CompleteTaskForm
+from freelancer.models import Bid,Completed
 
-# Create your views here.
-# @method_decorator([login_required, freelancer_required], name='dispatch')
-# class FreelancerHome(TemplateView):
-#     template_name = 'freelancer/home.html'
 
 @login_required
 @freelancer_required
 def freelancer_home(request):
 	count = Completed.objects.filter(freelancer = request.user).count
-	rating_values = Completed.objects.filter(freelancer=request.user)
-	context = {'count':count,'rating_values':rating_values }
+	rating =Completed.objects.filter(freelancer=request.user).aggregate(rating=Avg('rating'))
+	context = {'count':count,'rating':rating }
 	return render(request, 'freelancer/home.html',context)
 	
 
@@ -59,7 +56,7 @@ def freelancerChangePassword(request):
 @freelancer_required
 def view_tasks(request):
 	today = date.today()
-	tasks = Task.objects.filter(expiry_date__gte=today)
+	tasks = Task.objects.filter(expiry_date__gte=today).filter(paid=True)
 	context = {'tasks':tasks}
 	return render (request, 'freelancer/view_tasks.html',context)
 
@@ -93,7 +90,9 @@ class ViewTask(ListView):
 		# 	all_bids,
 		# 	all_tasks,
 		# )
-		return Task.objects.filter(expiry_date__gte=today).filter(is_taken=False)
+		#query from bids for the current user
+		bidded_tasks= Bid.objects.values_list('task').filter(freelancer= self.request.user).filter(bidded = True)
+		return Task.objects.exclude(id__in=bidded_tasks).filter(expiry_date__gte=today).filter(is_taken=False).filter(paid=True)
 
 
 @method_decorator([login_required, freelancer_required], name='dispatch')
@@ -127,6 +126,7 @@ def make_a_bid(request, task_id):
 	bid = Bid()
 	bid.task = new_task
 	bid.freelancer= new_freelancer
+	bid.bidded = True
 	bid.save()
 	return redirect('view_tasks')
 

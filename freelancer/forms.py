@@ -18,12 +18,12 @@ class FreelancerChangePasswordForm(PasswordChangeForm):
 		self.fields['new_password1'].widget.attrs['class'] = 'form-control'
 		self.fields['new_password1'].label=''
 		self.fields['new_password1'].widget.attrs['placeholder'] = 'New Password'
-		self.fields['new_password1'].help_text='<ul class="form-text text-muted small"><li> Your password can\'t be too similar to your other personal information.</li> <li>Your password must contain at least 8 characters.</li> <li>Your password can\'t be a commonly used password.</li> <li>Your password can\'t be entirely numeric.</li></ul>'
+		self.fields['new_password1'].help_text=''
 
 		self.fields['new_password2'].widget.attrs['class'] = 'form-control'
 		self.fields['new_password2'].label=''
 		self.fields['new_password2'].widget.attrs['placeholder'] = 'Confirm Password'
-		self.fields['new_password2'].help_text='<span class="form-text text-muted"><span><small>Enter the same password as before, for verification.</small></span>'
+		self.fields['new_password2'].help_text=''
 
 class FreelancerProfileForm(UserChangeForm):
 	email = forms.CharField(widget=forms.TextInput(),required=True)
@@ -64,7 +64,7 @@ class FreelancerProfileForm(UserChangeForm):
 			else:
 				initial['best_skill']=None
 		forms.ModelForm.__init__(self,*args, **kwargs)
-		self.fields['phone_number'].help_text='in format of +2547... start with country code'
+		self.fields['phone_number'].help_text='in format of 2547... start with country code without the plus'
 		self.fields['highest_education_level'].widget.attrs['readonly'] = True
 		self.fields['best_skill'].widget.attrs['readonly'] = True
 		self.fields['best_skill'].help_text='you cannot edit your level of education immediately, just upload your  new certificate and the admin will update skills and education level'

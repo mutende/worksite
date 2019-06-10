@@ -20,16 +20,19 @@
                                         <h4 class="card-title">View Your Task History</h4>
                                     </div>
                                        <div class="card-body">
+                                            {% if tasks %}
                                        <!-- Tab links -->
                                 <div class="tab">
                                 <button class="tablinks" id ="defaultOpen" onclick="openCity(event, 'London')">Tasks</button>
-                                <button class="tablinks" onclick="openCity(event, 'Paris')">Messages</button>
+                                <!-- <button class="tablinks" onclick="openCity(event, 'Paris')">Messages</button> -->
                                 <button class="tablinks" onclick="openCity(event, 'Tokyo')">Files</button>
                                 </div>
+                               
+
 
                                 <!-- Tab content -->
                                 <div id="London" class="tabcontent">
-                                <h3 class ="h4">Latest Tasks that have not expired</h3>
+                               
                                 <table class = "table">
                                 <thead>
                                     <tr>
@@ -40,6 +43,7 @@
                                         <th>Due Date</th>
                                         <th>Format</th>
                                         <th>Price</th>
+                                        <th>Paid<th>
                                         
                                     </tr>
                                     </thead>
@@ -53,12 +57,20 @@
                                         <td>{{ task.expiry_date }}</td>
                                         <td>{{ task.documet_format }}</td>
                                         <td>{{ task.price }}</td>
+
+                                        {% if task.paid %}
+                                            <td>{{ task.paid }}</td>
+                                        {% else %}
+                                        <td><a href="{% url 'pay_for_task' task.id %}" class="btn btn-primary ">Proceed to Payment</a></>
+                                        {% endif %}
                                     </tr>
                                     {% endfor %}
                                     </tbody>
                                 </table>
                                 
                                 </div>
+                              
+                               
 
                                 <div id="Paris" class="tabcontent">
                                 <h3>loading ....</h3>
@@ -90,9 +102,12 @@
                                     {% endfor %}
                                     </tbody>
                                 </table>
+                                {% else %}
+                                <h3 class ="h4  ml-4">You have not posted any tasks yet</h3>
+                                {% endif %}
                                
                                 </div>
-                                         {% if user.is_account_active %}
+                                         <!-- {% if user.is_account_active %}
                                                
                                           
                                             {% else %}
@@ -106,7 +121,7 @@
                                                         </ol>
                                                  </p><br>
                                             
-                                            {% endif %}
+                                            {% endif %} -->
                                        </div>
                                        <div class="card-header">
                                             <p class="text-center">© 2019</p>

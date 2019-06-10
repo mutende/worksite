@@ -24,6 +24,7 @@
 
                                            {% if user.is_account_active %}
                                                 <div class="container">
+                                                    {% if bids %}
                                                     <table class='table table-hover'>
                                                      
                                                         <thead>
@@ -56,6 +57,9 @@
                                                       
 
                                                     </table>
+                                                    {% else %}
+                                                    <h3 class ="h4 mt-5 ml-4 mb-5">Nobody has bidded for your tasks if you have posted any.</h3>
+                                                    {% endif %}
                                                  
                                                 </div>
 
