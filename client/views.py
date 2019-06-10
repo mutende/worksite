@@ -102,18 +102,17 @@ def pay_for_task(request, task_id):
 def confirm_payment(request,pk):
 	if request.method == 'POST':
 		transaction_id = request.POST.get('transaction_id')
-		print(transaction_id)
-		transaction = LNMonline.objects.get(Result_Code=0,Phone_Number=request.user.phone_number,Mpesa_Receipt_Number=transaction_id)
+		print(transaction_id)		
 		count = LNMonline.objects.values_list('Result_Code').filter(Phone_Number=request.user.phone_number).filter(Mpesa_Receipt_Number=transaction_id).count()
-		print(transaction)
 		print(count)
 		if count > 1:
 			#retun error in inputting id more than 1 id found
-			messages.success(request, 'Transaction is more than one, enter the correct id')
+			messages.success(request, 'Enter the correct trsanction ID')
 			return redirect('confirm_payment', pk=pk)
 		elif count == 1:
 			#validate and activate task to be viewed by freelancers
 			task = Task.objects.get(pk=pk)
+			transaction = LNMonline.objects.get(Result_Code=0,Phone_Number=request.user.phone_number,Mpesa_Receipt_Number=transaction_id)
 			required_code = 0
 			if str(transaction) == str(required_code):
 				task.paid = True
