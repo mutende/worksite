@@ -1,12 +1,14 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django.core.validators import RegexValidator
 from django.db import transaction
 from authentication.models import User
 from worksiteadmin.models import SkillSet,EducationLevelSet
 
 #client form
 class ClientSignUpForm(UserCreationForm):
-    phone_number = forms.CharField(max_length=13,widget=forms.TextInput())
+    phone_regex = RegexValidator(regex=r'^[2][5][4][7]\d{8}$', message="Phone number must be entered in the format: '2547...'. Up to 12 digits allowed.This is Kenyan Country Code")
+    phone_number = forms.CharField(validators=[phone_regex],max_length=13,widget=forms.TextInput())
     address = forms.CharField(required=False, max_length=100, widget=forms.TextInput())
     email = forms.EmailField(required=True, widget=forms.TextInput())
     first_name = forms.CharField(max_length=100,required=True, widget=forms.TextInput())
@@ -33,7 +35,8 @@ class ClientSignUpForm(UserCreationForm):
 
 #freelancer form
 class FreelancertSignUpForm(UserCreationForm):
-    phone_number = forms.CharField(widget=forms.TextInput())
+    phone_regex = RegexValidator(regex=r'^[2][5][4][7]\d{8}$', message="Phone number must be entered in the format: '2547...'. Up to 12 digits allowed.This is Kenyan Country Code")
+    phone_number = forms.CharField(validators=[phone_regex],widget=forms.TextInput())
     address = forms.CharField(max_length=13,required=True, widget=forms.TextInput())
     email = forms.EmailField(required=True, widget=forms.TextInput())
     first_name = forms.CharField(max_length=100,required=True, widget=forms.TextInput())
