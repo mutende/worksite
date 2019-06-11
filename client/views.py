@@ -63,8 +63,8 @@ def post_task_view(request):
             task = form.save(commit=False)
             task.client = request.user			
             task.save()
-            messages.success(request,('Your task has been posted, go to your task history and proceed on paying so that your task will be available for bidding'))
-            return redirect('post_task')
+            # messages.success(request,('Your task has been posted, go to your task history and proceed on paying so that your task will be available for bidding'))
+            return redirect('client_task_history')
     else:
         form = PostTaskForm(instance= request.user)
     context = {'form': form}
