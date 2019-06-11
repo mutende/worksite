@@ -19,7 +19,6 @@ class LNMCallbackAPIView(CreateAPIView):
         result_description = request.data["Body"]["stkCallback"]["ResultDesc"]
         amount = request.data["Body"]["stkCallback"]["CallbackMetadata"]['Item'][0]['Value']
         mpesa_reciept_number = request.data["Body"]["stkCallback"]["CallbackMetadata"]['Item'][1]['Value']
-        # balance = request.data["Body"]["stkCallback"]["CallbackMetadata"]['Item'][2]['Value']
         transaction_date = request.data["Body"]["stkCallback"]["CallbackMetadata"]['Item'][3]['Value']
         phone_number = request.data["Body"]["stkCallback"]["CallbackMetadata"]['Item'][4]['Value']
 
@@ -37,9 +36,5 @@ class LNMCallbackAPIView(CreateAPIView):
         Transaction_Date = transaction_datetime,
         Phone_Number = phone_number
         )
-        x.save()
-        if amount > 0:
-            new_pay = LNMonline()
-            new_pay.Paid = True            
-        return Response({"Description":"It worked"})
-        
+        x.save()          
+        return Response({"Description":"It worked"})     
