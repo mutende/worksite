@@ -36,7 +36,6 @@ def client_profile(request):
 	else:
 		form = ClientProfileForm(instance=request.user)
 		phone_number = request.user.phone_number
-		print(phone_number+'clients phone number')
 	context = {'form': form }
 	return render(request, 'client/edit_profile.html', context)
 
@@ -87,9 +86,6 @@ def pay_for_task(request, task_id):
 			pay = False
 		if pay==True:
 			lipa_na_mpesa(phone,amount)
-			print('continue to payment')
-			print(phone)
-			print(amount)
 			return redirect('confirm_payment', pk=task.id)
 		else:
 			messages.success(request,'If there was an error with information provided during payment for a task, write  comment with the specific details you want to be updated')
@@ -102,10 +98,8 @@ def pay_for_task(request, task_id):
 @client_required
 def confirm_payment(request,pk):
 	if request.method == 'POST':
-		transaction_id = request.POST.get('transaction_id')
-		print(transaction_id)		
+		transaction_id = request.POST.get('transaction_id')	
 		count = LNMonline.objects.values_list('Result_Code').filter(Phone_Number=request.user.phone_number).filter(Mpesa_Receipt_Number=transaction_id).count()
-		print(count)
 		if count > 1:
 			#retun error in inputting id more than 1 id found
 			messages.success(request, 'Enter the correct trsanction ID')
@@ -124,7 +118,6 @@ def confirm_payment(request,pk):
 				return redirect('confirm_payment', pk=pk)
 		else:
 			#no id matching
-			print('No matching transaction found')
 			messages.success(request, 'Transaction ID do not match with any')
 			return redirect('confirm_payment', pk=pk)
 	return render(request,'client/confirm_payment.html',{})
@@ -178,9 +171,6 @@ def freelancer_profile(request, profile_id):
 	profile = User.objects.get(pk=profile_id)
 	count = Completed.objects.filter(freelancer = profile).count
 	rating =Completed.objects.filter(freelancer=profile).aggregate(rating=Avg('rating'))
-	print('The user object'+str(profile))
-	print(count)
-	print(rating)
 	context = {'count':count,'rating':rating,'profile':profile}
 	return render(request, 'client/freelancer_profile.html', context)
 

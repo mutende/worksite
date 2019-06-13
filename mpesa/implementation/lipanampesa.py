@@ -28,5 +28,5 @@ def lipa_na_mpesa(phone_number, amount):
     }
 
     response = requests.post(api_url, json = request, headers=headers)
-    print (response.text)
+    # print (response.text)
     return Response({"results_desc": "Yeey it worked"})
