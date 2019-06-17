@@ -9,8 +9,8 @@ from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, CreateView
 from client.forms import ClientChangePasswordForm, ClientProfileForm, PostTaskForm,CommentForm
 from worksiteadmin.models import SkillSet,EducationLevelSet
-from freelancer.models import Bid,Completed,FreelancerAccountSummery
-from freelancer.forms import CompleteTaskRatingForm
+from freelancer.models import Bid,Completed,FreelancerAccountSummery,ReassigendTask
+from freelancer.forms import CompleteTaskRatingForm,ReassingTaskForm
 from authentication.decorators import client_required
 from authentication.models import User
 from client.models import Task,ClientComment
@@ -61,7 +61,11 @@ def post_task_view(request):
         form = PostTaskForm(request.POST, request.FILES)
         if form.is_valid():
             task = form.save(commit=False)
-            task.client = request.user			
+            task.client = request.user
+            deduct = (25/100)
+            price = request.POST.get('price')
+            pay = float(price)*float(deduct)
+            task.pay = float(price) - float(pay)			
             task.save()
             # messages.success(request,('Your task has been posted, go to your task history and proceed on paying so that your task will be available for bidding'))
             return redirect('client_task_history')
@@ -177,7 +181,7 @@ def freelancer_profile(request, profile_id):
 @login_required
 @client_required
 def completed_tasks(request):
-	completed_tasks = Completed.objects.filter(bid__task__client=request.user).filter(complete = True).filter(rated=False)
+	completed_tasks = Completed.objects.filter(bid__task__client=request.user).filter(complete = True).filter(re_assigned=False)
 	return render(request, 'client/completed_tasks.html',{'completed_tasks':completed_tasks})
 
 @login_required
@@ -206,3 +210,31 @@ def complete_task_details(request, complete_id, freelancer_id,task_amount):
 	context = {'detailed':detailed, 'form':form}	
 	return render(request, 'client/complete_task_details.html', context)
 
+
+@login_required
+@client_required
+def reassign_task(request, bid_id, freelancer_id):
+	
+	if request.method == 'POST':
+		form = ReassingTaskForm(request.POST, request.FILES)
+		if form.is_valid():
+			reasssigned  =  form.save(commit=False)
+			freelancer= User.objects.get(pk=freelancer_id)	
+			client = request.user
+			bid = Bid.objects.get(pk=bid_id)
+			reasssigned.client = client
+			reasssigned.freelancer= freelancer
+			reasssigned.bid = bid
+			complete = Completed.objects.get(bid = bid_id)
+			complete.re_assigned = True
+			complete.save()
+			reasssigned.save()
+			return redirect('reassigned_tasks')
+	form = ReassingTaskForm()
+	return render(request, 'client/reassign_task.html', {'form':form})
+
+@login_required
+@client_required
+def reassigned_task(request):
+	tasks = ReassigendTask.objects.filter(client=request.user)
+	return render (request,'client/reassigned_tasks.html', {'tasks':tasks})

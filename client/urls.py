@@ -16,4 +16,6 @@ urlpatterns = [
     path('task/freelancer/<profile_id>/profile/',views.freelancer_profile ,name='freelancer_profile'),
     path('task/complete', views.completed_tasks, name='complete_tasks'),
     path('task/complete/<complete_id>/<freelancer_id>/<task_amount>/details', views.complete_task_details, name='complete_task_details'),
+    path('reassign_task/bid/<bid_id>/freelancer/<freelancer_id>', views.reassign_task, name="reassign"),
+    path('reassigned_tasks/', views.reassigned_task, name="reassigned_tasks")
 ]

@@ -34,7 +34,7 @@ class Completed(models.Model):
     (3.0,'Average'),
     (2.0,'Weak'),
     (1.0,'Poor'),
-    )
+    )    
     bid = models.ForeignKey(Bid, on_delete=models.CASCADE)
     freelancer = models.ForeignKey(User, on_delete=models.CASCADE)
     complete = models.BooleanField(default=False)
@@ -43,6 +43,7 @@ class Completed(models.Model):
     rating = models.FloatField(choices=RATING_CHOICES, blank=True, null=True)
     date = models.DateField(auto_now_add=True)
     re_assigned = models.BooleanField(default=False)
+    #complete_reassigned = models.BooleanField(default=False)
     rated = models.BooleanField(default=False)
     objects = models.Manager()
 
@@ -52,6 +53,23 @@ class Completed(models.Model):
     class Meta:
         verbose_name_plural = 'Completed Tasks'
 
+class ReassigendTask(models.Model):
+    RATING_CHOICES = (
+    (5.0,'Excellent'),
+    (4.0,'Good'),
+    (3.0,'Average'),
+    (2.0,'Weak'),
+    (1.0,'Poor'),
+    )
+    freelancer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reassigned_freelancer', null=True, blank=True)
+    client = models.ForeignKey(User, on_delete=models.CASCADE, related_name='client', null=True, blank=True)
+    date = models.DateTimeField(auto_now=True)
+    complete = models.BooleanField(default=False)
+    bid = models.ForeignKey(Bid, on_delete=models.CASCADE, null=True, blank=True)
+    reasons = models.CharField(max_length = 255)
+    rating = models.FloatField(choices=RATING_CHOICES, blank=True, null=True)
+    file = models.FileField(upload_to='Tasks/Completed/Reassigned', max_length=255, null=False, blank=False)
+    objects = models.Manager()
 
 class FreelancerAccountSummery(models.Model):
     freelancer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='freelancer')
@@ -70,3 +88,9 @@ class FreelancerAccountSummery(models.Model):
 @receiver(post_delete, sender=Completed)
 def submission_delete(sender, instance, **kwargs):
     instance.file.delete(False)
+
+
+@receiver(post_delete, sender=ReassigendTask)
+def submission_delete2(sender, instance, **kwargs):
+    instance.file.delete(False)
+

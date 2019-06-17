@@ -54,7 +54,7 @@
                                                 <td>{{ task.highest_education_level }}</td>
                                                 <td>{{ task.expiry_date }}</td>
                                                 <td>{{ task.documet_format }}</td>
-                                                <td>{{ task.price }}</td>
+                                                <td>{{ task.pay }}</td>
                                                 <td> <a href="{% url 'task_details' task.id%}">{{ task.title }}</a></td>                                                                   
                                                 <td><a href="{% url 'place_bid' task.id%}" class="btn btn-primary btn-sm">Bid</a></td>                                                                               
                                             </tr>
@@ -85,7 +85,7 @@
                                             <tr>
                                                 <td>{{ task.id }}</td>
                                                 <td>{{ task.title }}</td>
-                                                <td>{{task.price}}</td>
+                                                <td>{{task.pay }}</td>
                                                 {% if task.task_file %}                                       
                                             <td><a href="{{ task.task_file.url}}" class="btn btn-primary btn-sm" target="_blank">Download</a></td> 
                                             {% else %}

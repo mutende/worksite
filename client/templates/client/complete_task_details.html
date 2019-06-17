@@ -42,11 +42,15 @@
                                     {% if  not detailed.rating %}
                                     
                                     <h5 class="h5 mt-4">Rate {{ detailed.bid.freelancer }} basing on the work</h5>
-                                    <form  method="post" class=" col-md-3">
+                                    <form  method="post" class=" col-md-4">
                                         {% csrf_token %}
                                         {{ form | crispy }}
                                         <button class="btn btn-success btn-sm" type="submit">Rate Freelancer</button>
+
+                                        <a href="{% url 'reassign' detailed.bid.id detailed.bid.freelancer.id %}" class="ml-2 btn btn-danger btn-sm"> Reassign Task</a>
                                     </form>
+
+                                   
                                     
                                     {% else %}
                                     <p class="text-left grey-text mb-3"> Current rating {{ detailed.rating }}</p>

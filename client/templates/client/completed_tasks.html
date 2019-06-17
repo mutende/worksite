@@ -30,6 +30,7 @@
                                                     <th>Tittle</th>
                                                     <th>Freelancer</th>
                                                     <th>Action</th>
+                                                    <th>Rating</th>
                                                     
                                                     
                                                 </tr>
@@ -40,7 +41,13 @@
                                                     <td>{{ complete_task.bid.task.id }}</td>
                                                     <td>{{ complete_task.bid.task.title }}</td>                    
                                                     <td>{{ complete_task.bid.freelancer}}</td>
-                                                    <td><a href="{% url 'complete_task_details' complete_task.id complete_task.bid.freelancer.id complete_task.bid.task.price %}" class="alert-link">Review Results</a></td>
+                                                    {% if complete_task.rating %}
+                                                    <td><span class="text-success">You have already reveiwed the results</span></td>
+                                                    <td><span class="text-success">{{ complete_task.rating }}</span></td>
+                                                    {% else %}
+                                                    <td><a href="{% url 'complete_task_details' complete_task.id complete_task.bid.freelancer.id complete_task.bid.task.pay %}" class="alert-link">Completed, Review Results</a></td>
+                                                    <td> <span class="text-danger">Review results to rate the freelancer</span></td>
+                                                    {% endif %}
                                                 </tr>
                                                 {% endfor %}
                                                 </tbody>
