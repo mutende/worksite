@@ -10,7 +10,7 @@ from django.views.generic import TemplateView,ListView,DetailView
 from authentication.decorators import freelancer_required
 from client.models import Task
 from freelancer.forms import FreelancerChangePasswordForm, FreelancerProfileForm,CommentForm,CompleteTaskForm
-from freelancer.models import Bid,Completed
+from freelancer.models import Bid,Completed,ReassigendTask
 
 
 @login_required
@@ -159,4 +159,9 @@ def submit_a_task(request, bid_id):
 	context = {'form': form}
 	return render(request, 'freelancer/submit_task.html', context)
 	
-		
+
+@login_required
+@freelancer_required
+def get_reassigned_task(request):
+	tasks = ReassigendTask.objects.filter(freelancer=request.user)
+	return render(request, 'freelancer/reassigned_tasks.html', {'tasks':tasks})

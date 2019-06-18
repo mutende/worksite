@@ -15,5 +15,6 @@ urlpatterns = [
     url(r'^task/bid/(?P<task_id>[0-9]+)/$', views.make_a_bid, name="place_bid"),
     path('assigned/', views.get_assigned_tasks, name="assigned"),
     path('submit/task/<bid_id>', views.submit_a_task, name="submit_task"),
+     path('reassigned/', views.get_reassigned_task, name="reassigned_tasks"),
     
 ]

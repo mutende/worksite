@@ -1,0 +1,130 @@
+{% extends 'freelancer/base.html' %}
+
+{% block title %}
+<title>Worksite| Freelancer-My Tasks</title>
+{% endblock %}
+
+{% block content%}
+
+
+
+            <!-- Main content goes here -->
+            <main class="mdl-layout__content mdl-color--grey-100">
+                <div class="mdl-grid demo-content">
+                    <div class="container-fluid">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Reassigned Tasks</h4>
+                                    </div>
+                                       <div class="card-body">
+
+                                {%  if tasks %}
+                                       <!-- Tab links -->
+                                <div class="tab">
+                                <button class="tablinks" id ="defaultOpen" onclick="openCity(event, 'London')">Tasks</button>
+                                <!-- <button class="tablinks" onclick="openCity(event, 'Paris')">Messages</button> -->
+                                <button class="tablinks" onclick="openCity(event, 'Tokyo')">Files</button>
+                                </div>
+
+                                <!-- Tab content -->
+                                <div id="London" class="tabcontent">
+                                <table class = "table">
+                                <thead>
+                                    <tr>
+                                        <th>Task ID</th>
+                                        <th>Tittle</th>
+                                        <th>Reasinged date</th>
+                                        <th>Reasons</th>                    
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for task in tasks %}                                 
+                                    <tr>
+                                        <td>{{ task.bid.task.id }}</td>
+                                        <td>{{ task.bid.task.title }}</td>                    
+                                        <td>{{ task.date }}</td>
+                                        <td>{{ task.reasons}}</td>
+                                        {% if task.complete %}
+                                            <td><span class="text-success">Completed</span></td>
+                                        {% else %}
+                                        <td><a href="" class="btn btn-primary btn-sm">Submit Corrections</a></td>
+                                        {% endif %}                                                                       
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                <p class="h5 mt-5 text-danger">Please attend to incomplete tasks within 2 days from date of reassignment. Avoid being reassigned tasks, they will lower your rating</p>
+                                </div>
+
+                                <div id="Paris" class="tabcontent">
+                                <h3>Loading ....</h3>
+                               
+                                </div>
+
+                                <div id="Tokyo" class="tabcontent">
+
+                                <table class = "table">
+                                <thead>
+                                   <tr>
+                                       <th>Task ID</th>
+                                       <th>Title</th>
+                                       <th>File</th>
+                                   </tr>
+                                </thead>
+                                <tbody>
+                                    {% for task in tasks %}
+                                    <tr>
+                                        <td>{{ task.bid.task.id }}</td>
+                                        <td>{{ task.bid.task.title }}</td> 
+                                        {% if task.file %}                                       
+                                       <td><a href="{{ task.file.url}}" class="btn btn-primary btn-sm" target="_blank">Download</a></td> 
+                                       {% else %}
+                                        <td class="text-danger">No files were attached</td>
+                                        {% endif %}
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                                </table>
+                               
+                                </div>
+                                {% else %}
+                                <p class = "h5">You have not been reassigned any task. Maintain that profile</p>
+                                {% endif %}
+                                         {% if user.is_account_active %}
+                                               
+                                          
+                                            {% else %}
+                                                <p class="text-left h5 grey-text mt-5 ml-5 mr-5">
+                                                Hello {{user.last_name}}, thanks for choosing this platform. We wish you all the best as you interact with our platform. Incase you get stuck anywhere, please feel free to refer to our online help menu or contact us for further information.</p> <br>
+                                                
+                                                <p class="h5 text-left grey-text mt-3 ml-5 mr-5">Account is <span class="text-danger"> inactive.</span>This is due to either:
+                                                        <ol type="i" class="ml-5">
+                                                            <li>Not yet activated after signup, just be patient</li>
+                                                            <li>Misbehaving on the platform, Contact admin for guidance</li>
+                                                        </ol>
+                                                 </p><br>
+                                            
+                                            {% endif %}
+                                       </div>
+                                       <div class="card-header">
+                                            <p class="text-center">© 2019</p>
+                                       </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+           </main>
+        </div>
+
+{% endblock %}
+
