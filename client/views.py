@@ -227,9 +227,11 @@ def reassign_task(request, bid_id, freelancer_id):
 			reasssigned.bid = bid
 			complete = Completed.objects.get(bid = bid_id)
 			complete.re_assigned = True
+			new_rating = 0.0
+			complete.rating = float(new_rating)
 			complete.save()
 			reasssigned.save()
-			return redirect('reassigned_tasks')
+			return redirect('reassigned_tasks_client')
 	form = ReassingTaskForm()
 	return render(request, 'client/reassign_task.html', {'form':form})
 

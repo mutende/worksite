@@ -9,8 +9,8 @@ from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView,ListView,DetailView
 from authentication.decorators import freelancer_required
 from client.models import Task
-from freelancer.forms import FreelancerChangePasswordForm, FreelancerProfileForm,CommentForm,CompleteTaskForm
-from freelancer.models import Bid,Completed,ReassigendTask
+from freelancer.forms import FreelancerChangePasswordForm, FreelancerProfileForm,CommentForm,CompleteTaskForm,SubmitReassignedTaskForm
+from freelancer.models import Bid,Completed,ReassigendTask,CompletedReassignedTask
 
 
 @login_required
@@ -141,8 +141,7 @@ def get_assigned_tasks(request):
 def submit_a_task(request, bid_id):
 	if request.method == 'POST':
 		form = CompleteTaskForm(request.POST, request.FILES)
-		if form.is_valid():
-			
+		if form.is_valid():			
 			complete = form.save(commit=False)
 			complete.bid = Bid.objects.get(pk=bid_id)
 			complete.complete = True
@@ -165,3 +164,20 @@ def submit_a_task(request, bid_id):
 def get_reassigned_task(request):
 	tasks = ReassigendTask.objects.filter(freelancer=request.user)
 	return render(request, 'freelancer/reassigned_tasks.html', {'tasks':tasks})
+
+@login_required
+@freelancer_required
+def submit_reassigned_task(request, id):
+	if request.method == 'POST':
+		form = SubmitReassignedTaskForm(request.POST, request.FILES)
+		if form.is_valid():
+			form_instance = form.save(commit=False)
+			form_instance.reassigned_task = ReassigendTask.objects.get(pk=id)
+			the_reassigned_task = ReassigendTask.objects.get(pk=id)
+			the_reassigned_task.complete = True
+			the_reassigned_task.save()
+			form_instance.save()
+			return redirect('reassigned_tasks')			
+	form = SubmitReassignedTaskForm()
+	context={'form':form}
+	return render(request, 'freelancer/submit_reassigned_task.html',context)

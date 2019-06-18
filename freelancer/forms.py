@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from worksiteadmin.models import SkillSet,EducationLevelSet
 from django.forms import Textarea
-from freelancer.models import Comment,Completed,ReassigendTask
+from freelancer.models import Comment,Completed,CompletedReassignedTask,ReassigendTask
 
 
 class FreelancerChangePasswordForm(PasswordChangeForm):
@@ -91,7 +91,15 @@ class CompleteTaskRatingForm(forms.ModelForm):
 class ReassingTaskForm(forms.ModelForm):
 	class Meta:
 		model = ReassigendTask
-		fields = ('reasons','file')
+		fields = ('reasons','file',)
 		widgets = {
             'reasons': Textarea(attrs={'class':'form-control','cols':4, 'rows':5}),
         }
+class SubmitReassignedTaskForm(forms.ModelForm):
+	class Meta:
+		model = CompletedReassignedTask
+		fields = ('revised_file',)
+	def __init__(self, *args, **kwargs):
+		super(SubmitReassignedTaskForm, self).__init__(*args, **kwargs)
+		forms.ModelForm.__init__(self,*args, **kwargs)
+		self.fields['revised_file'].widget.attrs['required'] = True

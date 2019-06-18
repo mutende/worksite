@@ -3,7 +3,7 @@ from authentication.models import User
 from worksiteadmin.models import EducationLevelSet, SkillSet
 from django.contrib.auth.models import Group
 from client.models import Task,ClientComment
-from freelancer.models import Comment, Bid,Completed,FreelancerAccountSummery
+from freelancer.models import Comment, Bid,Completed,FreelancerAccountSummery,ReassigendTask,CompletedReassignedTask
 from mpesa.models import LNMonline
 
 
@@ -27,7 +27,7 @@ class BidAdmin(admin.ModelAdmin):
     list_filter = ('assign',)
 class CompletedAdmin(admin.ModelAdmin):
     list_display = ('freelancer','date','rating','re_assigned','complete',)
-    list_filter = ('complete','re_assigned','date',)
+    list_filter = ('complete','re_assigned','date','rating',)
 
 class FreelancerAccountSummeryAdmin(admin.ModelAdmin):
     list_display=('freelancer','client','amount','date','paid',)
@@ -35,7 +35,15 @@ class FreelancerAccountSummeryAdmin(admin.ModelAdmin):
 
 class LNMonlineAdmin(admin.ModelAdmin):
     list_display=('Phone_Number','Transaction_Date','Amount','Mpesa_Receipt_Number',)
-    list_filter=('Transaction_Date',)    
+    list_filter=('Transaction_Date',) 
+
+class ReassigendTaskAdmin(admin.ModelAdmin):
+    list_display=('freelancer','client','bid','date','complete',)
+    list_filter=('date',) 
+
+class CompletedReassignedTaskkAdmin(admin.ModelAdmin):
+    list_display=('reassigned_task','rating',)
+    list_filter=('rating',)  
 
 
 # registered models.
@@ -50,5 +58,7 @@ admin.site.register(Bid,BidAdmin)
 admin.site.register(Completed,CompletedAdmin)
 admin.site.register(FreelancerAccountSummery,FreelancerAccountSummeryAdmin)
 admin.site.register(LNMonline,LNMonlineAdmin)
+admin.site.register(CompletedReassignedTask,CompletedReassignedTaskkAdmin)
+admin.site.register(ReassigendTask,ReassigendTaskAdmin)
 
 admin.site.site_header= 'Worksite Admin'
