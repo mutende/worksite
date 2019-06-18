@@ -34,6 +34,7 @@ class Completed(models.Model):
     (3.0,'Average'),
     (2.0,'Weak'),
     (1.0,'Poor'),
+    (0.0,'Reassigned'),
     )
     bid = models.ForeignKey(Bid, on_delete=models.CASCADE)
     freelancer = models.ForeignKey(User, on_delete=models.CASCADE)
