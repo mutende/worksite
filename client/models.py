@@ -37,9 +37,13 @@ class Task(models.Model):
     def __str__(self):
         return self.title
 
-@receiver(post_delete, sender=Task)
-def submission_delete(sender, instance, **kwargs):
-    instance.task_file.delete(False)
+    def delete(self, *args, **kwargs):
+        self.task_file.delete()
+        super().delete(*args, **kwargs)
+
+# @receiver(post_delete, sender=Task)
+# def submission_delete(sender, instance, **kwargs):
+#     instance.task_file.delete(False)
 
 
 class ClientComment(models.Model):

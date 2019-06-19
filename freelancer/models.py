@@ -67,6 +67,9 @@ class ReassigendTask(models.Model):
         verbose_name_plural = 'Reassigned Tasks'
     def __str__(self):
         return str(self.bid)
+    def delete(self, *args, **kwargs):
+        self.file.delete()
+        super().delete(*args, **kwargs)
 
 class CompletedReassignedTask(models.Model):
     RATING_CHOICES = (
@@ -81,6 +84,10 @@ class CompletedReassignedTask(models.Model):
         verbose_name_plural = 'Completed Reassigned Tasks'
     def __str__(self):
         return str(self.reassigned_task)
+
+    def delete(self, *args, **kwargs):
+        self.revised_file.delete()
+        super().delete(*args, **kwargs)
 
 class FreelancerAccountSummery(models.Model):
     freelancer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='freelancer')
@@ -101,11 +108,11 @@ def submission_delete(sender, instance, **kwargs):
     instance.file.delete(False)
 
 
-@receiver(post_delete, sender=ReassigendTask)
-def submission_delete2(sender, instance, **kwargs):
-    instance.file.delete(False)
+# @receiver(post_delete, sender=ReassigendTask)
+# def submission_delete2(sender, instance, **kwargs):
+#     instance.file.delete(False)
 
-@receiver(post_delete, sender=CompletedReassignedTask)
-def submission_delete3(sender, instance, **kwargs):
-    instance.revised_file.delete(False)
+# @receiver(post_delete, sender=CompletedReassignedTask)
+# def submission_delete3(sender, instance, **kwargs):
+#     instance.revised_file.delete(False)
 
