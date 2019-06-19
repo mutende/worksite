@@ -7,15 +7,15 @@ from django.db.models import Avg
 from django.shortcuts import render, redirect,get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, CreateView
-from client.forms import ClientChangePasswordForm, ClientProfileForm, PostTaskForm,CommentForm
-from worksiteadmin.models import SkillSet,EducationLevelSet
-from freelancer.models import Bid,Completed,FreelancerAccountSummery,ReassigendTask
-from freelancer.forms import CompleteTaskRatingForm,ReassingTaskForm
 from authentication.decorators import client_required
 from authentication.models import User
 from client.models import Task,ClientComment
+from client.forms import ClientChangePasswordForm, ClientProfileForm, PostTaskForm,CommentForm,ReceiveReassignTaskForm
+from freelancer.models import Bid,Completed,FreelancerAccountSummery,ReassigendTask,CompletedReassignedTask
+from freelancer.forms import CompleteTaskRatingForm,ReassingTaskForm
 from mpesa.implementation.lipanampesa import lipa_na_mpesa
 from mpesa.models import LNMonline
+from worksiteadmin.models import SkillSet,EducationLevelSet
 
 
 # Create your views here.
@@ -240,3 +240,17 @@ def reassign_task(request, bid_id, freelancer_id):
 def reassigned_task(request):
 	tasks = ReassigendTask.objects.filter(client=request.user)
 	return render (request,'client/reassigned_tasks.html', {'tasks':tasks})
+
+def review_reassigned_task(request, the_id):
+	form = ReceiveReassignTaskForm()
+	detailed = CompletedReassignedTask.objects.get(reassigned_task=the_id)
+	if request.method == 'POST':
+		form = ReceiveReassignTaskForm(request.POST)
+		if form.is_valid():
+			the_rating = request.POST['rating']
+			print(the_rating)
+			detailed.rating = the_rating
+			detailed.save()
+			return redirect('reassigned_tasks_client')
+	context = {'form':form, 'detailed':detailed}
+	return render(request, 'client/completed_reassigned_task.html', context)

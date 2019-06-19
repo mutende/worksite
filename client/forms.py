@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django import forms
 from django.forms import Textarea
 from client.models import Task,ClientComment
+from freelancer.models import CompletedReassignedTask
 from worksiteadmin.models import EducationLevelSet,SkillSet
 
 
@@ -67,3 +68,8 @@ class CommentForm(forms.ModelForm):
 		widgets = {
             'comment': Textarea(attrs={'class':'form-control','cols':4, 'rows':5}),
         }
+
+class ReceiveReassignTaskForm(forms.ModelForm):
+	class Meta:
+		model = CompletedReassignedTask
+		fields = ('rating',)

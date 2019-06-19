@@ -76,6 +76,7 @@ class CompletedReassignedTask(models.Model):
     reassigned_task = models.ForeignKey(ReassigendTask, on_delete=models.CASCADE)
     revised_file = models.FileField(upload_to='Tasks/Completed/Reassigned/Revised', max_length=255, null=True, blank=True)
     rating = models.FloatField(choices=RATING_CHOICES, blank=True, null=True)
+    objects = models.Manager()
     class Meta:
         verbose_name_plural = 'Completed Reassigned Tasks'
     def __str__(self):

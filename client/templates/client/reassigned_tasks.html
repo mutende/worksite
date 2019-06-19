@@ -54,10 +54,14 @@
                                         <td>{{ task.freelancer }}</td>
                                         <td>{{ task.reasons}}</td>                                    
                                         {% if task.complete %}
-                                            <td><span class="text-success">Completed</span></td>
+                                         <td><span class="text-success">Completed</span></<td>
                                         {% else %}
-                                        <td><span class="text-danger">In progress</span></td>
-                                        {% endif %}
+                                        <td><span class="text-success">In progress</span></td>
+                                        {% endif %}                                      
+                                     
+                                        <td> <a href="{% url 'review_reassigned_task' task.id %}" class="btn btn-sm btn-primary">Review</a></td>
+                                 
+                               
                                     </tr>
                                     {% endfor %}
                                     </tbody>
