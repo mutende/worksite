@@ -123,7 +123,7 @@ def make_a_comment(request):
 @freelancer_required
 def make_a_bid(request, task_id):
 	count = Bid.objects.filter(freelancer=request.user).filter(complete=False).filter(assign=True).count()
-	if count > 3:
+	if count >= 3:
 		messages.success(request, 'You have more than 3 pending task, Please complete them to be able to bid for other tasks')
 		return redirect('view_tasks')
 	else:

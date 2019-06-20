@@ -244,16 +244,19 @@ def reassigned_task(request):
 	tasks = ReassigendTask.objects.filter(client=request.user)
 	return render (request,'client/reassigned_tasks.html', {'tasks':tasks})
 
-def review_reassigned_task(request, the_id):
+def review_reassigned_task(request, bid_id, the_id):
 	form = ReceiveReassignTaskForm()
 	detailed = CompletedReassignedTask.objects.get(reassigned_task=the_id)
 	if request.method == 'POST':
 		form = ReceiveReassignTaskForm(request.POST)
 		if form.is_valid():
 			the_rating = request.POST['rating']
-			print(the_rating)
 			detailed.rating = the_rating
 			detailed.save()
+			#make complete in bid to true
+			bid = Bid.objects.get(pk=bid_id)
+			bid.complete = True
+			bid.save()
 			return redirect('reassigned_tasks_client')
 	context = {'form':form, 'detailed':detailed}
 	return render(request, 'client/completed_reassigned_task.html', context)

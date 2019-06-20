@@ -37,6 +37,7 @@
                                 <thead>
                                     <tr>
                                         <th>Task ID</th>
+                                        <th>Bid ID</th>
                                         <th>Tittle</th>
                                         <th>Date</th>
                                         <th>Freelancer</th>
@@ -49,6 +50,7 @@
                                     {% for task in tasks %}
                                     <tr>
                                         <td>{{ task.bid.task.id }}</td>
+                                        <td>{{ task.bid.id }}</td>
                                         <td>{{ task.bid.task.title }}</td>                    
                                         <td>{{ task.date }}</td>
                                         <td>{{ task.freelancer }}</td>
@@ -56,11 +58,13 @@
                                         {% if task.complete %}
                                          <td><span class="text-success">Completed</span></<td>
                                         {% else %}
-                                        <td><span class="text-success">In progress</span></td>
+                                        <td><span class="text-danger">In progress</span></td>
                                         {% endif %}                                      
-                                     
-                                        <td> <a href="{% url 'review_reassigned_task' task.id %}" class="btn btn-sm btn-primary">Review</a></td>
-                                 
+                                        {% if task.complete %}  
+                                        <td> <a href="{% url 'review_reassigned_task' task.bid.id task.id %}" class="btn btn-sm btn-primary">Review</a></td>
+                                        {% else %}
+                                        <td> <a href="{% url 'review_reassigned_task' task.bid.id task.id %}" class="btn btn-sm btn-primary disabled">Review</a></td>
+                                        {% endif %} 
                                
                                     </tr>
                                     {% endfor %}
