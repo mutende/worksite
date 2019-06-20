@@ -103,6 +103,7 @@ class TaskDetails(DetailView):
 @login_required
 @freelancer_required
 def make_a_comment(request):
+	
 	form = CommentForm( request.POST or None)
 	if request.method == 'POST':
 		form = CommentForm(request.POST)
@@ -121,14 +122,19 @@ def make_a_comment(request):
 @login_required
 @freelancer_required
 def make_a_bid(request, task_id):
-	new_task = get_object_or_404(Task, pk=task_id)
-	new_freelancer = request.user
-	bid = Bid()
-	bid.task = new_task
-	bid.freelancer= new_freelancer
-	bid.bidded = True
-	bid.save()
-	return redirect('view_tasks')
+	count = Bid.objects.filter(freelancer=request.user).filter(complete=False).filter(assign=True).count()
+	if count > 3:
+		messages.success(request, 'You have more than 3 pending task, Please complete them to be able to bid for other tasks')
+		return redirect('view_tasks')
+	else:
+		new_task = get_object_or_404(Task, pk=task_id)
+		new_freelancer = request.user
+		bid = Bid()
+		bid.task = new_task
+		bid.freelancer= new_freelancer
+		bid.bidded = True
+		bid.save()
+		return redirect('view_tasks')
 
 @login_required
 @freelancer_required

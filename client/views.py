@@ -186,7 +186,7 @@ def completed_tasks(request):
 
 @login_required
 @client_required
-def complete_task_details(request, complete_id, freelancer_id,task_amount):
+def complete_task_details(request, bid_id, complete_id,freelancer_id,task_amount):
 	form = CompleteTaskRatingForm(request.POST or None)
 	detailed = Completed.objects.get(pk=complete_id)
 	if request.method == 'POST':		
@@ -204,6 +204,10 @@ def complete_task_details(request, complete_id, freelancer_id,task_amount):
 			freelancer = User.objects.get(pk=freelancer_id)
 			payment_status.freelancer = freelancer
 			payment_status.save()
+			#make complete on the bid task to true
+			bid = Bid.objects.get(pk=bid_id)
+			bid.complete = True
+			bid.save()
 			form = CompleteTaskRatingForm()
 			return redirect('complete_tasks')
 
@@ -214,7 +218,6 @@ def complete_task_details(request, complete_id, freelancer_id,task_amount):
 @login_required
 @client_required
 def reassign_task(request, bid_id, freelancer_id):
-	
 	if request.method == 'POST':
 		form = ReassingTaskForm(request.POST, request.FILES)
 		if form.is_valid():

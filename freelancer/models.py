@@ -22,6 +22,7 @@ class Bid(models.Model):
     date = models.DateField(auto_now_add=True)
     show = models.BooleanField(default=True)
     bidded = models.BooleanField(default=False)
+    complete = models.BooleanField(default=False)
     
     objects = models.Manager()
     def __str__(self):
