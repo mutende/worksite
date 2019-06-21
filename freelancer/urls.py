@@ -17,5 +17,6 @@ urlpatterns = [
     path('submit/task/bid/<bid_id>/', views.submit_a_task, name="submit_task"),
     path('reassigned/', views.get_reassigned_task, name="reassigned_tasks"),
     path('submit/reassigned/<id>/', views.submit_reassigned_task, name="submit_reassigned_tasks"),
+    path('help/', views.help, name="help"),
     
 ]

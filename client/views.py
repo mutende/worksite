@@ -244,6 +244,9 @@ def reassigned_task(request):
 	tasks = ReassigendTask.objects.filter(client=request.user)
 	return render (request,'client/reassigned_tasks.html', {'tasks':tasks})
 
+
+@login_required
+@client_required
 def review_reassigned_task(request, bid_id, the_id):
 	form = ReceiveReassignTaskForm()
 	detailed = CompletedReassignedTask.objects.get(reassigned_task=the_id)
@@ -260,3 +263,8 @@ def review_reassigned_task(request, bid_id, the_id):
 			return redirect('reassigned_tasks_client')
 	context = {'form':form, 'detailed':detailed}
 	return render(request, 'client/completed_reassigned_task.html', context)
+
+@login_required
+@client_required
+def help(request):
+	return render(request, 'client/help.html',{})

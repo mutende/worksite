@@ -18,5 +18,6 @@ urlpatterns = [
     path('task/bid/complete/<bid_id>/<complete_id>/<freelancer_id>/<task_amount>/', views.complete_task_details, name='complete_task_details'),
     path('reassign_task/bid/<bid_id>/freelancer/<freelancer_id>', views.reassign_task, name="reassign"),
     path('reassigned_tasks/', views.reassigned_task, name="reassigned_tasks_client"),
-     path('review/reassigned_task/<bid_id>/<the_id>', views.review_reassigned_task, name="review_reassigned_task"),
+    path('review/reassigned_task/<bid_id>/<the_id>', views.review_reassigned_task, name="review_reassigned_task"),
+    path('help/', views.help, name="client_help"),
 ]

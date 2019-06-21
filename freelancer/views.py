@@ -187,3 +187,9 @@ def submit_reassigned_task(request, id):
 	form = SubmitReassignedTaskForm()
 	context={'form':form}
 	return render(request, 'freelancer/submit_reassigned_task.html',context)
+
+
+@login_required
+@freelancer_required
+def help(request):
+	return render(request,'freelancer/help.html',{})
