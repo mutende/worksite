@@ -1,0 +1,167 @@
+{% extends 'admin/report_base.html' %}
+{% block title %}
+<title>Worksite| Admin-Help</title>
+{% endblock %}
+
+{% block content%}
+ <!-- Main content goes here -->
+ <main class="mdl-layout__content mdl-color--grey-100">
+    <div class="mdl-grid demo-content">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Help Page</h4>
+                        </div>
+                           <div class="card-body">
+                                <div class="container py-3">
+                                        <div class="row">
+                                            <div class="col-12">                             
+                                
+                                
+                                                <div class="accordion" id="faqExample">
+                                                    <div class="card">
+                                                        <div class="card-header text-center p-3" id="headingOne">
+                                                            <h5 class="mb-0">
+                                                                <button class="btn nav-link collapsed text-primary" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                                        Report Section
+                                                                </button>
+                                                              </h5>
+                                                        </div>
+                                    
+                                                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#faqExample">
+                                                            <div class="card-body">
+                                                                 
+                                                                <p>Hello {{ user.first_name }} {{ user.last_name }}  and welcome to <strong>Online Worksite</strong> Help section. 
+                                                                    This section will guide you on how to accomplish the specific missions you are intending to do on the platform<p>
+                                                                <p> Being the admin, it is assumed that you have full understanging of the platform, this guide will help understand how to generate specifc reports from the system. Feel free to make reference at any time.</p>
+                                                                <p><strong> GoodLuck</strong></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card">
+                                                        <div class="card-header text-center p-2" id="headingTwo">
+                                                            <h5 class="mb-0">
+                                                            <button class="btn nav-link collapsed text-primary" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                               Signup and Authentication
+                                                            </button>
+                                                          </h5>
+                                                        </div>
+                                                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqExample">
+                                                            <div class="card-body">
+                                                                <p>Super admin account is created during system development, incase a new admin is added, there is a specific procedure for creating their accoount. The supper admin understands the procedure of creating a new account.</p>
+                                                                <p>Once the account has been created, you can log in your credentials, upate your profile and start monitoring users activities. All the admin actions are recorded as logs in the database.</p>
+                                                                <p> If the contract on the platform is terminated, your account can be deleted.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="card">
+                                                        <div class="card-header text-center p-2" id="headingFour">
+                                                            <h5 class="mb-0">
+                                                                <button class="btn nav-link collapsed text-primary" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
+                                                                  Client
+                                                                </button>
+                                                              </h5>
+                                                        </div>
+                                                        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqExample">
+                                                            <div class="card-body">
+                                                                    <p><strong>Clients,</strong> These are people who post tasks to the platform.</p>
+                                                                    <p>When their accounts are created, they are active by default, if they misbehave on the platform, the admin has the power to <strong>deactivate their accounts.</p>
+
+                                                                    <h3>Client Related Reports</h3>
+                                                                    <ol type="i">
+                                                                            <li>
+                                                                                <strong>Client Records</Strong>
+                                                                                    <p>This report should contain a list of clients whose accounts are <span class="text-success">active</span></p>
+                                                                            </li>
+                                                                            <li>
+                                                                                <strong>Tasks</Strong>
+                                                                                    <p>This report should contain a list of task posted and are paid for, meaning jobs that can be bidded.</p>
+                                                                            </li>
+                                                                            <li>
+                                                                                <strong>Reassigned Tasks</Strong>
+                                                                                    <p>This report should contain a list of tasks, that were done poorly and reassined to freelancers</p>
+                                                                            </li>
+                                                                            <li>
+                                                                                <strong>Job Payment Summery</Strong>
+                                                                                    <p>This report should contain a list of payment summery of tasks from the client</p>
+                                                                            </li>
+                                                                          </ol>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card">
+                                                            <div class="card-header text-center p-2" id="headingThree">
+                                                                <h5 class="mb-0">
+                                                                    <button class="btn nav-link collapsed text-primary" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                                      Freelancer
+                                                                    </button>
+                                                                  </h5>
+                                                            </div>
+                                                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqExample">
+                                                                <div class="card-body">
+                                                                    <p><strong>Freelancers,</strong> These are people who bid for tasks and work on them then submit complete task back to the clients.</p>
+                                                                    <p>When their accounts are created, you need to activate for them to start placing bids on different task. When they are assigned a task the clients rate them as to how they have done the task
+                                                                        . A freelancer who is continually rated low might speak a poor quality staff,its is recommended to <strong>deactivate their accounts.</strong>
+                                                                    </p>
+                                                                    <h3>Freelacer Related Reports</h3>
+    
+                                                                        <ol type="i">
+                                                                            <li>
+                                                                                <strong>Freelancer Records</Strong>
+                                                                                    <p>This report should contain a list of freelancers whose accounts are <span class="text-success">active</span></p>
+                                                                            </li>
+                                                                            <li>
+                                                                                <strong>Bids</Strong>
+                                                                                    <p>This report should contain a list of bids placed by specific freelancers and whether they were assinged or not</p>
+                                                                            </li>
+                                                                            <li>
+                                                                                <strong>Payment Summery</Strong>
+                                                                                    <p>This report should contain a list of payment summery for freelancers after attending to some task.</p>
+                                                                            </li>
+                                                                            <li>
+                                                                                <strong>Inactive Accounts</Strong>
+                                                                                    <p>This report should contain a list of freelancers whose accounts are <span class="text-danger">inactive</span></p>
+                                                                            </li>
+                                                                          </ol>
+    
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                
+                                                    
+                                                </div>
+                                    
+                                            </div>
+                                        </div>
+                                        <!--/row-->
+                                    </div>
+                                    <!--container-->
+                               
+                               
+                          
+                           </div>
+                           <div class="card-header">
+                                <p class="text-center">© 2019</p>
+                           </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+</main>
+</div>
+
+
+{% endblock %}
+
+

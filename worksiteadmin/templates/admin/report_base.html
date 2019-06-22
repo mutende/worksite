@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
+        {% block title%}
+        <title></title>
+        {% endblock %}
+
+        <!-- Include css files to support mdl -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+        <!-- <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.light_blue-blue.min.css"> -->
+        <link rel="stylesheet" href="{% static 'css/material.light_blue-blue.min.css' %}">
+
+        <!-- Bootstrap CSS -->
+        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+            crossorigin="anonymous"> -->
+            <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" >
+
+        <!--   Font awaesome -->
+        <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+            crossorigin="anonymous"> -->
+            <link rel="stylesheet" href=" {% static 'css/font-awesome.min.css' %}" >
+
+
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+        {% comment %} <link rel="stylesheet" type="text/css" href="bread-crump.css"> {% endcomment %}
+
+        <link rel="shortcut icon" href="{% static 'images/favicon.PNG' %}" type="image/x-icon">
+
+<style>
+        /* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+        </style>
+
+    </head>
+      {% if user.is_authenticated and user.is_superuser  %}
+    <body class="mdl-color--grey-100">
+
+        <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+
+            <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+                <div class="mdl-layout__header-row">
+                    <span class="mdl-layout-title">Welcome {{ user.first_name }} {{ user.last_name }}.</span>
+                    <div class="mdl-layout-spacer"></div>
+                    <span class="mdl-layout-title change"><a class=" nav-link text-secondary  h6" href="{% url 'logout' %}">Log Out</a></span>
+                </div>
+            </header>
+
+            <div class="demo-drawer mdl-layout__drawer logo-header-background-color">
+                <header class="demo-drawer-header">
+                    <span>  <a href="{% url 'admin:index' %}" class="nav-link text-center" style="color:white;">Online Worksite: {{ user.username }}</a></span>
+                </header>
+
+                <nav class="demo-navigation mdl-navigation sidebar-nav-background111 bg-success">
+                    <ul id="navmenu">
+                        
+                        <li><a href="#">Client</a><span class="darrow">&#9660;</span>
+                            <ul class="sub1">
+                                <li><a href="#">All Clients </a></li>
+                                <li><a href="#">Tasks</a></li>
+                                <li><a href="#">Reassigned</a></li>
+                                <li><a href="#">Job Payment Statements</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Freelancers</a><span class="darrow">&#9660;</span>
+                            <ul class="sub1">
+                                <li><a href="#">All Freelancers</a></li>
+                                <li><a href="#">Bids</a></li>
+                                <li><a href="#">Payment Summery</a></li>
+                                <li><a href="#">Inactive Accounts</a></li>
+                            </ul>
+                        </li>                   
+                        <li><a href="{% url 'admin_help'%}">Guide</a></li>
+                    </ul>
+                </nav>
+            </div>
+    {%block content%}
+    
+
+    {% endblock %}
+    {% else %}
+    <p>
+        Hello, you are trying to access the wrong page please <a href="{% url 'logout' %}"> Click here</a> to be redirected
+
+    </p>
+
+    {% endif %}
+
+        <!-- <script src="https://code.getmdl.io/1.3.0/material.min.js"></script> -->
+        <script src="{% static 'js/material.min.js' %}" ></script>
+
+        <!-- Optional JavaScript -->
+        <!-- Custom javascript -->
+        <script src="{%static 'js/main.js' %}"></script>
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script> -->
+            <script src="{% static 'js/jquery-3.3.1.slim.min.js' %}"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+            crossorigin="anonymous"></script> -->
+            <script src="{% static 'js/popper.min.js' %}" ></script>
+        <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script> -->
+            <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+<script>
+function openCity(evt, cityName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+
+</script>
+
+    </body>
+
+</html>
