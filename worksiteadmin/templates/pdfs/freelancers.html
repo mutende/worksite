@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        {% load static %}
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta http-equiv="x-ua-compatible" content="ie=edge">
+            <!-- Font Awesome -->
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+            <!-- Bootstrap core CSS -->
+            <link href="{% static 'mdb/css/bootstrap.min.css' %}" rel="stylesheet">
+            <!-- Material Design Bootstrap -->
+            <link href="{% static 'mdb/css/mdb.min.css' %}" rel="stylesheet">
+            <!-- Your custom styles (optional) -->
+            <link href="{% static 'mdb/css/style.min.css' %}" rel="stylesheet">
+            <link rel="shortcut icon" href="{% static 'images/favicon.PNG' %}" type="image/x-icon">
+        <title>Freelancers</title>
+        <style type="text/css">
+            body {
+                font-weight: 200;
+                font-size: 14px;
+            }
+            .header {
+                font-size: 20px;
+                font-weight: 100;
+                text-align: center;
+                color: #007cae;
+            }
+            .title {
+                font-size: 22px;
+                font-weight: 100;
+               /* text-align: right;*/
+               padding: 10px 20px 0px 20px;  
+            }
+            .title span {
+                color: #007cae;
+            }
+            .details {
+                padding: 10px 20px 0px 20px;
+                text-align: left !important;
+                /*margin-left: 40%;*/
+            }
+            .hrItem {
+                border: none;
+                height: 1px;
+                /* Set the hr color */
+                color: #333; /* old IE */
+                background-color: #fff; /* Modern Browsers */
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <table class="table ttable-striped able-sm">
+                <thead class="thead-dark">
+                    <th>ID</th>
+                    <th>Names</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Address</th>
+                    <th>Skill</th>
+                    <th>Education Level</th>
+                    <th>Date Joined</th>
+                </thead>
+                <tbody>
+                    {% for user in freelacers %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.first_name }} {{ user.last_name }}</td>
+                        <td> {{ user.email }}</td>
+                        <td>{{ user.phone_number}} </td>
+                        <td>{{ user.address }} </td>
+                        <td>{{ user.best_skill </td>
+                        <td>{{ user.highest_education_level }} </td>
+                        <td> {{ user.date_joined|date:"D, d M, Y  h:i" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+        <div class='wrapper'>
+            <div class='header'>
+                <p class='title'>Invoice # </p>
+            </div>
+        <div>
+        <div class='details'>
+            Bill to: <br/>
+            Amount:  <br/>
+            Date: 
+            <hr class='hrItem' />
+        </div>
+    </div>
+    <footer class="text-center fixed-bottom">
+        <p><i>List was generate on {{ to_day }} by {{ request.user }}</i></p>
+    </footer>
+     <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="{% static 'mdb/js/jquery-3.3.1.min.js' %}"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="{% static 'mdb/js/popper.min.js' %}"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="{% static 'mdb/js/bootstrap.min.js' %}"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="{% static 'mdb/js/mdb.min.js' %}"></script>
+      <!-- Initializations -->
+  <script type="text/javascript">
+    // Animations initialization
+    new WOW().init();
+  </script>
+    </body>
+</html>

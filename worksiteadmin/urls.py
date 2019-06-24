@@ -11,4 +11,5 @@ urlpatterns = [
     path('',include('authentication.urls')),
     path('admin/reports/', views.report_home, name="report_home"),
     path('admin/help/', views.admin_help, name="admin_help"),
+     path('admin/freelancers-report/', views.generate_freelancers_pdf, name="freelancers_pdf"),
 ]
