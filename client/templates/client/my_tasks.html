@@ -33,7 +33,7 @@
                                 <!-- Tab content -->
                                 <div id="London" class="tabcontent">
                                
-                                <table class = "table">
+                                <table class = "table  table-sm table-responsive-md" id="ClientTasks">
                                 <thead>
                                     <tr>
                                         <th>Task ID</th>
@@ -61,8 +61,9 @@
                                         {% if task.paid %}
                                             <td><span class="text-success">Paid</span></td>
                                         {% else %}
-                                        <td><a href="{% url 'pay_for_task' task.id %}" class="btn btn-primary ">Proceed to Payment</a></>
+                                             <td><a href="{% url 'pay_for_task' task.id %}" class="btn btn-primary ">Proceed to Payment</a></>
                                         {% endif %}
+                                        <td></td>
                                     </tr>
                                     {% endfor %}
                                     </tbody>
@@ -139,6 +140,8 @@
 
            </main>
         </div>
+
+        
 
 {% endblock %}
 
