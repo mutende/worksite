@@ -57,3 +57,10 @@ def generate_freelancers_pdf(request):
             return response
         return HttpResponse("Not found")
     return HttpResponse(pdf, content_type='application/pdf')
+
+
+@permission_required('admin.can_add_log_entry')
+def freelancers_report(request):
+    today = date.today()
+    freelancers = User.objects.filter(is_freelancer=True)
+    return render(request, 'admin/freelancers_report.html', {'freelancers':freelancers, 'today':today})

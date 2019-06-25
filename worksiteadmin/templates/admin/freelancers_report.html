@@ -1,0 +1,84 @@
+{% extends 'admin/report_base.html' %}
+
+{% block title %}
+<title>Worksite| Report-Freelancers</title>
+{% endblock %}
+
+{% block content%}
+
+            <!-- Main content goes here -->
+            <main class="mdl-layout__content mdl-color--grey-100">
+                <div class="mdl-grid demo-content">
+                    <div class="container-fluid">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Welcome</h4>
+                                    </div>
+                                       <div class="card-body">
+                                           {% if freelancers %}
+                                           <table class = "table table-sm table-responsive-md" id="freelancersReport">
+                                                <thead>
+                                                        <tr>
+                                                            <th>Names</th>
+                                                            <th>Email</th>                                                                              
+                                                            <th>Phone</th>
+                                                            <th>Address</th>
+                                                            <th>Best Skill</th>
+                                                            <th>Education Level</th>
+                                                            <th>Date Joined</th>
+                                                            <th>Last Login</th>
+                                                            <th>Status</th>
+                    
+                                                        </tr>
+                                                        </the@permission_required('admin.can_add_log_entry')ad>
+                                                        <tbody>
+                                                            {% for freelancer in freelancers %}
+                                                            <tr>
+                                                                <td>{{freelancer.first_name }} {{freelancer.last_name}}</td>
+                                                                <td>{{ freelancer.email }}</td>
+                                                                <td>{{ freelancer.phone_number }}</td>
+                                                                <td>{{ freelancer.address }}</td>
+                                                                <td>{{ freelancer.best_skill}}</td>
+                                                                <td>{{ freelancer.highest_education_level }}</td>
+                                                                <td>{{ freelancer.date_joined|date:'F d, Y H:i' }}</td>
+                                                                <td>{{ freelancer.last_login|date:'F d, Y H:i' }}</td>
+                                                                <td>{% if freelancer.is_account_active %}
+                                                                    <span class="text-success">Active</span>
+                                                                    {% else %}
+                                                                    <span class="text-danger">Inactive</span>
+                                                                    {% endif %}
+                                                                
+                                                                </td>
+                                                            </tr>
+
+                                                            {% endfor %}
+                                                            
+                                                        </tbody>
+
+                                           </table>
+                                           {% else %}
+                                           <p>No freelancers yet</p>
+                                           {% endif %}
+                                       </div>
+                                       <div class="card-header">
+                                            <p class="text-center">© 2019</p>
+                                       </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+           </main>
+        </div>
+
+{% endblock %}
+
