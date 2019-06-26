@@ -5,7 +5,9 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from worksiteadmin.utils import render_to_pdf
 from authentication.models import User
-from freelancer.models import Bid
+from client.models import Task
+from freelancer.models import Bid, FreelancerAccountSummery, ReassigendTask
+from mpesa.models import LNMonline
 
 # from worksiteadmin.forms import SkillSet
 
@@ -61,6 +63,44 @@ def generate_freelancers_pdf(request):
 
 @permission_required('admin.can_add_log_entry')
 def freelancers_report(request):
-    today = date.today()
+    # today = date.today()
     freelancers = User.objects.filter(is_freelancer=True)
-    return render(request, 'admin/freelancers_report.html', {'freelancers':freelancers, 'today':today})
+    return render(request, 'admin/freelancers_report.html', {'freelancers':freelancers})
+
+
+@permission_required('admin.can_add_log_entry')
+def bids_report(request):
+    # today = date.today()
+    bids = Bid.objects.all()
+    return render(request, 'admin/bids_report.html', {'bids':bids})
+
+
+@permission_required('admin.can_add_log_entry')
+def payments_summery_report(request):
+    pays = FreelancerAccountSummery.objects.all()
+    return render(request, 'admin/payments_summery_report.html', {'pays':pays})
+
+
+
+@permission_required('admin.can_add_log_entry')
+def clients_report(request):
+    clients = User.objects.filter(is_client=True)
+    return render(request, 'admin/clients_report.html', {'clients':clients})
+
+
+@permission_required('admin.can_add_log_entry')
+def tasks_report(request):
+    tasks = Task.objects.all()
+    return render(request, 'admin/task_report.html', {'tasks':tasks})
+
+@permission_required('admin.can_add_log_entry')
+def reassigned_tasks_report(request):
+    reassigns = ReassigendTask.objects.all()
+    return render(request, 'admin/reassigned_tasks.html', {'reassigns':reassigns})
+
+
+@permission_required('admin.can_add_log_entry')
+def mpesa_payments_report(request):
+    payments = LNMonline.objects.all()
+    return render(request, 'admin/job_payments.html', {'payments':payments})
+

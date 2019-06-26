@@ -36,9 +36,12 @@
         
         <link rel="shortcut icon" href="{% static 'images/favicon.PNG' %}" type="image/x-icon">
 
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css
-   ">
+        <!-- datatables stuff -->
+        <link rel="stylesheet" href=" {% static 'DataTables/datatables.min.css' %}" >
+
+        <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css -->
+   <!-- "> -->
 <style>
         /* Style the tab */
 .tab {
@@ -101,18 +104,18 @@
                         
                         <li><a href="#">Client</a><span class="darrow">&#9660;</span>
                             <ul class="sub1">
-                                <li><a href="#">All Clients </a></li>
-                                <li><a href="#">Tasks</a></li>
-                                <li><a href="#">Reassigned</a></li>
-                                <li><a href="#">Job Payment Statements</a></li>
+                                <li><a href="{% url 'clients_report' %}">All Clients </a></li>
+                                <li><a href="{% url 'tasks_report' %}">Tasks</a></li>
+                                <li><a href="{% url 'reassigned_tasks_report' %}">Reassigned</a></li>
+                                <li><a href="{% url 'task_payment_report' %}">Job Payment Statements</a></li>
                             </ul>
                         </li>
                         <li><a href="#">Freelancers</a><span class="darrow">&#9660;</span>
                             <ul class="sub1">
                                 <li><a href="{% url 'freelancers_report' %}">All Freelancers</a></li>
-                                <li><a href="#">Bids</a></li>
-                                <li><a href="#">Payment Summery</a></li>
-                                <li><a href="#">Inactive Accounts</a></li>
+                                <li><a href="{% url 'bids_report' %}">Bids</a></li>
+                                <li><a href="{% url 'payments_summery' %}">Payment Summery</a></li>
+                                
                             </ul>
                         </li>                   
                         <li><a href="{% url 'admin_help'%}">Guide</a></li>
@@ -148,13 +151,13 @@
             crossorigin="anonymous"></script> -->
             <script src="{% static 'js/bootstrap.min.js' %}"></script>
 
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"> </script>
-
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"> </script> -->
+<script src="{% static 'DataTables/datatables.min.js' %}"></script>
 
 <script>
         $(document).ready(function() {

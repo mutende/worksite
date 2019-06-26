@@ -153,6 +153,7 @@ def submit_a_task(request, bid_id):
 			complete.complete = True
 			complete.freelancer = request.user
 			complete.save()
+			
 			# alter data on bids table
 			alter_bid = Bid.objects.get(pk=bid_id)
 			alter_bid.show = False

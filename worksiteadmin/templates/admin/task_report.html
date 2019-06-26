@@ -1,0 +1,95 @@
+{% extends 'admin/report_base.html' %}
+
+{% block title %}
+<title>Worksite| Report-Tasks</title>
+{% endblock %}
+
+{% block content%}
+
+            <!-- Main content goes here -->
+            <main class="mdl-layout__content mdl-color--grey-100">
+                <div class="mdl-grid demo-content">
+                    <div class="container-fluid">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Task-Report</h4>
+                                    </div>
+                                       <div class="card-body">
+                                           {% if tasks %}
+                                           <table class = "table table-sm table-responsive-md" id="freelancersReport">
+                                                <thead>
+                                                        <tr>
+                                                            <th>Task ID</th>
+                                                            <th>client</th>                                                                              
+                                                            <th>Education</th>
+                                                            <th>Skill</th>
+                                                            <th>Format</th>
+                                                            <th>Price(Ksh)</th>
+                                                            <th>Date Posted</th>
+                                                            <th>Paid</th>
+                                                            <th>taken</th>                                                            
+                                    
+                    
+                                                        </tr>
+                                                        </the@permission_required('admin.can_add_log_entry')ad>
+                                                        <tbody>
+                                                            {% for task in tasks %}
+                                                            <tr>
+                                                                <td>{{ task.id }}</td>
+                                                                <td>{{task.client.first_name }} {{task.client.last_name}}</td>                                                                
+                                                                <td>{{ task.highest_education_level }}</td>
+                                                                <td>{{ task.best_skill }}</td>
+                                                                <td>{{ task.documet_format }}</td>
+                                                                <td>{{ task.price}}</td>
+                                                                <td>{{ task.date_posted|date:' d-m-Y' }}</td>                                                        
+                                                                <td>
+                                                                    
+                                                                    {% if task.paid %}
+                                                                    <span class="text-success">Yes</span>
+                                                                    {% else %}
+                                                                    <span class="text-danger">No</span>
+                                                                    {% endif %}
+                                                                
+                                                                </td>
+                                                                <td>
+                                                                    
+                                                                {% if task.is_taken %}
+                                                                <span class="text-success">Yes</span>
+                                                                {% else %}
+                                                                <span class="text-danger">No</span>
+                                                                {% endif %}
+                                                                    
+                                                                    </td>
+                                                            </tr>
+
+                                                            {% endfor %}
+                                                            
+                                                        </tbody>
+
+                                           </table>
+                                           {% else %}
+                                           <p>No tasks yet</p>
+                                           {% endif %}
+                                       </div>
+                                       <div class="card-header">
+                                            <p class="text-center">© 2019</p>
+                                       </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+           </main>
+        </div>
+
+{% endblock %}
+

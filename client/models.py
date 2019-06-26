@@ -29,9 +29,6 @@ class Task(models.Model):
     is_taken = models.BooleanField(default=False)
     show = models.BooleanField(default=True)
     paid = models.BooleanField(default=False)
-    
-    
-
     objects = models.Manager()
 
     def __str__(self):

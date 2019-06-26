@@ -23,6 +23,7 @@ class Bid(models.Model):
     show = models.BooleanField(default=True)
     bidded = models.BooleanField(default=False)
     complete = models.BooleanField(default=False)
+    late_submission = models.BooleanField(default=False)
     
     objects = models.Manager()
     def __str__(self):
@@ -96,6 +97,8 @@ class FreelancerAccountSummery(models.Model):
     amount = models.FloatField()
     date = models.DateTimeField(auto_now_add=True)
     paid = models.BooleanField(default=False)
+    fines = models.FloatField(null=True, blank=True)
+    objects = models.Manager()
 
     def __str__(self):
         return str(self.amount)

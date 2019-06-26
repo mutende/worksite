@@ -154,7 +154,8 @@ def get_my_tasks(request):
 @login_required
 @client_required
 def task_bids(request):
-	bids = Bid.objects.filter(task__client = request.user).filter(task__show=True)
+	today = date.today()
+	bids = Bid.objects.filter(task__client = request.user).filter(task__show=True).filter(task__expiry_date__gt=today)
 	return render(request, 'client/view_bids.html', {'bids':bids})
 
 @login_required
@@ -195,22 +196,46 @@ def complete_task_details(request, bid_id, complete_id,freelancer_id,task_amount
 			new_rating = request.POST['rating']
 			update_rating.rating = new_rating
 			update_rating.rated = True		
-			update_rating.save()
-			#populate the payments table
-			payment_status = FreelancerAccountSummery()
-			payment_status.amount = task_amount
-			payment_status.client= request.user
-			#get the freelancer from the table
-			freelancer = User.objects.get(pk=freelancer_id)
-			payment_status.freelancer = freelancer
-			payment_status.save()
-			#make complete on the bid task to true
-			bid = Bid.objects.get(pk=bid_id)
-			bid.complete = True
-			bid.save()
-			form = CompleteTaskRatingForm()
-			return redirect('complete_tasks')
+			update_rating.save()			
 
+			#make complete on the bid task to true and check if its late submission
+			bid = Bid.objects.get(pk=bid_id)
+			today = date.today()
+			if bid.task.expiry_date <= today:
+				print('Due date = '+str(bid.task.expiry_date))
+				print('Today date = '+str(today))
+				bid.late_submission = True
+				after_fine = float(((0.7)*float(task_amount)))
+				fine = float(((0.3)*float(task_amount)))
+
+				#update payment stuffs
+				payment_status = FreelancerAccountSummery()
+				payment_status.client= request.user
+				freelancer = User.objects.get(pk=freelancer_id)
+				payment_status.freelancer = freelancer								
+				payment_status.amount=after_fine
+				payment_status.fines = fine
+				print('Differnce in days'+str(today- bid.task.expiry_date))
+				print('Pay '+ str(freelancer)+' this amount '+str(after_fine)+' instead of '+str(task_amount)+' after deducting '+str(fine))
+				bid.save()
+				payment_status.save()
+				form = CompleteTaskRatingForm()
+				return redirect('complete_tasks')
+			if bid.task.expiry_date >= today:
+				payment_status = FreelancerAccountSummery()
+				payment_status.client= request.user
+				freelancer = User.objects.get(pk=freelancer_id)
+				payment_status.freelancer = freelancer								
+				payment_status.amount=task_amount
+				fine = 0.00
+				payment_status.fine = float(fine)
+				print('Differnce in days '+str(today- bid.task.expiry_date))
+				print((today- bid.task.expiry_date))
+				print('Pay '+ str(freelancer)+' this amount '+str(task_amount)+' after deducting '+str(fine))
+				bid.save()
+				payment_status.save()
+				form = CompleteTaskRatingForm()
+				return redirect('complete_tasks')	
 	context = {'detailed':detailed, 'form':form}	
 	return render(request, 'client/complete_task_details.html', context)
 
@@ -230,7 +255,7 @@ def reassign_task(request, bid_id, freelancer_id):
 			reasssigned.bid = bid
 			complete = Completed.objects.get(bid = bid_id)
 			complete.re_assigned = True
-			new_rating = 0.0
+			new_rating = 1.0
 			complete.rating = float(new_rating)
 			complete.save()
 			reasssigned.save()
@@ -256,11 +281,28 @@ def review_reassigned_task(request, bid_id, the_id):
 			the_rating = request.POST['rating']
 			detailed.rating = the_rating
 			detailed.save()
+
 			#make complete in bid to true
 			bid = Bid.objects.get(pk=bid_id)
 			bid.complete = True
+			reassigned_freelancer = bid.freelancer
+			payments_for_task = bid.task.pay
+			pay_reassigned = float(((0.8) * float(payments_for_task)))
+			payments_fines = float(((0.2) * float(payments_for_task)))
 			bid.save()
-			return redirect('reassigned_tasks_client')
+
+			#populate the payments table and check if there are fines for this individual
+			# print('Reassigned freelancer '+str(reassigned_freelancer))
+			# print('The real amount '+str(payments_for_task))
+			# print('The deducted  amount '+str(pay_reassigned))
+			
+			payment_status = FreelancerAccountSummery()	
+			payment_status.amount = pay_reassigned
+			payment_status.client= request.user
+			payment_status.freelancer = reassigned_freelancer
+			payment_status.fines = payments_fines
+			payment_status.save()
+			
 	context = {'form':form, 'detailed':detailed}
 	return render(request, 'client/completed_reassigned_task.html', context)
 
