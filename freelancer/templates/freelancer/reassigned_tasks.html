@@ -31,13 +31,14 @@
 
                                 <!-- Tab content -->
                                 <div id="London" class="tabcontent">
-                                <table class = "table">
+                                <table class = "table table-sm table-responsive-md" id="FreelancerTasks">
                                 <thead>
                                     <tr>
                                         <th>Task ID</th>
                                         <th>Tittle</th>
                                         <th>Reasinged date</th>
-                                        <th>Reasons</th>                    
+                                        <th>Reasons</th>  
+                                        <th></th>                  
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -47,11 +48,15 @@
                                         <td>{{ task.bid.task.title }}</td>                    
                                         <td>{{ task.date }}</td>
                                         <td>{{ task.reasons}}</td>
-                                        {% if task.complete %}
-                                            <td><span class="text-success">Completed</span></td>
-                                        {% else %}
-                                        <td><a href="{% url 'submit_reassigned_tasks' task.id %}" class="btn btn-primary btn-sm">Submit Corrections</a></td>
-                                        {% endif %}                                                                       
+                                        
+                                            <td>{% if task.complete %}
+                                                <span class="text-success">Completed</span>
+                                            {% else %}
+                                            <a href="{% url 'submit_reassigned_tasks' task.id %}" class="btn btn-primary btn-sm">Submit Corrections</a>
+                                            {% endif %} 
+                                        </td>
+                                        
+                                                                                                             
                                     </tr>
                                     {% endfor %}
                                     </tbody>

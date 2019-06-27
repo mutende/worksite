@@ -33,7 +33,7 @@
                                 <!-- Tab content -->
                                 <div id="London" class="tabcontent">
                                
-                                <table class = "table">
+                                <table class = "table table-sm table-responsive-md" id="ClientTasks">
                                 <thead>
                                     <tr>
                                         <th>Task ID</th>
@@ -43,6 +43,8 @@
                                         <th>Freelancer</th>
                                         <th>Reasons</th>
                                         <th>Status</th>
+                                        <th></th>
+                                        
                                         
                                     </tr>
                                     </thead>
@@ -54,17 +56,25 @@
                                         <td>{{ task.bid.task.title }}</td>                    
                                         <td>{{ task.date }}</td>
                                         <td>{{ task.freelancer }}</td>
-                                        <td>{{ task.reasons}}</td>                                    
-                                        {% if task.complete %}
-                                         <td><span class="text-success">Completed</span></<td>
-                                        {% else %}
-                                        <td><span class="text-danger">In progress</span></td>
-                                        {% endif %}                                      
-                                        {% if task.complete %}  
-                                        <td> <a href="{% url 'review_reassigned_task' task.bid.id task.id %}" class="btn btn-sm btn-primary">Review</a></td>
-                                        {% else %}
-                                        <td> <a href="{% url 'review_reassigned_task' task.bid.id task.id %}" class="btn btn-sm btn-primary disabled">Review</a></td>
-                                        {% endif %} 
+                                        <td>{{ task.reasons}} </td> 
+                                         <td>
+                                            {% if task.complete %}
+                                             <span class="text-success">Completed</span>
+                                             {% else %}
+                                             <span class="text-danger">In progress</span>
+                                             {% endif %}                                             
+                                        </td>                              
+                                         
+                                        <td> 
+                                            {% if task.complete %} 
+                                            <a href="{% url 'review_reassigned_task' task.bid.id task.id %}" class="btn btn-sm btn-primary">Review</a>
+                                            {% else %}
+                                            <a href="{% url 'review_reassigned_task' task.bid.id task.id %}" class="btn btn-sm btn-primary disabled">Review</a>
+                                            {% endif %} 
+                                        </td>
+                                       
+                                        
+                                      
                                
                                     </tr>
                                     {% endfor %}
